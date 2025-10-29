@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Scraper — Concorrência para Residência Médica 2026
-Blindado para zero-tabelas + geração de modelos Excel
+Fonte: med.estrategia.com (WordPress)
+Estratégia: tentar primeiro o WordPress REST API (content.rendered). Se falhar, cair para o HTML público.
+Gera JSON + modelos Excel (consolidado e individuais). Blindado para o caso de 0 tabelas.
 """
 
 import os
@@ -15,8 +17,13 @@ import pandas as pd
 from hashlib import md5
 import shutil
 
-SCRIPT_VERSION = "2025-10-29b"
+SCRIPT_VERSION = "2025-10-29-wpapi"
+
+# URL pública (fallback)
 FONTE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
+
+# Base do REST API do WP (área /portal/)
+WP_API_BASE = "https://med.estrategia.com/portal/wp-json/wp/v2"
 
 # === Caminhos ===
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /scraper
@@ -34,12 +41,14 @@ HEADERS = {
     "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                    "AppleWebKit/537.36 (KHTML, like Gecko) "
                    "Chrome/120.0.0.0 Safari/537.36"),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
     "Cache-Control": "no-cache",
     "Pragma": "no-cache",
+    "Referer": FONTE_URL,
 }
 
+# ---------- Utilidades ----------
 def sanitize_title(text: str) -> str:
     t = re.sub(r"\s+", " ", (text or "").strip())
     return t.rstrip(" .")
@@ -84,9 +93,15 @@ def parse_html_table(table_tag: Tag):
     return columns, rows
 
 def find_blocks(soup: BeautifulSoup):
+    """
+    Encontra blocos no padrão:
+    - heading (h2/h3)
+    - primeira <table> subsequente antes do próximo heading
+    """
     results = []
-    main = soup.find(class_=re.compile(r"(entry-content|single-content|post-content|content)")) or soup
-    headings = main.find_all(["h2", "h3"])
+
+    # não restringe a um container específico — o content.rendered já é "limpo"
+    headings = soup.find_all(["h2", "h3"])
     for h in headings:
         titulo = sanitize_title(text_of(h))
         if not titulo:
@@ -111,6 +126,7 @@ def find_blocks(soup: BeautifulSoup):
             cols, rows = parse_html_table(found_table)
             if rows:
                 results.append({"titulo": titulo, "columns": cols, "rows": rows})
+
     return results
 
 def ensure_dirs():
@@ -150,16 +166,94 @@ def generate_excel_files(blocks, dest_all, dest_individuals_dir):
         file_name = (safe_name[:40] or "tabela") + ".xlsx"
         df.to_excel(os.path.join(dest_individuals_dir, file_name), index=False)
 
+# ---------- Coleta via WordPress REST ----------
+def fetch_wp_content():
+    """
+    Tenta recuperar o HTML renderizado via WP REST API:
+    1) /pages?slug=concorrencia-residencia-medica
+    2) /posts?slug=concorrencia-residencia-medica
+    3) /search?search=concorrencia-residencia-medica (resolve id e busca no endpoint certo)
+    Retorna string HTML (content.rendered) ou None.
+    """
+    slug = "concorrencia-residencia-medica"
+
+    # 1) pages by slug
+    try:
+        url = f"{WP_API_BASE}/pages"
+        params = {"slug": slug, "_fields": "content.rendered,link,title.rendered", "per_page": 1}
+        r = requests.get(url, headers=HEADERS, params=params, timeout=60)
+        if r.ok:
+            arr = r.json()
+            if isinstance(arr, list) and arr:
+                content = arr[0].get("content", {}).get("rendered")
+                if content:
+                    print("[SCRAPER] WP API: conteúdo encontrado em /pages.")
+                    return content
+    except Exception as e:
+        print(f"[SCRAPER] WP API /pages falhou: {e}")
+
+    # 2) posts by slug
+    try:
+        url = f"{WP_API_BASE}/posts"
+        params = {"slug": slug, "_fields": "content.rendered,link,title.rendered", "per_page": 1}
+        r = requests.get(url, headers=HEADERS, params=params, timeout=60)
+        if r.ok:
+            arr = r.json()
+            if isinstance(arr, list) and arr:
+                content = arr[0].get("content", {}).get("rendered")
+                if content:
+                    print("[SCRAPER] WP API: conteúdo encontrado em /posts.")
+                    return content
+    except Exception as e:
+        print(f"[SCRAPER] WP API /posts falhou: {e}")
+
+    # 3) search (page/post)
+    try:
+        url = f"{WP_API_BASE}/search"
+        params = {"search": slug, "subtype": "page,post", "per_page": 1}
+        r = requests.get(url, headers=HEADERS, params=params, timeout=60)
+        if r.ok:
+            arr = r.json()
+            if isinstance(arr, list) and arr:
+                item = arr[0]
+                subtype = item.get("subtype")
+                obj_id = item.get("id")
+                if subtype in ("page", "post") and obj_id:
+                    endpoint = "pages" if subtype == "page" else "posts"
+                    url = f"{WP_API_BASE}/{endpoint}/{obj_id}"
+                    params = {"_fields": "content.rendered,link,title.rendered"}
+                    r2 = requests.get(url, headers=HEADERS, params=params, timeout=60)
+                    if r2.ok:
+                        data = r2.json()
+                        content = data.get("content", {}).get("rendered")
+                        if content:
+                            print(f"[SCRAPER] WP API: conteúdo encontrado via search em /{endpoint}/{obj_id}.")
+                            return content
+    except Exception as e:
+        print(f"[SCRAPER] WP API /search falhou: {e}")
+
+    return None
+
+# ---------- Main ----------
 def main():
     print(f"[SCRAPER] Iniciando scraping de concorrência 2026… (SCRIPT_VERSION={SCRIPT_VERSION})")
     ensure_dirs()
 
-    resp = requests.get(FONTE_URL, headers=HEADERS, timeout=60)
-    resp.raise_for_status()
+    html = fetch_wp_content()
+    used_wpapi = False
 
-    soup = BeautifulSoup(resp.text, "lxml")
+    if html:
+        used_wpapi = True
+        print("[SCRAPER] Usando conteúdo do WordPress REST API.")
+        soup = BeautifulSoup(html, "lxml")
+    else:
+        print("[SCRAPER] WP API não retornou conteúdo — usando HTML público.")
+        resp = requests.get(FONTE_URL, headers=HEADERS, timeout=60)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "lxml")
+
     blocks = find_blocks(soup)
-    print(f"[SCRAPER] Tabelas encontradas: {len(blocks)}")
+    print(f"[SCRAPER] Tabelas encontradas: {len(blocks)} (via {'WP-API' if used_wpapi else 'HTML'})")
 
     dt = now_brt()
     payload = {
@@ -179,16 +273,16 @@ def main():
             pass
     new_hash = json_hash(payload)
 
-    # Grava sempre o JSON (mesmo vazio) e copia para o site
+    # Sempre grava o JSON (mesmo vazio) e copia para o site
     write_json(payload, json_path)
     print(f"[SCRAPER] JSON atualizado em: {json_path}")
     if os.path.isdir(SITE_DIR):
         write_json(payload, os.path.join(SITE_DATA_DIR, JSON_FILENAME))
         print(f"[SCRAPER] JSON copiado para o site: {os.path.join(SITE_DATA_DIR, JSON_FILENAME)}")
 
-    # --- CURTO-CIRCUITO: se não há tabelas, cria apenas o consolidado 'Sem_dados' e encerra ---
+    # Se não há tabelas, publica um consolidado "Sem_dados" e encerra
+    consolidated_excel = os.path.join(EXCEL_DIR, XLSX_FILENAME)
     if len(blocks) == 0:
-        consolidated_excel = os.path.join(EXCEL_DIR, XLSX_FILENAME)
         generate_excel_files([], consolidated_excel, EXCEL_DIR)  # cria Sem_dados
         if os.path.isdir(SITE_DIR):
             os.makedirs(SITE_DOWNLOADS_DIR, exist_ok=True)
@@ -197,15 +291,15 @@ def main():
         print("[SCRAPER] Nenhuma tabela encontrada. Finalizado sem erro.")
         return
 
-    # Se mudou, (re)gera modelos e copia
+    # (Re)gera modelos somente se mudou
     if old_hash != new_hash:
-        consolidated_excel = os.path.join(EXCEL_DIR, XLSX_FILENAME)
         generate_excel_files(blocks, consolidated_excel, EXCEL_DIR)
         print(f"[SCRAPER] Modelos Excel gerados em: {EXCEL_DIR}")
 
         if os.path.isdir(SITE_DIR):
             os.makedirs(SITE_DOWNLOADS_DIR, exist_ok=True)
             shutil.copy2(consolidated_excel, os.path.join(SITE_DOWNLOADS_DIR, XLSX_FILENAME))
+            # individuais
             for f in os.listdir(EXCEL_DIR):
                 if f.lower().endswith(".xlsx"):
                     shutil.copy2(os.path.join(EXCEL_DIR, f), os.path.join(SITE_DOWNLOADS_DIR, f))
