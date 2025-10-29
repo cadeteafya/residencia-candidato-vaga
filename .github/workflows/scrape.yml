@@ -2,59 +2,64 @@ name: Scraper - Concorrência Residência Médica 2026
 
 on:
   schedule:
-    # Roda todos os dias às 10:00 UTC = 07:00 Brasília
-    - cron: "0 10 * * *"
-  workflow_dispatch: # permite rodar manualmente
+    - cron: "0 10 * * *"   # 07:00 BRT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write        # necessário para deploy-pages
+  id-token: write     # necessário para deploy-pages
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  scrape:
+  scrape-and-deploy:
     runs-on: ubuntu-latest
-    name: Atualizar dados de concorrência
+    name: Atualizar dados e publicar site
 
     steps:
-      # === Checkout do repositório ===
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # === Setup do Python ===
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # === Instala dependências ===
       - name: Install dependencies
         working-directory: scraper
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # === Executa o scraper ===
       - name: Run scraper
         working-directory: scraper
         run: |
           python scrape_concorrencia.py
 
-      # === Configura Git e commita as mudanças ===
-      - name: Commit and push updated data
+      - name: Commit updated data (if any)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Verifica se houve alteração nos arquivos JSON
-          if [ -n "$(git status --porcelain scraper/output/data site/data)" ]; then
-            git add scraper/output/data site/data
-            git commit -m "🤖 Atualização automática do JSON de concorrência ($(date '+%d/%m/%Y %H:%M'))"
+          if [ -n "$(git status --porcelain scraper/output/data site/data site/downloads)" ]; then
+            git add scraper/output/data site/data site/downloads
+            git commit -m "🤖 Atualização automática ($(date '+%d/%m/%Y %H:%M'))"
             git push
           else
-            echo "Nenhuma atualização detectada."
+            echo "Nenhuma alteração para commitar."
           fi
 
-      # === (Opcional) Publicar a pasta site/ no GitHub Pages ===
-      # Ative esta etapa apenas se usar GitHub Pages para hospedar o site.
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
+      # ===== DEPLOY OFICIAL DO PAGES =====
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
