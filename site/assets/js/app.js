@@ -1,12 +1,13 @@
 /* site/assets/js/app.js
- * Renderização e exportação client-side (SheetJS) para a página
- * "Concorrência para Residência Médica 2026"
+ * Renderização da página e download dos modelos Excel (estáticos em /downloads),
+ * com fallback para geração client-side via SheetJS se o arquivo não existir.
  */
 
 (function () {
   const cfg = (window.CONCORRENCIA_CONFIG || {});
   const JSON_PATH = cfg.jsonPath || "data/concorrencia_2026.json";
   const ALL_XLSX_NAME = cfg.allExcelFilename || "concorrencia_2026.xlsx";
+  const DOWNLOADS_PATH = cfg.downloadsPath || "downloads/"; // novo: onde ficam os modelos
 
   const $updatedAt = document.getElementById("updatedAt");
   const $blocks = document.getElementById("blocks");
@@ -30,17 +31,30 @@
     return node;
   }
 
-  function sanitizeSheetName(name, used = new Set()) {
-    // Excel sheet name constraints: max 31 chars, cannot contain: : \ / ? * [ ]
-    let n = (name || "Planilha").toString()
-      .replace(/[:\\\/\?\*\[\]]/g, " ")
-      .trim();
-    if (n.length === 0) n = "Planilha";
-    if (n.length > 31) n = n.slice(0, 31).trim();
+  // precisa **casar** com o Python:
+  // file_name = (re.sub(r"[^\w\s-]", "_", titulo).strip() or "tabela")[:40] + ".xlsx"
+  function sanitizeFileNameFromTitle(title) {
+    const base = (title || "").toString().replace(/[^\w\s-]/g, "_").trim() || "tabela";
+    const cut = base.length > 40 ? base.slice(0, 40) : base;
+    return `${cut}.xlsx`;
+  }
 
-    // desambiguar duplicados
-    let base = n;
-    let i = 1;
+  function tableToAOA(columns, rows) {
+    const header = [columns];
+    const body = rows.map(r => {
+      if (r.length < columns.length) return r.concat(Array(columns.length - r.length).fill(""));
+      if (r.length > columns.length) return r.slice(0, columns.length);
+      return r;
+    });
+    return header.concat(body);
+  }
+
+  function sanitizeSheetName(name, used = new Set()) {
+    // apenas para fallback SheetJS
+    let n = (name || "Planilha").toString().replace(/[:\\\/\?\*\[\]]/g, " ").trim();
+    if (!n) n = "Planilha";
+    if (n.length > 31) n = n.slice(0, 31).trim();
+    let base = n, i = 1;
     while (used.has(n)) {
       const suffix = ` (${i++})`;
       const max = 31 - suffix.length;
@@ -65,18 +79,19 @@
     XLSX.writeFile(wb, filename, { compression: true });
   }
 
-  function tableToAOA(columns, rows) {
-    const header = [columns];
-    const body = rows.map(r => {
-      // Garante que o número de colunas se mantenha
-      if (r.length < columns.length) {
-        return r.concat(Array(columns.length - r.length).fill(""));
-      } else if (r.length > columns.length) {
-        return r.slice(0, columns.length);
+  // Tenta baixar o arquivo estático; se não existir (404), usa fallback SheetJS
+  async function tryDownloadStaticOrFallback(url, fallbackFn) {
+    try {
+      const resp = await fetch(url, { method: "HEAD", cache: "no-store" });
+      if (resp.ok) {
+        window.location.href = url; // baixa o arquivo pronto
+        return;
       }
-      return r;
-    });
-    return header.concat(body);
+      // 404 ou outro erro -> fallback
+      if (typeof fallbackFn === "function") fallbackFn();
+    } catch (e) {
+      if (typeof fallbackFn === "function") fallbackFn();
+    }
   }
 
   // ---------- Render ----------
@@ -105,6 +120,8 @@
       const rows = Array.isArray(b.rows) ? b.rows : [];
 
       const $title = el("h2", { text: titulo });
+
+      // Botão: baixar modelo individual (estático em /downloads)
       const $btn = el("button", { class: "btn", text: "Extrair esta tabela", type: "button" });
       const $actions = el("div", { class: "block-actions" }, [$btn]);
 
@@ -129,38 +146,60 @@
       const $block = el("section", { class: "block", "aria-label": titulo }, [$title, $actions, $wrap]);
       $blocks.appendChild($block);
 
-      // Handler: exportar somente esta tabela
-      $btn.addEventListener("click", () => {
-        const aoa = tableToAOA(columns, rows);
-        const wb = aoaToWorkbook({ [titulo]: aoa });
-        const filename = `${titulo.replace(/[^\w\s.-]/g, "_").trim() || "tabela"}.xlsx`;
-        downloadWorkbook(wb, filename);
+      // Handler: baixar estático ou gerar fallback
+      $btn.addEventListener("click", async () => {
+        const filename = sanitizeFileNameFromTitle(titulo); // deve bater com o Python
+        const url = `${DOWNLOADS_PATH}${filename}`;
+
+        await tryDownloadStaticOrFallback(url, () => {
+          // Fallback: gerar no client apenas esta tabela
+          if (typeof XLSX === "undefined") {
+            alert("Arquivo estático não encontrado e SheetJS indisponível para fallback.");
+            return;
+          }
+          const aoa = tableToAOA(columns, rows);
+          const wb = aoaToWorkbook({ [titulo]: aoa });
+          const dlName = filename; // usa mesmo nome
+          downloadWorkbook(wb, dlName);
+        });
       });
     });
 
-    // Extrair todos: um workbook com uma aba por instituição
+    // Extrair todos: baixar modelo consolidado estático; fallback = gerar no client
     if ($btnExtrairTodos) {
-      $btnExtrairTodos.onclick = () => {
-        const map = {};
-        blocks.forEach((b) => {
-          const t = b.titulo || "Tabela";
-          map[t] = tableToAOA(b.columns || [], b.rows || []);
+      $btnExtrairTodos.onclick = async () => {
+        const url = `${DOWNLOADS_PATH}${ALL_XLSX_NAME}`;
+
+        await tryDownloadStaticOrFallback(url, () => {
+          // Fallback: gerar workbook com todas as tabelas
+          if (typeof XLSX === "undefined") {
+            alert("Arquivo estático não encontrado e SheetJS indisponível para fallback.");
+            return;
+          }
+          const map = {};
+          blocks.forEach((b) => {
+            const columns = Array.isArray(b.columns) ? b.columns : [];
+            const rows = Array.isArray(b.rows) ? b.rows : [];
+            const aoa = tableToAOA(columns, rows);
+            map[b.titulo || "Tabela"] = aoa;
+          });
+          const wb = aoaToWorkbook(map);
+          downloadWorkbook(wb, ALL_XLSX_NAME);
         });
-        const wb = aoaToWorkbook(map);
-        downloadWorkbook(wb, ALL_XLSX_NAME);
       };
     }
   }
 
   async function boot() {
     try {
-      // Garantir que SheetJS foi carregado
-      if (typeof XLSX === "undefined") {
-        console.error("SheetJS (xlsx.full.min.js) não encontrado.");
-      }
       const resp = await fetch(JSON_PATH, { cache: "no-store" });
       if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
       const payload = await resp.json();
+
+      // torna downloadsPath configurável em runtime, se quiser
+      if (!window.CONCORRENCIA_CONFIG) window.CONCORRENCIA_CONFIG = {};
+      window.CONCORRENCIA_CONFIG.downloadsPath = DOWNLOADS_PATH;
+
       renderPage(payload);
     } catch (err) {
       console.error(err);
@@ -173,7 +212,6 @@
     }
   }
 
-  // Start
   document.readyState === "loading"
     ? document.addEventListener("DOMContentLoaded", boot)
     : boot();
