@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Scraper — Concorrência para Residência Médica 2026
-Autor: ricardo.cadete — versão com geração de modelos Excel
+Autor: ricardo.cadete (Afya) — versão com geração de modelos Excel
 
-Atualizações:
-- Continua fazendo o scraping e salvando o JSON.
-- Gera um modelo Excel consolidado (todas as tabelas, cada uma em uma aba).
-- Gera modelos individuais (1 Excel por instituição).
-- Copia todos os arquivos para site/downloads/.
-- Se não houver alteração real nos dados, não regrava nada.
+Atualizações nesta revisão:
+- Headers HTTP mais “humanos” para evitar bloqueios.
+- Busca por blocos (H2/H3 -> primeira <table>) mais tolerante.
+- Se nenhuma tabela for encontrada, grava JSON e NÃO tenta gerar Excel (evita IndexError).
 """
 
 import os
@@ -20,6 +18,7 @@ import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
 import pandas as pd
 from hashlib import md5
+import shutil
 
 FONTE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
 
@@ -36,9 +35,13 @@ JSON_FILENAME = "concorrencia_2026.json"
 XLSX_FILENAME = "concorrencia_2026.xlsx"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                  "AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/120.0.0.0 Safari/537.36"
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                   "AppleWebKit/537.36 (KHTML, like Gecko) "
+                   "Chrome/120.0.0.0 Safari/537.36"),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
 }
 
 
@@ -91,8 +94,15 @@ def parse_html_table(table_tag: Tag):
 
 
 def find_blocks(soup: BeautifulSoup):
+    """
+    Encontra blocos no padrão:
+    - heading (h2/h3)
+    - primeira tabela subsequente (<table>) antes do próximo heading
+    """
     results = []
-    main = soup.find(class_=re.compile(r"(entry-content|single-content|content)")) or soup
+    # conteúdo principal (portal WP normalmente usa essas classes)
+    main = soup.find(class_=re.compile(r"(entry-content|single-content|post-content|content)")) or soup
+
     headings = main.find_all(["h2", "h3"])
     for h in headings:
         titulo = sanitize_title(text_of(h))
@@ -105,15 +115,18 @@ def find_blocks(soup: BeautifulSoup):
         while pn and isinstance(pn, (Tag, NavigableString)):
             if isinstance(pn, Tag) and pn.name in ["h2", "h3"]:
                 break
+
             if isinstance(pn, Tag):
+                # Se o próprio nó for uma tabela
                 if pn.name == "table":
                     found_table = pn
                     break
-                if not found_table:
-                    maybe_table = pn.find("table")
-                    if maybe_table:
-                        found_table = maybe_table
-                        break
+                # Ou se houver uma tabela dentro desse nó
+                maybe = pn.find("table")
+                if maybe:
+                    found_table = maybe
+                    break
+
             pn = pn.next_sibling
 
         if found_table:
@@ -124,6 +137,7 @@ def find_blocks(soup: BeautifulSoup):
                     "columns": cols,
                     "rows": rows
                 })
+
     return results
 
 
@@ -146,25 +160,26 @@ def write_json(payload: dict, dest_path: str):
 
 
 def json_hash(data: dict) -> str:
-    """Cria um hash MD5 do conteúdo do JSON (para evitar regravar se não mudou)."""
     text = json.dumps(data, ensure_ascii=False, sort_keys=True)
     return md5(text.encode("utf-8")).hexdigest()
 
 
 def generate_excel_files(blocks, dest_all, dest_individuals_dir):
-    """Gera o Excel consolidado e os individuais."""
+    """Gera o Excel consolidado e os individuais (assume ao menos 1 bloco)."""
     # Consolidado
     with pd.ExcelWriter(dest_all, engine="openpyxl") as writer:
         for b in blocks:
             df = pd.DataFrame(b["rows"], columns=b["columns"])
             sheet_name = re.sub(r'[:\\/*?\[\]]', ' ', b["titulo"])[:31]
+            if sheet_name.strip() == "":
+                sheet_name = "Tabela"
             df.to_excel(writer, sheet_name=sheet_name, index=False)
 
     # Individuais
     for b in blocks:
         df = pd.DataFrame(b["rows"], columns=b["columns"])
         safe_name = re.sub(r"[^\w\s-]", "_", b["titulo"]).strip() or "tabela"
-        file_name = safe_name[:40] + ".xlsx"
+        file_name = (safe_name[:40] or "tabela") + ".xlsx"
         path = os.path.join(dest_individuals_dir, file_name)
         df.to_excel(path, index=False)
 
@@ -188,7 +203,6 @@ def main():
         "tabelas": blocks
     }
 
-    # Verifica se houve alteração no JSON anterior
     json_path = os.path.join(DATA_DIR, JSON_FILENAME)
     old_hash = None
     if os.path.exists(json_path):
@@ -199,33 +213,37 @@ def main():
             pass
 
     new_hash = json_hash(payload)
-    if old_hash == new_hash:
-        print("[SCRAPER] Nenhuma alteração nos dados detectada — nada será regravado.")
-        return
 
-    # Salvar novo JSON
+    # Sempre escrevemos o JSON (mesmo que vazio) para manter updated_at
     write_json(payload, json_path)
     print(f"[SCRAPER] JSON atualizado em: {json_path}")
 
-    # Gera Excel consolidado e individuais
-    consolidated_excel = os.path.join(EXCEL_DIR, XLSX_FILENAME)
-    generate_excel_files(blocks, consolidated_excel, EXCEL_DIR)
-    print(f"[SCRAPER] Modelos Excel gerados em: {EXCEL_DIR}")
-
-    # Copiar para site/
+    # Copiar JSON para o site (se existir)
     if os.path.isdir(SITE_DIR):
         write_json(payload, os.path.join(SITE_DATA_DIR, JSON_FILENAME))
-        # copia o Excel consolidado
-        os.makedirs(SITE_DOWNLOADS_DIR, exist_ok=True)
-        import shutil
-        shutil.copy2(consolidated_excel, os.path.join(SITE_DOWNLOADS_DIR, XLSX_FILENAME))
-        # copia também os individuais
-        for f in os.listdir(EXCEL_DIR):
-            if f.lower().endswith(".xlsx"):
-                shutil.copy2(os.path.join(EXCEL_DIR, f), os.path.join(SITE_DOWNLOADS_DIR, f))
-        print(f"[SCRAPER] Modelos copiados para o site: {SITE_DOWNLOADS_DIR}")
+        print(f"[SCRAPER] JSON copiado para o site: {os.path.join(SITE_DATA_DIR, JSON_FILENAME)}")
+
+    # Se não há tabelas, não gera Excel — evita IndexError
+    if len(blocks) == 0:
+        print("[SCRAPER] Nenhuma tabela encontrada. Pulando geração de Excel.")
+        return
+
+    # Só regrava modelos se o conteúdo mudou
+    if old_hash != new_hash:
+        consolidated_excel = os.path.join(EXCEL_DIR, XLSX_FILENAME)
+        generate_excel_files(blocks, consolidated_excel, EXCEL_DIR)
+        print(f"[SCRAPER] Modelos Excel gerados em: {EXCEL_DIR}")
+
+        if os.path.isdir(SITE_DIR):
+            os.makedirs(SITE_DOWNLOADS_DIR, exist_ok=True)
+            shutil.copy2(consolidated_excel, os.path.join(SITE_DOWNLOADS_DIR, XLSX_FILENAME))
+            # copia individuais
+            for f in os.listdir(EXCEL_DIR):
+                if f.lower().endswith(".xlsx"):
+                    shutil.copy2(os.path.join(EXCEL_DIR, f), os.path.join(SITE_DOWNLOADS_DIR, f))
+            print(f"[SCRAPER] Modelos copiados para o site: {SITE_DOWNLOADS_DIR}")
     else:
-        print("[SCRAPER] Pasta do site não encontrada — pulando cópia.")
+        print("[SCRAPER] Dados idênticos ao último run — mantendo modelos atuais.")
 
     print("[SCRAPER] Concluído com sucesso.")
 
