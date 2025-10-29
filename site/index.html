@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Concorrência para Residência Médica 2026</title>
+
+  <!-- Estilos do projeto -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- SheetJS (usado pelo app.js para gerar Excel no client) -->
+  <script defer src="assets/js/xlsx.full.min.js"></script>
+
+  <!-- App principal (render e botões) -->
+  <script defer src="assets/js/app.js"></script>
+
+  <!-- Config do caminho do JSON (usado pelo app.js) -->
+  <script>
+    window.CONCORRENCIA_CONFIG = {
+      jsonPath: "data/concorrencia_2026.json",
+      // Nome padrão do arquivo Excel para "Extrair todos"
+      allExcelFilename: "concorrencia_2026.xlsx"
+    };
+  </script>
+
+  <style>
+    /* Pequenos defaults para caso o styles.css não esteja carregado ainda */
+    :root{
+      --bg:#0b0c10; --card:#111317; --text:#e7e9ee; --muted:#a9afbf; --accent:#36c;
+      --border:#21252d; --radius:14px;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji","Segoe UI Emoji";}
+    .container{max-width:1000px;margin:32px auto;padding:0 16px;}
+    header.card, .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 2px 10px rgba(0,0,0,.25)}
+    header.card{padding:22px 20px;margin-bottom:18px}
+    h1{margin:0 0 6px;font-size:28px}
+    .muted{color:var(--muted);font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{appearance:none;border:1px solid var(--border);border-radius:12px;background:#1a1d24;color:var(--text);padding:10px 14px;cursor:pointer}
+    .btn:hover{border-color:#2a2f3a;background:#1f232b}
+    .btn.accent{background:var(--accent);border-color:var(--accent);color:white}
+    .btn.accent:hover{filter:brightness(1.05)}
+    .section{margin:16px 0}
+    .block{margin:18px 0 26px}
+    .block h2{margin:0 0 8px;font-size:22px}
+    .block .block-actions{margin:8px 0 12px}
+    .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:12px}
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    thead th{background:#141821;color:#dfe4f2;font-weight:700}
+    th, td{padding:12px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+    tbody tr:nth-child(odd) td{background:#0f1319}
+    tbody tr:nth-child(even) td{background:#0c0f14}
+    .noscript{margin:24px 0;color:#ffb4b4}
+    footer{opacity:.7;font-size:13px;margin:26px 0 40px}
+    a.link{color:#9db7ff;text-decoration:none}
+    a.link:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card" role="banner" aria-label="Cabeçalho">
+      <h1>Concorrência para Residência Médica 2026</h1>
+      <div id="updatedAt" class="muted">Atualizado em: —</div>
+
+      <div class="toolbar" aria-label="Ações principais">
+        <button id="btnExtrairTodos" class="btn accent">Extrair todos</button>
+        <a id="linkFonte" class="btn" href="#" target="_blank" rel="noopener">Ver fonte</a>
+      </div>
+    </header>
+
+    <noscript>
+      <div class="noscript">Ative o JavaScript para visualizar as tabelas e exportar para Excel.</div>
+    </noscript>
+
+    <!-- Onde os blocos (título + botão + tabela) serão renderizados pelo app.js -->
+    <main id="blocks" class="section" role="main" aria-live="polite"></main>
+
+    <footer>
+      Dados consolidados automaticamente a partir do Estratégia MED.  
+      Dúvidas? <a class="link" href="mailto:ricardo.cadete@afya.com.br">ricardo.cadete@afya.com.br</a>
+    </footer>
+  </div>
+</body>
+</html>
