@@ -2,13 +2,13 @@ name: Scraper - Concorrência Residência Médica 2026
 
 on:
   schedule:
-    - cron: "0 10 * * *"   # 07:00 BRT
+    - cron: "0 10 * * *"   # 07:00 BRT (10:00 UTC)
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write        # necessário para deploy-pages
-  id-token: write     # necessário para deploy-pages
+  contents: write     # para commitar JSON/XLSX em site/
+  pages: write        # para publicar no GitHub Pages
+  id-token: write     # exigido pelo deploy-pages
 
 concurrency:
   group: "pages"
@@ -39,19 +39,37 @@ jobs:
         run: |
           python scrape_concorrencia.py
 
-      - name: Commit updated data (if any)
+      # === Copia tudo que o scraper gerou para a pasta do site ===
+      - name: Sync generated files to site/
+        run: |
+          set -e
+          mkdir -p site/data site/downloads
+          # JSON
+          cp -f scraper/output/data/concorrencia_2026.json site/data/ || true
+          # Excel (consolidado + individuais, se existirem)
+          cp -f scraper/output/excel/*.xlsx site/downloads/ 2>/dev/null || true
+
+      - name: List site dir (debug)
+        run: |
+          echo "== site/data =="
+          ls -la site/data || true
+          echo "== site/downloads =="
+          ls -la site/downloads || true
+
+      # Commita somente se houve mudança em site/data ou site/downloads
+      - name: Commit and push updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain scraper/output/data site/data site/downloads)" ]; then
-            git add scraper/output/data site/data site/downloads
-            git commit -m "🤖 Atualização automática ($(date '+%d/%m/%Y %H:%M'))"
+          if [ -n "$(git status --porcelain site/data site/downloads)" ]; then
+            git add site/data site/downloads
+            git commit -m "🤖 Publica dados no site ($(date '+%d/%m/%Y %H:%M'))"
             git push
           else
             echo "Nenhuma alteração para commitar."
           fi
 
-      # ===== DEPLOY OFICIAL DO PAGES =====
+      # ===== Deploy oficial do GitHub Pages =====
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
