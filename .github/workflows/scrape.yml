@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write     # para commitar JSON/XLSX em site/
-  pages: write        # para publicar no GitHub Pages
-  id-token: write     # exigido pelo deploy-pages
+  contents: write     # commit em site/data e site/downloads
+  pages: write        # publicar no GitHub Pages
+  id-token: write     # requerido por deploy-pages
 
 concurrency:
   group: "pages"
@@ -39,14 +39,12 @@ jobs:
         run: |
           python scrape_concorrencia.py
 
-      # === Copia tudo que o scraper gerou para a pasta do site ===
+      # Copia artefatos gerados para a pasta do site
       - name: Sync generated files to site/
         run: |
           set -e
           mkdir -p site/data site/downloads
-          # JSON
           cp -f scraper/output/data/concorrencia_2026.json site/data/ || true
-          # Excel (consolidado + individuais, se existirem)
           cp -f scraper/output/excel/*.xlsx site/downloads/ 2>/dev/null || true
 
       - name: List site dir (debug)
@@ -56,7 +54,7 @@ jobs:
           echo "== site/downloads =="
           ls -la site/downloads || true
 
-      # Commita somente se houve mudança em site/data ou site/downloads
+      # Commita só se houve mudanças
       - name: Commit and push updated data
         run: |
           git config user.name "github-actions[bot]"
@@ -69,7 +67,7 @@ jobs:
             echo "Nenhuma alteração para commitar."
           fi
 
-      # ===== Deploy oficial do GitHub Pages =====
+      # Deploy oficial do GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
