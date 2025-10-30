@@ -39,13 +39,15 @@ jobs:
         run: |
           python scrape_concorrencia.py
 
-      # Copia artefatos gerados para a pasta do site
+      # === Copia artefatos gerados (na RAIZ: output/...) para a pasta do site ===
       - name: Sync generated files to site/
         run: |
           set -e
           mkdir -p site/data site/downloads
-          cp -f scraper/output/data/concorrencia_2026.json site/data/ || true
-          cp -f scraper/output/excel/*.xlsx site/downloads/ 2>/dev/null || true
+          # JSON (saída fica em output/data/, não em scraper/output/)
+          cp -f output/data/concorrencia_2026.json site/data/ || true
+          # Excel (consolidado + individuais, se existirem)
+          cp -f output/excel/*.xlsx site/downloads/ 2>/dev/null || true
 
       - name: List site dir (debug)
         run: |
