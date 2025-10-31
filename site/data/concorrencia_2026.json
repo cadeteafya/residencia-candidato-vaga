@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-10-30T08:43:33.576669-03:00",
-  "updated_at_br": "30/10/2025 08:43",
+  "updated_at_iso": "2025-10-31T07:41:30.480951-03:00",
+  "updated_at_br": "31/10/2025 07:41",
   "tabelas": [
     {
       "titulo": "AMP",
@@ -2181,6 +2181,107 @@
           "1",
           "19",
           "19"
+        ]
+      ]
+    },
+    {
+      "titulo": "UFPA",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Clínica Médica (Belém)",
+          "10",
+          "200",
+          "20"
+        ],
+        [
+          "Clínica Médica (Altamira)",
+          "2",
+          "6",
+          "3"
+        ],
+        [
+          "Cirurgia Geral (Belém)",
+          "6",
+          "169",
+          "28,17"
+        ],
+        [
+          "Dermatologia (Belém)",
+          "3",
+          "70",
+          "23,33"
+        ],
+        [
+          "Ginecologia e Obstetrícia (Belém)",
+          "6",
+          "95",
+          "15,83"
+        ],
+        [
+          "Medicina de Família e Comunidade (Belém)",
+          "10",
+          "133",
+          "13,3"
+        ],
+        [
+          "Medicina de Família e Comunidade (Altamira)",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Oftalmologia (Belém)",
+          "4",
+          "88",
+          "22"
+        ],
+        [
+          "Otorrinolaringologia (Belém)",
+          "4",
+          "90",
+          "22,5"
+        ],
+        [
+          "Pediatria (Belém)",
+          "8",
+          "92",
+          "11,5"
+        ],
+        [
+          "Endocrinologia (Belém)",
+          "2",
+          "20",
+          "10"
+        ],
+        [
+          "Geriatria (Belém)",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Oncologia Clínica (Belém)",
+          "1",
+          "7",
+          "7"
+        ],
+        [
+          "Pneumologia (Belém)",
+          "2",
+          "9",
+          "4,5"
+        ],
+        [
+          "Medicina Paliativa (Belém)",
+          "2",
+          "4",
+          "2"
         ]
       ]
     },
