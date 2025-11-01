@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-10-31T07:41:30.480951-03:00",
-  "updated_at_br": "31/10/2025 07:41",
+  "updated_at_iso": "2025-11-01T07:35:51.242894-03:00",
+  "updated_at_br": "01/11/2025 07:35",
   "tabelas": [
     {
       "titulo": "AMP",
@@ -1072,6 +1072,95 @@
           "1",
           "15",
           "15"
+        ]
+      ]
+    },
+    {
+      "titulo": "UNESP",
+      "columns": [
+        "Especialidade",
+        "Inscritos",
+        "Vagas",
+        "Concorrência"
+      ],
+      "rows": [
+        [
+          "Anestesiologia",
+          "299",
+          "8",
+          "37.38"
+        ],
+        [
+          "Cardiologia",
+          "40",
+          "7",
+          "5.71"
+        ],
+        [
+          "Cirurgia Cardiovascular",
+          "31",
+          "2",
+          "15.50"
+        ],
+        [
+          "Cirurgia da Mão",
+          "4",
+          "1",
+          "4.00"
+        ],
+        [
+          "Cirurgia do Aparelho Digestivo",
+          "11",
+          "4",
+          "2.75"
+        ],
+        [
+          "Cirurgia Geral",
+          "498",
+          "13",
+          "38.31"
+        ],
+        [
+          "Cirurgia Oncológica",
+          "1",
+          "1",
+          "1.00"
+        ],
+        [
+          "Cirurgia Pediátrica",
+          "7",
+          "1",
+          "7.00"
+        ],
+        [
+          "Cirurgia Plástica",
+          "80",
+          "2",
+          "40.00"
+        ],
+        [
+          "Cirurgia Torácica",
+          "3",
+          "1",
+          "3.00"
+        ],
+        [
+          "Cirurgia Vascular",
+          "11",
+          "3",
+          "3.67"
+        ],
+        [
+          "Clínica Médica",
+          "663",
+          "30",
+          "22.10"
+        ],
+        [
+          "Dermatologia",
+          "350",
+          "6",
+          "58.33"
         ]
       ]
     },
