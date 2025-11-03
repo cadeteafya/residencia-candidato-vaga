@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Instituição • Concorrência 2026</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    /* ajustes leves só desta página */
+    .container { max-width: 980px; margin: 26px auto 60px; padding: 0 16px }
+    .page-header { padding: 22px 18px; border-radius: 12px; background: var(--card); }
+    .page-header h1 { margin: 0 0 4px; font-size: 1.6rem }
+    .subtle { color: var(--muted); font-size: .92rem }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px }
+    .btn { padding: 10px 14px; border-radius: 10px; background: var(--primary); color: #fff; border: 0; cursor: pointer; text-decoration: none; display: inline-block }
+    .btn.alt { background: transparent; color: var(--text); border: 1px solid var(--border) }
+    .btn.ghost { background: transparent; color: var(--muted); border: 1px dashed var(--border) }
+    .muted { color: var(--muted) }
+    .table-wrap { overflow: auto; border: 1px solid var(--border); border-radius: 12px; margin-top: 14px }
+    table { width: 100%; border-collapse: collapse }
+    thead th { text-align: left }
+    th, td { padding: 12px 14px; border-top: 1px solid var(--border) }
+    thead th { border-top: 0 }
+    .empty { margin: 24px 0; color: var(--muted) }
+  </style>
+  <script>
+    window.CONCORRENCIA_CONFIG = {
+      jsonPath: "data/concorrencia_2026.json",
+      downloadsPath: "downloads/",
+      allExcelFilename: "concorrencia_2026.xlsx",
+      fonteUrl: "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div class="row">
+        <a href="./" class="btn alt" aria-label="Voltar para a página inicial">← Voltar</a>
+        <a id="btnExtrairTodos" class="btn ghost" href="#" role="button">Extrair todos</a>
+      </div>
+      <h1 id="titulo">Instituição</h1>
+      <div class="subtle">Atualizado em: <span id="updatedAt">—</span></div>
+      <div class="row">
+        <a id="btnExtrair" class="btn" href="#" role="button">Extrair esta tabela</a>
+        <a id="linkFonte" class="btn alt" target="_blank" rel="noopener">Ver fonte</a>
+      </div>
+    </header>
+
+    <section id="conteudo">
+      <div class="empty">Carregando…</div>
+    </section>
+
+    <p class="muted" style="margin-top: 22px;">
+      Dados consolidados automaticamente a partir do Estratégia MED.
+      Dúvidas? <a href="mailto:ricardo.cadete@afya.com.br">ricardo.cadete@afya.com.br</a>
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      const cfg = window.CONCORRENCIA_CONFIG || {};
+      const JSON_PATH = cfg.jsonPath || "data/concorrencia_2026.json";
+      const DOWNLOADS_PATH = cfg.downloadsPath || "downloads/";
+      const ALL_XLSX_NAME = cfg.allExcelFilename || "concorrencia_2026.xlsx";
+
+      const $titulo = document.getElementById("titulo");
+      const $updatedAt = document.getElementById("updatedAt");
+      const $conteudo = document.getElementById("conteudo");
+      const $btnExtrair = document.getElementById("btnExtrair");
+      const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
+      const $linkFonte = document.getElementById("linkFonte");
+
+      function q(key) {
+        const p = new URLSearchParams(location.search);
+        return p.get(key) || "";
+      }
+      function slugify(s) {
+        return (s || "").toString()
+          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^\w\s-]/g, "")
+          .trim().replace(/\s+/g, "-").toLowerCase();
+      }
+      function sanitizeFileNameFromTitle(title) {
+        const base = (title || "").toString().replace(/[^\w\s-]/g, "_").trim() || "tabela";
+        const cut = base.length > 40 ? base.slice(0, 40) : base;
+        return `${cut}.xlsx`;
+      }
+      function ensureAndDownload(url) {
+        return fetch(url, { method: "HEAD", cache: "no-store" })
+          .then(resp => { if (!resp.ok) throw 0; window.location.href = url; })
+          .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em alguns instantes."));
+      }
+      function findBlock(blocks, tituloParam, slugParam) {
+        if (!Array.isArray(blocks)) return null;
+        // 1) match por título exato (query param t)
+        if (tituloParam) {
+          const byTitle = blocks.find(b => (b.titulo || "") === tituloParam);
+          if (byTitle) return byTitle;
+        }
+        // 2) match por slug (query param s)
+        if (slugParam) {
+          const bySlug = blocks.find(b => slugify(b.titulo || "") === slugParam);
+          if (bySlug) return bySlug;
+        }
+        // 3) fallback: contém (case-insensitive)
+        if (tituloParam) {
+          const t = tituloParam.toLowerCase();
+          const byContains = blocks.find(b => (b.titulo || "").toLowerCase().includes(t));
+          if (byContains) return byContains;
+        }
+        return null;
+      }
+
+      function renderBlock(b, updatedText) {
+        $titulo.textContent = b.titulo || "Instituição";
+        $updatedAt.textContent = updatedText || "—";
+        if ($linkFonte && cfg.fonteUrl) $linkFonte.href = cfg.fonteUrl;
+
+        const columns = Array.isArray(b.columns) ? b.columns : [];
+        const rows = Array.isArray(b.rows) ? b.rows : [];
+
+        const thead = `<thead><tr>${columns.map(c => `<th>${c}</th>`).join("")}</tr></thead>`;
+        const tbody = `<tbody>${
+          rows.map(r => `<tr>${columns.map((_, i) => `<td>${(r[i] ?? "")}</td>`).join("")}</tr>`).join("")
+        }</tbody>`;
+
+        const tableHtml = `
+          <div class="table-wrap">
+            <table aria-label="${b.titulo}">
+              ${thead}${tbody}
+            </table>
+          </div>
+        `;
+        $conteudo.innerHTML = tableHtml;
+
+        // botão de download individual
+        const filename = sanitizeFileNameFromTitle(b.titulo || "tabela");
+        $btnExtrair.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${filename}`);
+        // botão baixar todos
+        $btnExtrairTodos.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
+      }
+
+      async function boot() {
+        const tituloParam = q("t");
+        const slugParam = q("s");
+
+        try {
+          const resp = await fetch(JSON_PATH, { cache: "no-store" });
+          if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
+          const payload = await resp.json();
+
+          const updatedText = payload.updated_at_br || "—";
+          const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
+
+          const bloco = findBlock(blocks, tituloParam, slugParam);
+          if (!bloco) {
+            $conteudo.innerHTML = `<div class="empty">Tabela não encontrada. Volte e escolha outra instituição.</div>`;
+            if (tituloParam) $titulo.textContent = tituloParam;
+            $updatedAt.textContent = updatedText;
+            return;
+          }
+          renderBlock(bloco, updatedText);
+        } catch (err) {
+          console.error(err);
+          $conteudo.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
+        }
+      }
+
+      document.readyState === "loading"
+        ? document.addEventListener("DOMContentLoaded", boot)
+        : boot();
+    })();
+  </script>
+</body>
+</html>
