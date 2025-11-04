@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Scraper — Concorrência 2026 (WP-API + HTML público; follow-button robusto)
-- Coleta blocos (título + tabela) via WP-API (content.rendered).
-- Para CADA bloco, procura o botão no HTML público próximo ao mesmo título.
-  Se achar, segue o link e substitui pela(s) tabela(s) completa(s).
-- Fallback total para HTML público se a API falhar.
+Scraper — Concorrência 2026 (WP-API + HTML público; follow-button + filtros)
+Regras novas:
+  • Ignorar qualquer bloco cuja heading/título contenha "Estratégia MED".
+  • Home agrupa por instituição (lógica de agrupamento está no site).
 """
 
 import os, re, json, shutil
@@ -16,7 +15,7 @@ import pandas as pd
 import pytz, requests
 from bs4 import BeautifulSoup, Tag, NavigableString
 
-SCRIPT_VERSION = "2025-11-04-mix-wpapi-public-v3"
+SCRIPT_VERSION = "2025-11-04-mix-v4-skip-estrategia"
 
 FONTE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
 WP_API_BASE = "https://med.estrategia.com/portal/wp-json/wp/v2"
@@ -43,7 +42,7 @@ HEADERS = {
     "Referer": FONTE_URL,
 }
 
-# -------------- utils --------------
+# ---------------- utils ----------------
 def ensure_dirs():
     os.makedirs(DATA_DIR, exist_ok=True)
     os.makedirs(EXCEL_DIR, exist_ok=True)
@@ -55,13 +54,7 @@ def now_brt(): return datetime.now(pytz.timezone("America/Sao_Paulo"))
 
 def nrm(s: str) -> str:
     s = (s or "").strip()
-    s = re.sub(r"\s+", " ", s)
-    return s
-
-def nrm_cmp(s: str) -> str:
-    s = nrm(s).lower()
-    s = re.sub(r"[^\w\s-]", "", s)
-    return s
+    return re.sub(r"\s+", " ", s)
 
 def text_of(el: Tag) -> str:
     if not el: return ""
@@ -72,7 +65,6 @@ def parse_html_table(tbl: Tag):
     thead = tbl.find("thead")
     if thead:
         cols = [text_of(th) for th in thead.find_all(["th","td"])]
-
     rows = []
     body = tbl.find("tbody") or tbl
     trs = body.find_all("tr")
@@ -83,7 +75,6 @@ def parse_html_table(tbl: Tag):
         if not cols and i == 0:
             cols = row; continue
         rows.append(row)
-
     if not cols and rows:
         m = max(len(r) for r in rows)
         cols = [f"Col{i+1}" for i in range(m)]
@@ -93,8 +84,8 @@ def is_button_like(a: Tag) -> bool:
     if not a or a.name != "a" or not a.get("href"): return False
     t = text_of(a).lower()
     if re.search(r"(confira|ver|veja|acesse|consulte)", t): return True
-    klass = " ".join(a.get("class", [])).lower()
-    if any(k in klass for k in ["wp-block-button__link","btn","button"]): return True
+    k = " ".join(a.get("class", [])).lower()
+    if any(x in k for x in ["wp-block-button__link","btn","button"]): return True
     if (a.get("role") or "").lower() == "button": return True
     return False
 
@@ -125,32 +116,37 @@ def generate_excel(blocks, xlsx_all_path, individuals_dir):
         name = (base[:40] or "tabela") + ".xlsx"
         df.to_excel(os.path.join(individuals_dir, name), index=False)
 
-# -------------- WP API --------------
+# ---------------- filtros ----------------
+def should_skip_title(title: str) -> bool:
+    # ignora qualquer heading/título promocional
+    return "estratégia med" in (title or "").lower()
+
+# ---------------- WP API ----------------
 def fetch_wp_content():
     slug = "concorrencia-residencia-medica"
     for endpoint in ("pages","posts"):
         try:
             url = f"{WP_API_BASE}/{endpoint}"
             r = requests.get(url, headers=HEADERS,
-                params={"slug": slug, "_fields":"content.rendered,link,title.rendered", "per_page":1}, timeout=60)
+                params={"slug": slug, "_fields": "content.rendered,link,title.rendered", "per_page": 1}, timeout=60)
             if r.ok:
                 arr = r.json()
                 if isinstance(arr, list) and arr:
-                    content = arr[0].get("content", {}).get("rendered")
-                    if content:
+                    c = arr[0].get("content", {}).get("rendered")
+                    if c:
                         print(f"[SCRAPER] WP API: conteúdo encontrado em /{endpoint}.")
-                        return content
+                        return c
         except Exception as e:
             print(f"[SCRAPER] WP API /{endpoint} falhou:", e)
     return None
 
-# -------------- HTML público --------------
+# ---------------- público ----------------
 def fetch_public_soup():
     r = requests.get(FONTE_URL, headers=HEADERS, timeout=60)
     r.raise_for_status()
     return BeautifulSoup(r.text, "lxml"), r.url
 
-# -------------- deep page --------------
+# ---------------- deep page ----------------
 def collect_from_detail_page(url: str):
     try:
         r = requests.get(url, headers=HEADERS, timeout=60)
@@ -160,18 +156,17 @@ def collect_from_detail_page(url: str):
         blocks = []
         for h in soup.find_all(["h1","h2","h3"]):
             titulo = nrm(text_of(h))
-            # pega primeira tabela após o heading
-            pn = h.next_sibling
-            found = None
-            steps = 0
-            while pn and isinstance(pn,(Tag,NavigableString)) and steps<300:
+            if should_skip_title(titulo):  # filtro novo
+                continue
+            # pega a primeira tabela depois do heading
+            pn, found, steps = h.next_sibling, None, 0
+            while pn and isinstance(pn,(Tag,NavigableString)) and steps < 300:
                 if isinstance(pn,Tag) and pn.name in ["h1","h2","h3"]: break
                 if isinstance(pn,Tag):
-                    if pn.name=="table":
-                        found = pn; break
+                    if pn.name == "table": found = pn; break
                     maybe = pn.find("table")
                     if maybe: found = maybe; break
-                pn = pn.next_sibling; steps+=1
+                pn = pn.next_sibling; steps += 1
             if found:
                 cols, rows = parse_html_table(found)
                 if rows:
@@ -184,11 +179,12 @@ def collect_from_detail_page(url: str):
         # fallback: todas as tabelas
         all_tbls = soup.find_all("table")
         if all_tbls:
-            t0 = nrm(text_of(soup.find("h1"))) or "Tabela"
+            base_t = nrm(text_of(soup.find("h1"))) or "Tabela"
             out=[]
             for i,tb in enumerate(all_tbls,1):
                 cols, rows = parse_html_table(tb)
-                if rows: out.append({"titulo": f"{t0} {i}", "columns": cols, "rows": rows})
+                if rows:
+                    out.append({"titulo": f"{base_t} {i}", "columns": cols, "rows": rows})
             if out:
                 print(f"[SCRAPER] Deep '{url}': {len(out)} tabela(s) sem headings.")
                 return out
@@ -196,65 +192,7 @@ def collect_from_detail_page(url: str):
         print(f"[SCRAPER] Falha deep '{url}': {e}")
     return []
 
-def prefix_title(parent: str, blocks: list):
-    out=[]
-    pl = nrm_cmp(parent)
-    for b in blocks:
-        t = b.get("titulo") or parent
-        if pl and pl not in nrm_cmp(t):
-            t = f"{parent} — {nrm(t)}"
-        out.append({"titulo": nrm(t), "columns": b["columns"], "rows": b["rows"]})
-    return out
-
-# -------------- busca de botão no HTML público --------------
-def find_button_near_title(public_soup: BeautifulSoup, base_url: str, title: str):
-    """
-    Tenta localizar o mesmo título no HTML público e procurar o botão:
-    - match normalizado do heading (começa/contém)
-    - varredura a partir do heading e da PRIMEIRA TABELA subsequente:
-      até o próximo heading OU 200 nós, procurando <a> 'button-like'
-    - também procura no container pai imediato do bloco (div/section)
-    Retorna href absoluto ou None.
-    """
-    target = nrm_cmp(title)
-    if not target: return None
-
-    candidates = []
-    for h in public_soup.find_all(["h2","h3"]):
-        ht = nrm_cmp(text_of(h))
-        if ht.startswith(target) or target.startswith(ht) or target in ht or ht in target:
-            candidates.append(h)
-
-    for h in candidates or []:
-        # 1) varrer a partir do heading
-        btn = scan_for_button_from_anchor(h, base_url, limit=200)
-        if btn: return btn
-        # 2) se tiver tabela, varre a partir dela
-        tbl = first_table_after(h)
-        if tbl:
-            btn = scan_for_button_from_anchor(tbl, base_url, limit=200)
-            if btn: return btn
-        # 3) container pai
-        parent = h.find_parent(["section","div","article"])
-        if parent:
-            for a in parent.find_all("a", href=True):
-                if is_button_like(a):
-                    return follow_url(a["href"], base_url)
-
-    return None
-
-def scan_for_button_from_anchor(node: Tag, base_url: str, limit=200):
-    steps=0
-    pn = node.next_sibling
-    while pn and isinstance(pn,(Tag,NavigableString)) and steps<limit:
-        if isinstance(pn,Tag) and pn.name in ["h2","h3"]: break
-        if isinstance(pn,Tag):
-            for a in pn.find_all("a", href=True):
-                if is_button_like(a):
-                    return follow_url(a["href"], base_url)
-        pn = pn.next_sibling; steps+=1
-    return None
-
+# ---------------- helpers de varredura ----------------
 def first_table_after(h: Tag):
     pn = h.next_sibling
     while pn and isinstance(pn,(Tag,NavigableString)):
@@ -266,61 +204,100 @@ def first_table_after(h: Tag):
         pn = pn.next_sibling
     return None
 
-# -------------- coleta de blocos (WP-API / público) --------------
-def collect_blocks_from_wpapi(html_wp: str):
+def scan_for_button_from(node: Tag, base_url: str, limit=200):
+    steps, pn = 0, node.next_sibling
+    while pn and isinstance(pn,(Tag,NavigableString)) and steps < limit:
+        if isinstance(pn,Tag) and pn.name in ["h2","h3"]: break
+        if isinstance(pn,Tag):
+            for a in pn.find_all("a", href=True):
+                if is_button_like(a):
+                    return follow_url(a["href"], base_url)
+        pn = pn.next_sibling; steps += 1
+    return None
+
+def find_button_near_title(public_soup: BeautifulSoup, base_url: str, title: str):
+    tgt = nrm(title).lower()
+    cand = []
+    for h in public_soup.find_all(["h2","h3"]):
+        ht = nrm(text_of(h)).lower()
+        if ht == tgt or tgt in ht or ht in tgt:
+            cand.append(h)
+    for h in cand:
+        tbl = first_table_after(h)
+        # varre a partir do heading
+        btn = scan_for_button_from(h, base_url, 200)
+        if btn: return btn
+        # varre a partir da tabela (se houver)
+        if tbl:
+            btn = scan_for_button_from(tbl, base_url, 200)
+            if btn: return btn
+        # container pai
+        parent = h.find_parent(["section","div","article"])
+        if parent:
+            for a in parent.find_all("a", href=True):
+                if is_button_like(a):
+                    return follow_url(a["href"], base_url)
+    return None
+
+# ---------------- coleta blocos ----------------
+def collect_from_wpapi(html_wp: str):
     soup = BeautifulSoup(html_wp, "lxml")
-    results=[]
+    out=[]
     for h in soup.find_all(["h2","h3"]):
         titulo = nrm(text_of(h))
-        if not titulo: continue
+        if not titulo or should_skip_title(titulo):  # filtro novo
+            continue
         tbl = first_table_after(h)
         if not tbl: continue
         cols, rows = parse_html_table(tbl)
         if rows:
-            results.append({"titulo": titulo, "columns": cols, "rows": rows})
-    return results
+            out.append({"titulo": titulo, "columns": cols, "rows": rows})
+    return out
 
-def collect_blocks_from_public(public_soup: BeautifulSoup):
-    results=[]
+def collect_from_public(public_soup: BeautifulSoup):
+    out=[]
     for h in public_soup.find_all(["h2","h3"]):
         titulo = nrm(text_of(h))
-        if not titulo: continue
+        if not titulo or should_skip_title(titulo):  # filtro novo
+            continue
         tbl = first_table_after(h)
         if not tbl: continue
         cols, rows = parse_html_table(tbl)
         if rows:
-            results.append({"titulo": titulo, "columns": cols, "rows": rows})
-    return results
+            out.append({"titulo": titulo, "columns": cols, "rows": rows})
+    return out
 
-# -------------- main --------------
+def prefix_if_needed(parent: str, blocks: list):
+    out=[]
+    pl = nrm(parent).lower()
+    for b in blocks:
+        t = b.get("titulo") or parent
+        if pl and pl not in nrm(t).lower():
+            t = f"{parent} — {nrm(t)}"
+        out.append({"titulo": nrm(t), "columns": b["columns"], "rows": b["rows"]})
+    return out
+
+# ---------------- main ----------------
 def main():
     print(f"[SCRAPER] Iniciando scraping de concorrência 2026… (SCRIPT_VERSION={SCRIPT_VERSION})")
     ensure_dirs()
 
     html_wp = fetch_wp_content()
     public_soup, public_base = fetch_public_soup()
-    used_wp = html_wp is not None
 
-    if used_wp:
-        print("[SCRAPER] Usando blocos da WP-API.")
-        blocks = collect_blocks_from_wpapi(html_wp)
-    else:
-        print("[SCRAPER] WP-API indisponível — usando HTML público.")
-        blocks = collect_blocks_from_public(public_soup)
-
+    blocks = collect_from_wpapi(html_wp) if html_wp else collect_from_public(public_soup)
     print(f"[SCRAPER] Blocos iniciais: {len(blocks)}")
 
-    # para cada bloco, tenta achar botão no HTML público
     enriched=[]
     for b in blocks:
         titulo = b["titulo"]
         btn = find_button_near_title(public_soup, public_base, titulo)
         if btn:
-            print(f"[SCRAPER] '{titulo}': botão detectado no HTML público → {btn}")
+            print(f"[SCRAPER] '{titulo}': botão detectado → {btn}")
             deep = collect_from_detail_page(btn)
             if deep:
-                enriched.extend(prefix_title(titulo, deep))
-                continue  # substitui
+                enriched.extend(prefix_if_needed(titulo, deep))
+                continue
         enriched.append(b)
 
     print(f"[SCRAPER] Tabelas consolidadas (após follow-button): {len(enriched)}")
