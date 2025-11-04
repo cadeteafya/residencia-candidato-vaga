@@ -1,344 +1,255 @@
 # -*- coding: utf-8 -*-
 """
-Scraper — Concorrência 2026 (WP-API + HTML público; follow-button + filtros)
-Regras novas:
-  • Ignorar qualquer bloco cuja heading/título contenha "Estratégia MED".
-  • Home agrupa por instituição (lógica de agrupamento está no site).
+Scraper Concorrência 2026 — captura tabelas da página principal do Estratégia MED
+e, quando existir botão "ver completo", segue o link e extrai as tabelas de lá.
+Cada tabela recebe:
+- titulo: título específico da tabela (ex.: "HCPA — Acesso Direto")
+- card_title: TÍTULO-RAIZ da página principal (ex.: "HCPA")  << usado nos cards
+- columns, rows
+Também gera modelos Excel e o JSON final em output/.
 """
 
-import os, re, json, shutil
-from datetime import datetime
-from hashlib import md5
-from urllib.parse import urljoin
-
+import os
+import re
+import json
+import io
+import datetime as dt
+import requests
 import pandas as pd
-import pytz, requests
-from bs4 import BeautifulSoup, Tag, NavigableString
+from bs4 import BeautifulSoup
 
-SCRIPT_VERSION = "2025-11-04-mix-v4-skip-estrategia"
+SCRIPT_VERSION = "2025-11-04-card-title-root"
 
-FONTE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
-WP_API_BASE = "https://med.estrategia.com/portal/wp-json/wp/v2"
+# Fonte
+SOURCE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
+# Tentamos via WP REST primeiro (conteúdo completo sem bloqueios dinâmicos)
+WP_API_CANDIDATES = [
+    # páginas
+    "https://med.estrategia.com/wp-json/wp/v2/pages?search=concorrencia-residencia-medica&per_page=1&_fields=content.rendered,link,title",
+    # posts (fallback)
+    "https://med.estrategia.com/wp-json/wp/v2/posts?search=concorrencia-residencia-medica&per_page=1&_fields=content.rendered,link,title",
+]
 
-# paths
-SCRAPER_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR = os.path.dirname(SCRAPER_DIR)
-OUTPUT_DIR = os.path.join(REPO_DIR, "output")
-DATA_DIR = os.path.join(OUTPUT_DIR, "data")
-EXCEL_DIR = os.path.join(OUTPUT_DIR, "excel")
-SITE_DIR = os.path.join(REPO_DIR, "site")
+# Pastas de saída no repo
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT_DIR = os.path.join(ROOT_DIR, "output")
+DATA_DIR = os.path.join(OUT_DIR, "data")
+EXCEL_DIR = os.path.join(OUT_DIR, "excel")
+SITE_DIR = os.path.join(ROOT_DIR, "site")
 SITE_DATA_DIR = os.path.join(SITE_DIR, "data")
 SITE_DL_DIR = os.path.join(SITE_DIR, "downloads")
 
-JSON_NAME = "concorrencia_2026.json"
-XLSX_ALL = "concorrencia_2026.xlsx"
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(EXCEL_DIR, exist_ok=True)
+os.makedirs(SITE_DATA_DIR, exist_ok=True)
+os.makedirs(SITE_DL_DIR, exist_ok=True)
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Cache-Control": "no-cache",
-    "Pragma": "no-cache",
-    "Referer": FONTE_URL,
-}
+SEPARATOR = re.compile(r"\s+[—-]\s+")  # separadores " — " ou " - "
 
-# ---------------- utils ----------------
-def ensure_dirs():
-    os.makedirs(DATA_DIR, exist_ok=True)
-    os.makedirs(EXCEL_DIR, exist_ok=True)
-    if os.path.isdir(SITE_DIR):
-        os.makedirs(SITE_DATA_DIR, exist_ok=True)
-        os.makedirs(SITE_DL_DIR, exist_ok=True)
-
-def now_brt(): return datetime.now(pytz.timezone("America/Sao_Paulo"))
-
-def nrm(s: str) -> str:
-    s = (s or "").strip()
-    return re.sub(r"\s+", " ", s)
-
-def text_of(el: Tag) -> str:
-    if not el: return ""
-    return " ".join(el.get_text(" ", strip=True).split())
-
-def parse_html_table(tbl: Tag):
-    cols = []
-    thead = tbl.find("thead")
-    if thead:
-        cols = [text_of(th) for th in thead.find_all(["th","td"])]
-    rows = []
-    body = tbl.find("tbody") or tbl
-    trs = body.find_all("tr")
-    for i, tr in enumerate(trs):
-        cells = tr.find_all(["td","th"])
-        if not cells: continue
-        row = [text_of(td) for td in cells]
-        if not cols and i == 0:
-            cols = row; continue
-        rows.append(row)
-    if not cols and rows:
-        m = max(len(r) for r in rows)
-        cols = [f"Col{i+1}" for i in range(m)]
-    return cols, rows
-
-def is_button_like(a: Tag) -> bool:
-    if not a or a.name != "a" or not a.get("href"): return False
-    t = text_of(a).lower()
-    if re.search(r"(confira|ver|veja|acesse|consulte)", t): return True
-    k = " ".join(a.get("class", [])).lower()
-    if any(x in k for x in ["wp-block-button__link","btn","button"]): return True
-    if (a.get("role") or "").lower() == "button": return True
-    return False
-
-def follow_url(href: str, base: str) -> str:
-    try: return urljoin(base, href)
-    except Exception: return href
-
-def json_hash(data: dict) -> str:
-    return md5(json.dumps(data, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
-
-def write_json(path: str, payload: dict):
-    with open(path,"w",encoding="utf-8") as f:
-        json.dump(payload,f,ensure_ascii=False,indent=2)
-
-def generate_excel(blocks, xlsx_all_path, individuals_dir):
-    if not blocks:
-        with pd.ExcelWriter(xlsx_all_path, engine="openpyxl") as wr:
-            pd.DataFrame([{"mensagem":"Sem dados"}]).to_excel(wr,"Sem_dados",index=False)
-        return
-    with pd.ExcelWriter(xlsx_all_path, engine="openpyxl") as wr:
-        for b in blocks:
-            df = pd.DataFrame(b["rows"], columns=b["columns"])
-            sheet = re.sub(r'[:\\/*?\[\]]', ' ', b["titulo"])[:31] or "Tabela"
-            df.to_excel(wr, sheet_name=sheet, index=False)
-    for b in blocks:
-        df = pd.DataFrame(b["rows"], columns=b["columns"])
-        base = re.sub(r"[^\w\s-]", "_", b["titulo"]).strip() or "tabela"
-        name = (base[:40] or "tabela") + ".xlsx"
-        df.to_excel(os.path.join(individuals_dir, name), index=False)
-
-# ---------------- filtros ----------------
-def should_skip_title(title: str) -> bool:
-    # ignora qualquer heading/título promocional
-    return "estratégia med" in (title or "").lower()
-
-# ---------------- WP API ----------------
-def fetch_wp_content():
-    slug = "concorrencia-residencia-medica"
-    for endpoint in ("pages","posts"):
+def get_html_from_wp():
+    for url in WP_API_CANDIDATES:
         try:
-            url = f"{WP_API_BASE}/{endpoint}"
-            r = requests.get(url, headers=HEADERS,
-                params={"slug": slug, "_fields": "content.rendered,link,title.rendered", "per_page": 1}, timeout=60)
+            r = requests.get(url, timeout=30)
             if r.ok:
-                arr = r.json()
-                if isinstance(arr, list) and arr:
-                    c = arr[0].get("content", {}).get("rendered")
-                    if c:
-                        print(f"[SCRAPER] WP API: conteúdo encontrado em /{endpoint}.")
-                        return c
-        except Exception as e:
-            print(f"[SCRAPER] WP API /{endpoint} falhou:", e)
-    return None
-
-# ---------------- público ----------------
-def fetch_public_soup():
-    r = requests.get(FONTE_URL, headers=HEADERS, timeout=60)
+                data = r.json()
+                if isinstance(data, list) and data:
+                    html = data[0].get("content", {}).get("rendered", "")
+                    if html:
+                        return html
+        except Exception:
+            pass
+    # fallback direto à página
+    r = requests.get(SOURCE_URL, timeout=30)
     r.raise_for_status()
-    return BeautifulSoup(r.text, "lxml"), r.url
+    return r.text
 
-# ---------------- deep page ----------------
-def collect_from_detail_page(url: str):
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=60)
-        r.raise_for_status()
-        soup = BeautifulSoup(r.text, "lxml")
+def text_clean(s):
+    return re.sub(r"\s+", " ", (s or "").strip())
 
-        blocks = []
-        for h in soup.find_all(["h1","h2","h3"]):
-            titulo = nrm(text_of(h))
-            if should_skip_title(titulo):  # filtro novo
-                continue
-            # pega a primeira tabela depois do heading
-            pn, found, steps = h.next_sibling, None, 0
-            while pn and isinstance(pn,(Tag,NavigableString)) and steps < 300:
-                if isinstance(pn,Tag) and pn.name in ["h1","h2","h3"]: break
-                if isinstance(pn,Tag):
-                    if pn.name == "table": found = pn; break
-                    maybe = pn.find("table")
-                    if maybe: found = maybe; break
-                pn = pn.next_sibling; steps += 1
-            if found:
-                cols, rows = parse_html_table(found)
-                if rows:
-                    blocks.append({"titulo": titulo, "columns": cols, "rows": rows})
+def heading_text(el):
+    return text_clean(el.get_text(" ", strip=True))
 
-        if blocks:
-            print(f"[SCRAPER] Deep '{url}': {len(blocks)} tabela(s) via headings.")
-            return blocks
+def extract_tables_from_soup(soup):
+    """Retorna lista de dicts {title, table} percorrendo a página principal.
+    Regra pedida: o título-raiz é o heading imediatamente ANTES do parágrafo
+    descritivo e da primeira tabela correspondente.
+    """
+    blocks = []
 
-        # fallback: todas as tabelas
-        all_tbls = soup.find_all("table")
-        if all_tbls:
-            base_t = nrm(text_of(soup.find("h1"))) or "Tabela"
-            out=[]
-            for i,tb in enumerate(all_tbls,1):
-                cols, rows = parse_html_table(tb)
-                if rows:
-                    out.append({"titulo": f"{base_t} {i}", "columns": cols, "rows": rows})
-            if out:
-                print(f"[SCRAPER] Deep '{url}': {len(out)} tabela(s) sem headings.")
-                return out
-    except Exception as e:
-        print(f"[SCRAPER] Falha deep '{url}': {e}")
-    return []
-
-# ---------------- helpers de varredura ----------------
-def first_table_after(h: Tag):
-    pn = h.next_sibling
-    while pn and isinstance(pn,(Tag,NavigableString)):
-        if isinstance(pn,Tag) and pn.name in ["h2","h3"]: break
-        if isinstance(pn,Tag):
-            if pn.name=="table": return pn
-            maybe = pn.find("table")
-            if maybe: return maybe
-        pn = pn.next_sibling
-    return None
-
-def scan_for_button_from(node: Tag, base_url: str, limit=200):
-    steps, pn = 0, node.next_sibling
-    while pn and isinstance(pn,(Tag,NavigableString)) and steps < limit:
-        if isinstance(pn,Tag) and pn.name in ["h2","h3"]: break
-        if isinstance(pn,Tag):
-            for a in pn.find_all("a", href=True):
-                if is_button_like(a):
-                    return follow_url(a["href"], base_url)
-        pn = pn.next_sibling; steps += 1
-    return None
-
-def find_button_near_title(public_soup: BeautifulSoup, base_url: str, title: str):
-    tgt = nrm(title).lower()
-    cand = []
-    for h in public_soup.find_all(["h2","h3"]):
-        ht = nrm(text_of(h)).lower()
-        if ht == tgt or tgt in ht or ht in tgt:
-            cand.append(h)
-    for h in cand:
-        tbl = first_table_after(h)
-        # varre a partir do heading
-        btn = scan_for_button_from(h, base_url, 200)
-        if btn: return btn
-        # varre a partir da tabela (se houver)
-        if tbl:
-            btn = scan_for_button_from(tbl, base_url, 200)
-            if btn: return btn
-        # container pai
-        parent = h.find_parent(["section","div","article"])
-        if parent:
-            for a in parent.find_all("a", href=True):
-                if is_button_like(a):
-                    return follow_url(a["href"], base_url)
-    return None
-
-# ---------------- coleta blocos ----------------
-def collect_from_wpapi(html_wp: str):
-    soup = BeautifulSoup(html_wp, "lxml")
-    out=[]
-    for h in soup.find_all(["h2","h3"]):
-        titulo = nrm(text_of(h))
-        if not titulo or should_skip_title(titulo):  # filtro novo
+    # Estratégia: percorrer elementos, quando achar H2/H3 -> guardar como 'card_title';
+    # Em seguida, se vier um parágrafo descritivo e <table>, capturar tabela sob esse "card_title".
+    headings = soup.find_all(["h2", "h3"])
+    for h in headings:
+        card_title = heading_text(h)
+        if not card_title:
             continue
-        tbl = first_table_after(h)
-        if not tbl: continue
-        cols, rows = parse_html_table(tbl)
-        if rows:
-            out.append({"titulo": titulo, "columns": cols, "rows": rows})
-    return out
 
-def collect_from_public(public_soup: BeautifulSoup):
-    out=[]
-    for h in public_soup.find_all(["h2","h3"]):
-        titulo = nrm(text_of(h))
-        if not titulo or should_skip_title(titulo):  # filtro novo
-            continue
-        tbl = first_table_after(h)
-        if not tbl: continue
-        cols, rows = parse_html_table(tbl)
-        if rows:
-            out.append({"titulo": titulo, "columns": cols, "rows": rows})
-    return out
+        # Avança pelos irmãos até achar parágrafo e/ou tabela/botão
+        p_desc = None
+        link_btn = None
+        local_tables = []
 
-def prefix_if_needed(parent: str, blocks: list):
-    out=[]
-    pl = nrm(parent).lower()
-    for b in blocks:
-        t = b.get("titulo") or parent
-        if pl and pl not in nrm(t).lower():
-            t = f"{parent} — {nrm(t)}"
-        out.append({"titulo": nrm(t), "columns": b["columns"], "rows": b["rows"]})
-    return out
+        ptr = h.find_next_sibling()
+        while ptr and ptr.name not in ["h2", "h3"]:
+            if ptr.name in ["p", "div"]:
+                # procura botão "ver completo" dentro
+                maybe_link = ptr.find("a", href=True)
+                if not p_desc and ptr.name == "p":
+                    p_desc = ptr
+                if maybe_link and maybe_link.get_text(strip=True):
+                    link_btn = maybe_link["href"]
+            if ptr.name == "table":
+                local_tables.append(ptr)
+            ptr = ptr.find_next_sibling()
 
-# ---------------- main ----------------
-def main():
-    print(f"[SCRAPER] Iniciando scraping de concorrência 2026… (SCRIPT_VERSION={SCRIPT_VERSION})")
-    ensure_dirs()
+        # 1) Se houver tabelas locais, adiciona todas com card_title = heading atual
+        for tb in local_tables:
+            columns = [text_clean(th.get_text(" ", strip=True)) for th in tb.find_all("th")]
+            rows = []
+            for tr in tb.find_all("tr"):
+                tds = tr.find_all(["td"])
+                if not tds:
+                    continue
+                row = [text_clean(td.get_text(" ", strip=True)) for td in tds]
+                # ignora linha que é exatamente igual ao header
+                if columns and row and row == columns:
+                    continue
+                rows.append(row)
+            if not columns:
+                # tenta cabeçalho a partir da primeira linha
+                thead = tb.find("thead")
+                if thead:
+                    ths = thead.find_all("th")
+                    columns = [text_clean(t.get_text(" ", strip=True)) for t in ths]
 
-    html_wp = fetch_wp_content()
-    public_soup, public_base = fetch_public_soup()
+            titulo = card_title  # a tabela local tem como título o heading
+            if "estratégia med" in titulo.lower():
+                continue  # regra do cliente: não extrair publicidade
 
-    blocks = collect_from_wpapi(html_wp) if html_wp else collect_from_public(public_soup)
-    print(f"[SCRAPER] Blocos iniciais: {len(blocks)}")
+            blocks.append({
+                "titulo": titulo,
+                "card_title": card_title,
+                "columns": columns,
+                "rows": rows,
+            })
 
-    enriched=[]
-    for b in blocks:
-        titulo = b["titulo"]
-        btn = find_button_near_title(public_soup, public_base, titulo)
-        if btn:
-            print(f"[SCRAPER] '{titulo}': botão detectado → {btn}")
-            deep = collect_from_detail_page(btn)
-            if deep:
-                enriched.extend(prefix_if_needed(titulo, deep))
-                continue
-        enriched.append(b)
+        # 2) Se houver botão/link, seguir e extrair tabelas da página interna
+        if link_btn:
+            try:
+                r = requests.get(link_btn, timeout=30)
+                if r.ok:
+                    inner = BeautifulSoup(r.text, "html.parser")
+                    # pega todas as tabelas
+                    for tb in inner.find_all("table"):
+                        # título específico da tabela (procura heading antes dela)
+                        inner_title = card_title
+                        prev_h = tb.find_previous(["h2", "h3"])
+                        if prev_h:
+                            ttxt = heading_text(prev_h)
+                            # monta "card_title — subtítulo" (mas card_title permanece)
+                            # para título da tabela:
+                            if ttxt and ttxt != card_title:
+                                inner_title = f"{card_title} — {ttxt}"
 
-    print(f"[SCRAPER] Tabelas consolidadas (após follow-button): {len(enriched)}")
+                        columns = [text_clean(th.get_text(" ", strip=True)) for th in tb.find_all("th")]
+                        rows = []
+                        for tr in tb.find_all("tr"):
+                            tds = tr.find_all(["td"])
+                            if not tds:
+                                continue
+                            row = [text_clean(td.get_text(" ", strip=True)) for td in tds]
+                            if columns and row and row == columns:
+                                continue
+                            rows.append(row)
 
-    dt = now_brt()
+                        if "estratégia med" in (inner_title or "").lower():
+                            continue
+
+                        blocks.append({
+                            "titulo": inner_title or card_title,
+                            "card_title": card_title,   # << mantém o heading raiz para os CARDS
+                            "columns": columns,
+                            "rows": rows,
+                        })
+            except Exception:
+                pass
+
+    return blocks
+
+def save_json(blocks, dest_json):
+    now = dt.datetime.now(dt.timezone(dt.timedelta(hours=-3)))  # Brasília em -03
     payload = {
-        "fonte_url": FONTE_URL,
-        "updated_at_iso": dt.isoformat(),
-        "updated_at_br": dt.strftime("%d/%m/%Y %H:%M"),
-        "tabelas": enriched,
+        "source": SOURCE_URL,
+        "updated_at": now.isoformat(),
+        "updated_at_br": now.strftime("%d/%m/%Y %H:%M"),
+        "tabelas": blocks,
     }
+    with io.open(dest_json, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    json_path = os.path.join(DATA_DIR, JSON_NAME)
-    old_hash = None
-    if os.path.exists(json_path):
-        try:
-            with open(json_path,"r",encoding="utf-8") as f:
-                old_hash = json_hash(json.load(f))
-        except Exception: pass
-    new_hash = json_hash(payload)
+def filename_from_title(title):
+    base = re.sub(r"[^\w\s-]", "_", (title or "").strip()) or "tabela"
+    if len(base) > 40:
+        base = base[:40]
+    return f"{base}.xlsx"
 
-    write_json(json_path, payload)
-    print(f"[SCRAPER] JSON atualizado em: {json_path}")
-    if os.path.isdir(SITE_DIR):
-        write_json(os.path.join(SITE_DATA_DIR, JSON_NAME), payload)
-        print("[SCRAPER] JSON copiado para site/.")
+def generate_excel_files(blocks, consolidated_path, per_table_dir):
+    # Consolidado
+    with pd.ExcelWriter(consolidated_path, engine="openpyxl") as writer:
+        for i, blk in enumerate(blocks, start=1):
+            name = re.sub(r"[\\/*?:\[\]]", "_", blk.get("titulo") or f"Tabela {i}")
+            name = (name[:28] + "…") if len(name) > 31 else name  # Excel sheet name max 31
+            df = pd.DataFrame(blk.get("rows") or [])
+            if blk.get("columns"):
+                df.columns = blk["columns"]
+            if df.empty:
+                df = pd.DataFrame({"(sem dados)": []})
+            df.to_excel(writer, sheet_name=name or f"Tab{i}", index=False)
 
-    xlsx_all = os.path.join(EXCEL_DIR, XLSX_ALL)
-    if old_hash != new_hash:
-        generate_excel(enriched, xlsx_all, EXCEL_DIR)
-        print(f"[SCRAPER] Modelos Excel gerados em: {EXCEL_DIR}")
-        if os.path.isdir(SITE_DIR):
-            shutil.copy2(xlsx_all, os.path.join(SITE_DL_DIR, XLSX_ALL))
-            for f in os.listdir(EXCEL_DIR):
-                if f.lower().endswith(".xlsx"):
-                    shutil.copy2(os.path.join(EXCEL_DIR, f), os.path.join(SITE_DL_DIR, f))
-            print("[SCRAPER] Modelos copiados para site/downloads.")
-    else:
-        print("[SCRAPER] Sem alterações — mantendo modelos atuais.")
+    # Por tabela (modelos)
+    for i, blk in enumerate(blocks, start=1):
+        df = pd.DataFrame(blk.get("rows") or [])
+        if blk.get("columns"):
+            df.columns = blk["columns"]
+        if df.empty:
+            df = pd.DataFrame({"(sem dados)": []})
+        fname = filename_from_title(blk.get("titulo"))
+        dest = os.path.join(per_table_dir, fname)
+        with pd.ExcelWriter(dest, engine="openpyxl") as w:
+            df.to_excel(w, sheet_name="Modelo", index=False)
 
-    print("[SCRAPER] Concluído com sucesso.")
+def main():
+    print(f"[SCRAPER] Iniciando… (SCRIPT_VERSION={SCRIPT_VERSION})")
+    html = get_html_from_wp()
+    soup = BeautifulSoup(html, "html.parser")
+
+    blocks = extract_tables_from_soup(soup)
+    print(f"[SCRAPER] Tabelas capturadas: {len(blocks)}")
+
+    # Salva JSON
+    dest_json = os.path.join(DATA_DIR, "concorrencia_2026.json")
+    save_json(blocks, dest_json)
+    print(f"[SCRAPER] JSON: {dest_json}")
+
+    # Copia para site/data
+    site_json = os.path.join(SITE_DATA_DIR, "concorrencia_2026.json")
+    os.replace(dest_json, site_json)
+    print(f"[SCRAPER] JSON copiado para site/: {site_json}")
+
+    # Excel
+    consolidated = os.path.join(EXCEL_DIR, "concorrencia_2026.xlsx")
+    generate_excel_files(blocks, consolidated, EXCEL_DIR)
+    print(f"[SCRAPER] Modelos Excel em: {EXCEL_DIR}")
+
+    # Copia excel p/ downloads (todos + individuais)
+    # (move o consolidado)
+    os.replace(consolidated, os.path.join(SITE_DL_DIR, "concorrencia_2026.xlsx"))
+    for fname in os.listdir(EXCEL_DIR):
+        if fname.lower().endswith(".xlsx"):
+            src = os.path.join(EXCEL_DIR, fname)
+            dst = os.path.join(SITE_DL_DIR, fname)
+            os.replace(src, dst)
+    print("[SCRAPER] Downloads atualizados.")
 
 if __name__ == "__main__":
     main()
