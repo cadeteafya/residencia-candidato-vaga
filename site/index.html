@@ -64,9 +64,6 @@
       const $countHint = document.getElementById("countHint");
       const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
 
-      // separadores aceitos no título-raiz
-      const emdash = /\s+—\s+|\s+-\s+/;
-
       function repoBasePath() {
         const parts = location.pathname.split("/");
         return "/" + (parts[1] || "");
@@ -86,23 +83,17 @@
           .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em alguns instantes."));
       }
 
-      // >>>> AQUI: título-raiz exatamente como na página principal
-      function rootTitleFrom(b){
-        const t = (b.titulo || "").trim();
-        const parts = t.split(emdash);
-        return (parts[0] || t).trim();  // sempre o trecho ANTES do texto/descrição
-      }
-
-      // Agrupa por este título-raiz (um card por heading original)
-      function groupByRootTitle(blocks) {
+      // Agrupa por card_title (título-raiz da página principal)
+      function groupByCardTitle(blocks) {
         const map = new Map();
         for (const b of blocks) {
-          const root = rootTitleFrom(b);
-          const slug = slugify(root);
-          if (!map.has(root)) {
-            map.set(root, { root, slug, name: root, tables: [], rows: 0, cols: 0 });
+          const name = (b.card_title || "").trim() || (b.titulo || "").split(/\s+[—-]\s+/)[0].trim();
+          const key = name;
+          const slug = slugify(name);
+          if (!map.has(key)) {
+            map.set(key, { key, slug, name, tables: [], rows: 0, cols: 0 });
           }
-          const g = map.get(root);
+          const g = map.get(key);
           g.tables.push(b);
           g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
           g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
@@ -141,7 +132,6 @@
             $grid.insertAdjacentHTML("beforeend", card);
           });
 
-          // bind "Extrair" dos cards (baixa o consolidado)
           $grid.querySelectorAll(".js-extract").forEach(a=>{
             a.addEventListener("click",(ev)=>{
               ev.preventDefault();
@@ -162,7 +152,7 @@
           if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
 
           const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
-          const groups = groupByRootTitle(blocks);
+          const groups = groupByCardTitle(blocks);
 
           renderList(groups);
 
