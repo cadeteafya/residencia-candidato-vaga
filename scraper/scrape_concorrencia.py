@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Scraper — Concorrência para Residência Médica 2026
-Fonte: med.estrategia.com (WordPress)
-Estratégia: tentar primeiro o WordPress REST API (content.rendered). Se falhar, cair para o HTML público.
-Gera JSON + modelos Excel (consolidado e individuais). Blindado para o caso de 0 tabelas.
+Scraper — Concorrência para Residência Médica 2026 (follow button)
+Fonte: med.estrategia.com
+Estratégia:
+  1) Prioriza o conteúdo renderizado via WordPress REST API (content.rendered).
+  2) Fallback: HTML público.
+  3) Para cada (H2/H3 + tabela):
+      - Procura "botão" imediatamente depois da tabela (mesma seção, antes do próximo H2/H3).
+      - Se existir, acessa o link e extrai TODAS as tabelas da página de destino (com seus títulos).
+      - Se não existir, usa a própria tabela.
+  4) Gera JSON + modelos Excel (consolidado e individuais).
 """
 
 import os
@@ -12,14 +18,15 @@ import re
 from datetime import datetime
 import pytz
 import requests
+from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup, NavigableString, Tag
 import pandas as pd
 from hashlib import md5
 import shutil
 
-SCRIPT_VERSION = "2025-10-29-wpapi"
+SCRIPT_VERSION = "2025-11-04-follow-btn"
 
-# URL pública (fallback)
+# URL pública
 FONTE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
 
 # Base do REST API do WP (área /portal/)
@@ -27,10 +34,11 @@ WP_API_BASE = "https://med.estrategia.com/portal/wp-json/wp/v2"
 
 # === Caminhos ===
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /scraper
-OUTPUT_DIR = os.path.join(ROOT_DIR, "output")
+REPO_ROOT = os.path.dirname(ROOT_DIR)  # raiz do repositório
+OUTPUT_DIR = os.path.join(REPO_ROOT, "output")
 DATA_DIR = os.path.join(OUTPUT_DIR, "data")
 EXCEL_DIR = os.path.join(OUTPUT_DIR, "excel")
-SITE_DIR = os.path.join(os.path.dirname(ROOT_DIR), "site")
+SITE_DIR = os.path.join(REPO_ROOT, "site")
 SITE_DATA_DIR = os.path.join(SITE_DIR, "data")
 SITE_DOWNLOADS_DIR = os.path.join(SITE_DIR, "downloads")
 
@@ -92,42 +100,28 @@ def parse_html_table(table_tag: Tag):
 
     return columns, rows
 
-def find_blocks(soup: BeautifulSoup):
+def is_button_like(a: Tag) -> bool:
     """
-    Encontra blocos no padrão:
-    - heading (h2/h3)
-    - primeira <table> subsequente antes do próximo heading
+    Heurística para identificar "botão" após a tabela que leva ao conteúdo completo.
     """
-    results = []
+    if a is None or a.name != "a":
+        return False
+    txt = text_of(a).lower()
+    if re.search(r"(confira|ver|veja|acesse|consulte)", txt):
+        return True
+    cl = " ".join(a.get("class", [])).lower()
+    if any(k in cl for k in ["btn", "button", "wp-block-button__link"]):
+        return True
+    # role/button
+    if (a.get("role") or "").lower() == "button":
+        return True
+    return False
 
-    # não restringe a um container específico — o content.rendered já é "limpo"
-    headings = soup.find_all(["h2", "h3"])
-    for h in headings:
-        titulo = sanitize_title(text_of(h))
-        if not titulo:
-            continue
-
-        pn = h.next_sibling
-        found_table = None
-        while pn and isinstance(pn, (Tag, NavigableString)):
-            if isinstance(pn, Tag) and pn.name in ["h2", "h3"]:
-                break
-            if isinstance(pn, Tag):
-                if pn.name == "table":
-                    found_table = pn
-                    break
-                maybe = pn.find("table")
-                if maybe:
-                    found_table = maybe
-                    break
-            pn = pn.next_sibling
-
-        if found_table:
-            cols, rows = parse_html_table(found_table)
-            if rows:
-                results.append({"titulo": titulo, "columns": cols, "rows": rows})
-
-    return results
+def resolve_url(href: str, base_url: str) -> str:
+    try:
+        return urljoin(base_url, href)
+    except Exception:
+        return href
 
 def ensure_dirs():
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -172,7 +166,7 @@ def fetch_wp_content():
     Tenta recuperar o HTML renderizado via WP REST API:
     1) /pages?slug=concorrencia-residencia-medica
     2) /posts?slug=concorrencia-residencia-medica
-    3) /search?search=concorrencia-residencia-medica (resolve id e busca no endpoint certo)
+    3) /search?subtype=page,post
     Retorna string HTML (content.rendered) ou None.
     """
     slug = "concorrencia-residencia-medica"
@@ -207,7 +201,7 @@ def fetch_wp_content():
     except Exception as e:
         print(f"[SCRAPER] WP API /posts falhou: {e}")
 
-    # 3) search (page/post)
+    # 3) search
     try:
         url = f"{WP_API_BASE}/search"
         params = {"search": slug, "subtype": "page,post", "per_page": 1}
@@ -234,6 +228,141 @@ def fetch_wp_content():
 
     return None
 
+# ---------- Parse de tabelas (página principal e páginas detalhadas) ----------
+def collect_blocks_from_soup(soup: BeautifulSoup, base_url: str):
+    """
+    Retorna lista de dicts:
+      - se NÃO houver botão após a tabela: {"titulo", "columns", "rows"}
+      - se HOUVER botão: coleta tabelas da página destino e retorna os blocos detalhados.
+    """
+    results = []
+    headings = soup.find_all(["h2", "h3"])
+    for h in headings:
+        titulo = sanitize_title(text_of(h))
+        if not titulo:
+            continue
+
+        # caminha nos irmãos até próxima heading
+        pn = h.next_sibling
+        found_table = None
+        button_link = None
+
+        while pn and isinstance(pn, (Tag, NavigableString)):
+            if isinstance(pn, Tag) and pn.name in ["h2", "h3"]:
+                break
+            if isinstance(pn, Tag):
+                # tabela
+                if pn.name == "table":
+                    found_table = pn
+                else:
+                    maybe = pn.find("table")
+                    if maybe and not found_table:
+                        found_table = maybe
+                # botão
+                for a in pn.find_all("a", href=True):
+                    if is_button_like(a):
+                        button_link = resolve_url(a["href"], base_url)
+                        break
+            if button_link:
+                # não precisamos varrer mais
+                pass
+            pn = pn.next_sibling
+
+        if found_table is None:
+            continue
+
+        if button_link:
+            print(f"[SCRAPER] '{titulo}': botão detectado → seguindo link: {button_link}")
+            deep_blocks = collect_from_detail_page(button_link)
+            # se nada veio do deep, usa a tabela resumida como fallback
+            if deep_blocks:
+                results.extend(prefix_titles_if_needed(titulo, deep_blocks))
+                continue
+
+        # sem botão (ou deep vazio) → usa a própria tabela
+        cols, rows = parse_html_table(found_table)
+        if rows:
+            results.append({"titulo": titulo, "columns": cols, "rows": rows})
+
+    return results
+
+def prefix_titles_if_needed(parent_title: str, blocks: list):
+    """
+    Em algumas páginas detalhadas o título das tabelas já é autoexplicativo.
+    Se o título do bloco já contém o nome da instituição, mantém.
+    Senão, prefixa como 'INSTITUIÇÃO — Subtítulo'.
+    """
+    out = []
+    pt = (parent_title or "").lower()
+    for b in blocks:
+        t = b.get("titulo") or parent_title
+        if pt and pt not in (t or "").lower():
+            t = f"{parent_title} — {t}"
+        out.append({"titulo": sanitize_title(t), "columns": b["columns"], "rows": b["rows"]})
+    return out
+
+def collect_from_detail_page(url: str):
+    """
+    Abre a página detalhada e extrai todas as (H2/H3 + tabela).
+    Se não houver headings, tenta todas as <table> e usa o <h1> como título base.
+    """
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=60)
+        r.raise_for_status()
+        soup = BeautifulSoup(r.text, "lxml")
+
+        # tentativa 1: headings + tabela
+        blocks = []
+        headings = soup.find_all(["h1", "h2", "h3"])
+        for h in headings:
+            titulo = sanitize_title(text_of(h))
+            pn = h.next_sibling
+            found = None
+            while pn and isinstance(pn, (Tag, NavigableString)):
+                if isinstance(pn, Tag) and pn.name in ["h1", "h2", "h3"]:
+                    break
+                if isinstance(pn, Tag):
+                    if pn.name == "table":
+                        found = pn
+                        break
+                    maybe = pn.find("table")
+                    if maybe:
+                        found = maybe
+                        break
+                pn = pn.next_sibling
+
+            if found:
+                cols, rows = parse_html_table(found)
+                if rows:
+                    blocks.append({"titulo": titulo, "columns": cols, "rows": rows})
+
+        if blocks:
+            print(f"[SCRAPER] Deep page '{url}': {len(blocks)} tabela(s) via headings.")
+            return blocks
+
+        # tentativa 2: nenhuma heading → pega todas as tabelas
+        all_tables = soup.find_all("table")
+        if all_tables:
+            base_title = None
+            h1 = soup.find("h1")
+            if h1:
+                base_title = sanitize_title(text_of(h1))
+            tmp = []
+            for i, tb in enumerate(all_tables, start=1):
+                cols, rows = parse_html_table(tb)
+                if not rows:
+                    continue
+                t = f"{base_title or 'Tabela'} {i}"
+                tmp.append({"titulo": t, "columns": cols, "rows": rows})
+            if tmp:
+                print(f"[SCRAPER] Deep page '{url}': {len(tmp)} tabela(s) sem headings.")
+                return tmp
+
+    except Exception as e:
+        print(f"[SCRAPER] Falha ao coletar deep page '{url}': {e}")
+
+    return []
+
 # ---------- Main ----------
 def main():
     print(f"[SCRAPER] Iniciando scraping de concorrência 2026… (SCRIPT_VERSION={SCRIPT_VERSION})")
@@ -246,14 +375,16 @@ def main():
         used_wpapi = True
         print("[SCRAPER] Usando conteúdo do WordPress REST API.")
         soup = BeautifulSoup(html, "lxml")
+        base_url = FONTE_URL
     else:
         print("[SCRAPER] WP API não retornou conteúdo — usando HTML público.")
         resp = requests.get(FONTE_URL, headers=HEADERS, timeout=60)
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "lxml")
+        base_url = resp.url
 
-    blocks = find_blocks(soup)
-    print(f"[SCRAPER] Tabelas encontradas: {len(blocks)} (via {'WP-API' if used_wpapi else 'HTML'})")
+    blocks = collect_blocks_from_soup(soup, base_url)
+    print(f"[SCRAPER] Tabelas consolidadas (após follow-button): {len(blocks)}")
 
     dt = now_brt()
     payload = {
@@ -280,10 +411,13 @@ def main():
         write_json(payload, os.path.join(SITE_DATA_DIR, JSON_FILENAME))
         print(f"[SCRAPER] JSON copiado para o site: {os.path.join(SITE_DATA_DIR, JSON_FILENAME)}")
 
-    # Se não há tabelas, publica um consolidado "Sem_dados" e encerra
     consolidated_excel = os.path.join(EXCEL_DIR, XLSX_FILENAME)
+
     if len(blocks) == 0:
-        generate_excel_files([], consolidated_excel, EXCEL_DIR)  # cria Sem_dados
+        with pd.ExcelWriter(consolidated_excel, engine="openpyxl") as writer:
+            df = pd.DataFrame([{"mensagem": "Sem dados no momento"}])
+            df.to_excel(writer, sheet_name="Sem_dados", index=False)
+
         if os.path.isdir(SITE_DIR):
             os.makedirs(SITE_DOWNLOADS_DIR, exist_ok=True)
             shutil.copy2(consolidated_excel, os.path.join(SITE_DOWNLOADS_DIR, XLSX_FILENAME))
