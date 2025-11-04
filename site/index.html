@@ -23,7 +23,7 @@
     .muted { color: var(--muted) }
     .empty { margin: 32px 0; color: var(--muted) }
     .container { max-width: 980px; margin: 28px auto 60px; padding: 0 16px }
-    a.btn, a.link { text-decoration: none }
+    a.btn { text-decoration: none }
   </style>
   <script>
     window.CONCORRENCIA_CONFIG = {
@@ -64,6 +64,7 @@
       const $countHint = document.getElementById("countHint");
       const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
 
+      // separadores aceitos no título-raiz
       const emdash = /\s+—\s+|\s+-\s+/;
 
       function repoBasePath() {
@@ -79,56 +80,29 @@
           .replace(/[^\w\s-]/g, "")
           .trim().replace(/\s+/g, "-").toLowerCase();
       }
-      function cleanYears(s){
-        return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim();
-      }
-      function looksLikeAcronym(s){
-        const t = (s||"").trim();
-        // Pega siglas tipo ICC, UERJ, PUC-PR (maiúsculas, até ~12 chars)
-        return !!t && /^[A-Z0-9\-]{2,12}$/.test(t);
-      }
-      // ===== regra final do nome da instituição (cartão) =====
-      function institutionFromTitle(title){
-        let t = (title || "").trim();
-
-        // 1) títulos que começam com "Concorrência/Programas/Prova" → último trecho
-        if (/^(concorr[eê]ncia|programas|prova)/i.test(t)) {
-          const parts = t.split(emdash);
-          const last = parts.length > 1 ? parts[parts.length-1].trim() : t.replace(/^(concorr[eê]ncia|programas|prova)\s*/i, "");
-          return cleanYears(last || t);
-        }
-
-        // 2) se houver "—": preferir sigla no último trecho; senão, primeiro trecho
-        if (emdash.test(t)) {
-          const parts = t.split(emdash).map(s => s.trim()).filter(Boolean);
-          const first = parts[0] || "";
-          const last  = parts[parts.length-1] || "";
-          if (looksLikeAcronym(last)) return cleanYears(last);
-          return cleanYears(first || last || t);
-        }
-
-        // 3) fallback: remove prefixos “Concorrência …” e anos
-        t = t.replace(/^concorr[eê]ncia\s+/i, "");
-        return cleanYears(t);
-      }
-
       function ensureAndDownload(url) {
         return fetch(url, { method: "HEAD", cache: "no-store" })
           .then(resp => { if (!resp.ok) throw 0; window.location.href = url; })
           .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em alguns instantes."));
       }
 
-      // Agrupa por instituição (chave gerada pela função acima)
-      function groupByInstitution(blocks) {
+      // >>>> AQUI: título-raiz exatamente como na página principal
+      function rootTitleFrom(b){
+        const t = (b.titulo || "").trim();
+        const parts = t.split(emdash);
+        return (parts[0] || t).trim();  // sempre o trecho ANTES do texto/descrição
+      }
+
+      // Agrupa por este título-raiz (um card por heading original)
+      function groupByRootTitle(blocks) {
         const map = new Map();
         for (const b of blocks) {
-          const name = institutionFromTitle(b.titulo || "Instituição");
-          const key = name; // chave = nome “limpo”
-          const slug = slugify(name);
-          if (!map.has(key)) {
-            map.set(key, { key, slug, name, tables: [], rows: 0, cols: 0 });
+          const root = rootTitleFrom(b);
+          const slug = slugify(root);
+          if (!map.has(root)) {
+            map.set(root, { root, slug, name: root, tables: [], rows: 0, cols: 0 });
           }
-          const g = map.get(key);
+          const g = map.get(root);
           g.tables.push(b);
           g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
           g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
@@ -167,7 +141,7 @@
             $grid.insertAdjacentHTML("beforeend", card);
           });
 
-          // bind dos botões "Extrair" dos cards (baixa o consolidado)
+          // bind "Extrair" dos cards (baixa o consolidado)
           $grid.querySelectorAll(".js-extract").forEach(a=>{
             a.addEventListener("click",(ev)=>{
               ev.preventDefault();
@@ -188,7 +162,7 @@
           if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
 
           const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
-          const groups = groupByInstitution(blocks);
+          const groups = groupByRootTitle(blocks);
 
           renderList(groups);
 
