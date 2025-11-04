@@ -40,6 +40,23 @@
   </div>
 
   <script>
+
+    const emdash = /\s+—\s+|\s+-\s+/;
+    
+    function cleanYears(s){
+      return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim();
+    }
+    function instFromTitle(title){
+      const parts = (title||"").split(emdash);
+      let base = (parts[0]||"").trim();
+      // se começar com "Concorrência", "Programas", "Prova", usa o último trecho
+      if (/^(concorr[eê]ncia|programas|prova)/i.test(base) && parts.length>1){
+        base = parts[parts.length-1].trim();
+      }
+      return cleanYears(base) || (title||"").trim();
+    }
+
+    
   (() => {
     const JSON_REL = "data/concorrencia_2026.json";
     const DOWNLOADS_PATH = "downloads/";
@@ -74,19 +91,22 @@
       base = cleanYears(base);
       return base || (title||"").trim();
     }
-    function groupByInstitution(blocks){
-      const map=new Map();
-      for(const b of blocks){
-        const name=instFromTitle(b.titulo||"Instituição");
-        const slug=slugify(name);
-        if(!map.has(slug)) map.set(slug,{slug,name,tables:[],rows:0,cols:0});
-        const g=map.get(slug);
+    function groupByInstitution(blocks) {
+      const map = new Map();
+      for (const b of blocks) {
+        const key = instFromTitle(b.titulo || "Instituição");   // << aqui
+        const slug = slugify(key);
+        if (!map.has(key)) {
+          map.set(key, { key, slug, name: key, tables: [], rows: 0, cols: 0 });
+        }
+        const g = map.get(key);
         g.tables.push(b);
-        g.rows += Array.isArray(b.rows)? b.rows.length:0;
-        g.cols = Math.max(g.cols, Array.isArray(b.columns)? b.columns.length:0);
+        g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
+        g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
       }
-      return Array.from(map.values()).sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+      return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
     }
+
     function render(groups,q=""){
       const term=q.trim().toLowerCase();
       const list=term? groups.filter(g=>(g.name||"").toLowerCase().includes(term)) : groups;
@@ -139,3 +159,4 @@
   </script>
 </body>
 </html>
+
