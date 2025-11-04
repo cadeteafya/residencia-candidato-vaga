@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-11-04T12:30:17.639493-03:00",
-  "updated_at_br": "04/11/2025 12:30",
+  "updated_at_iso": "2025-11-04T14:22:55.043537-03:00",
+  "updated_at_br": "04/11/2025 14:22",
   "tabelas": [
     {
       "titulo": "Concorrência AMP 2025/2026",
@@ -7632,21 +7632,6 @@
           "1",
           "19",
           "19"
-        ]
-      ]
-    },
-    {
-      "titulo": "Instituto do Câncer do Ceará – ICC — Prepare-se para o ICC 2026 com o Estratégia MED",
-      "columns": [
-        "DATA",
-        "HORÁRIO",
-        "EVENTO"
-      ],
-      "rows": [
-        [
-          "13/10/2025",
-          "19h",
-          "Gabarito ICC 2026"
         ]
       ]
     },
