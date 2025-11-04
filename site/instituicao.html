@@ -6,7 +6,6 @@
   <title>Instituição • Concorrência 2026</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    /* ajustes leves só desta página */
     .container { max-width: 980px; margin: 26px auto 60px; padding: 0 16px }
     .page-header { padding: 22px 18px; border-radius: 12px; background: var(--card); }
     .page-header h1 { margin: 0 0 4px; font-size: 1.6rem }
@@ -37,11 +36,13 @@
     <header class="page-header">
       <div class="row">
         <a href="./" class="btn alt" aria-label="Voltar para a página inicial">← Voltar</a>
+        <a id="btnExtrairTodos" class="btn ghost" href="#" role="button">Extrair todos</a>
       </div>
       <h1 id="titulo">Instituição</h1>
       <div class="subtle">Atualizado em: <span id="updatedAt">—</span></div>
       <div class="row">
         <a id="btnExtrair" class="btn" href="#" role="button">Extrair esta tabela</a>
+        <a id="linkFonte" class="btn alt" target="_blank" rel="noopener">Ver fonte</a>
       </div>
     </header>
 
@@ -49,15 +50,12 @@
       <div class="empty">Carregando…</div>
     </section>
 
-    <p class="muted" style="margin-top: 22px;">
-      Em construção
-    </p>
   </div>
 
   <script>
     (function () {
       const cfg = window.CONCORRENCIA_CONFIG || {};
-      const JSON_PATH = cfg.jsonPath || "data/concorrencia_2026.json";
+      const JSON_REL = cfg.jsonPath || "data/concorrencia_2026.json";
       const DOWNLOADS_PATH = cfg.downloadsPath || "downloads/";
       const ALL_XLSX_NAME = cfg.allExcelFilename || "concorrencia_2026.xlsx";
 
@@ -68,6 +66,13 @@
       const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
       const $linkFonte = document.getElementById("linkFonte");
 
+      function repoBasePath() {
+        const parts = location.pathname.split("/");
+        return "/" + (parts[1] || "");
+      }
+      function jsonURL() {
+        return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`;
+      }
       function q(key) {
         const p = new URLSearchParams(location.search);
         return p.get(key) || "";
@@ -90,17 +95,14 @@
       }
       function findBlock(blocks, tituloParam, slugParam) {
         if (!Array.isArray(blocks)) return null;
-        // 1) match por título exato (query param t)
         if (tituloParam) {
           const byTitle = blocks.find(b => (b.titulo || "") === tituloParam);
           if (byTitle) return byTitle;
         }
-        // 2) match por slug (query param s)
         if (slugParam) {
           const bySlug = blocks.find(b => slugify(b.titulo || "") === slugParam);
           if (bySlug) return bySlug;
         }
-        // 3) fallback: contém (case-insensitive)
         if (tituloParam) {
           const t = tituloParam.toLowerCase();
           const byContains = blocks.find(b => (b.titulo || "").toLowerCase().includes(t));
@@ -131,10 +133,8 @@
         `;
         $conteudo.innerHTML = tableHtml;
 
-        // botão de download individual
         const filename = sanitizeFileNameFromTitle(b.titulo || "tabela");
         $btnExtrair.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${filename}`);
-        // botão baixar todos
         $btnExtrairTodos.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
       }
 
@@ -143,9 +143,12 @@
         const slugParam = q("s");
 
         try {
-          const resp = await fetch(JSON_PATH, { cache: "no-store" });
+          const resp = await fetch(jsonURL(), { cache: "no-store" });
           if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
-          const payload = await resp.json();
+          const text = await resp.text();
+          let payload;
+          try { payload = JSON.parse(text); }
+          catch (e) { console.error("Parse JSON falhou:", e, text.slice(0, 2000)); throw e; }
 
           const updatedText = payload.updated_at_br || "—";
           const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
@@ -159,7 +162,7 @@
           }
           renderBlock(bloco, updatedText);
         } catch (err) {
-          console.error(err);
+          console.error("[INSTITUIÇÃO] Erro ao carregar os dados:", err);
           $conteudo.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
         }
       }
