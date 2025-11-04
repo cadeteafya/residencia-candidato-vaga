@@ -6,43 +6,29 @@
   <title>Concorrência para Residência Médica 2026</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    .page-header { padding: 28px 24px; border-radius: 12px; background: var(--card); }
-    .page-header h1 { margin: 0 0 6px }
-    .subtle { color: var(--muted); font-size: 0.92rem }
-    .actions { margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap }
-    .btn { padding: 10px 14px; border-radius: 10px; background: var(--primary); color: #fff; border: 0; cursor: pointer }
-    .btn.alt { background: transparent; color: var(--text); border: 1px solid var(--border) }
-    .toolbar { margin: 22px 0 10px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center }
-    .search { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; color: var(--text) }
-    .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px }
-    .card h3 { margin: 0; font-size: 1.05rem }
-    .pill { display: inline-block; font-size: .82rem; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.04); border:1px solid var(--border); color: var(--muted) }
-    .card .meta { display: flex; gap: 8px; flex-wrap: wrap }
-    .card .foot { display: flex; gap: 8px; margin-top: 6px }
+    :root { --g: 14px }
+    .container { max-width: 980px; margin: 26px auto 60px; padding: 0 16px }
+    .hdr { display: grid; gap: 6px; margin-bottom: 18px }
+    .hdr h1 { margin: 0; font-size: 1.9rem }
     .muted { color: var(--muted) }
-    .empty { margin: 32px 0; color: var(--muted) }
-    .container { max-width: 980px; margin: 28px auto 60px; padding: 0 16px }
-    a.btn, a.link { text-decoration: none }
+    .toolbar { display: grid; grid-template-columns: 1fr auto; gap: 12px; margin: 14px 0 10px }
+    .search { background: var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px; color:var(--text) }
+    .grid { display: grid; gap: var(--g); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: grid; gap: 10px }
+    .card h3 { margin: 0; font-size: 1.1rem }
+    .pill { display: inline-block; font-size: .82rem; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.04); border:1px solid var(--border); color: var(--muted) }
+    .meta { display:flex; gap:8px; flex-wrap:wrap }
+    .foot { display:flex; gap:8px; }
+    .btn { padding:10px 14px; border-radius:10px; background:var(--primary); color:#fff; border:0; cursor:pointer; text-decoration:none }
+    .btn.alt { background:transparent; color:var(--text); border:1px solid var(--border) }
+    .empty { color: var(--muted); }
   </style>
-  <script>
-    window.CONCORRENCIA_CONFIG = {
-      jsonPath: "data/concorrencia_2026.json",
-      downloadsPath: "downloads/",
-      allExcelFilename: "concorrencia_2026.xlsx",
-      fonteUrl: "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
-    };
-  </script>
 </head>
 <body>
   <div class="container">
-    <header class="page-header">
+    <header class="hdr">
       <h1>Concorrência para Residência Médica 2026</h1>
-      <div class="subtle">Atualizado em: <span id="updatedAt">—</span></div>
-      <div class="actions">
-        <button id="btnExtrairTodos" class="btn" type="button">Extrair todos</button>
-        <a id="linkFonte" class="btn alt" target="_blank" rel="noopener">Ver fonte</a>
-      </div>
+      <div class="muted">Atualizado em: <span id="updatedAt">—</span></div>
     </header>
 
     <div class="toolbar">
@@ -51,131 +37,105 @@
     </div>
 
     <section id="grid" class="grid" aria-label="Lista de instituições"></section>
-
-    <p class="muted" style="margin-top: 22px;">
-      Dados consolidados automaticamente a partir do Estratégia MED.
-      Dúvidas? <a class="link" href="mailto:ricardo.cadete@afya.com.br">ricardo.cadete@afya.com.br</a>
-    </p>
   </div>
 
   <script>
-    (function () {
-      const cfg = window.CONCORRENCIA_CONFIG || {};
-      const JSON_REL = cfg.jsonPath || "data/concorrencia_2026.json";
-      const DOWNLOADS_PATH = cfg.downloadsPath || "downloads/";
-      const ALL_XLSX_NAME = cfg.allExcelFilename || "concorrencia_2026.xlsx";
+  (() => {
+    const JSON_REL = "data/concorrencia_2026.json";
+    const DOWNLOADS_PATH = "downloads/";
+    const ALL_XLSX_NAME = "concorrencia_2026.xlsx";
+    const emdash = /\s+—\s+|\s+-\s+/;
 
-      const $updatedAt = document.getElementById("updatedAt");
-      const $grid = document.getElementById("grid");
-      const $busca = document.getElementById("busca");
-      const $countHint = document.getElementById("countHint");
-      const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
-      const $linkFonte = document.getElementById("linkFonte");
+    const $updatedAt = document.getElementById("updatedAt");
+    const $busca = document.getElementById("busca");
+    const $count = document.getElementById("countHint");
+    const $grid = document.getElementById("grid");
 
-      const emdash = /\s+—\s+|\s+-\s+/; // separador “—” ou “ - ”
-
-      function repoBasePath() {
-        const parts = location.pathname.split("/");
-        return "/" + (parts[1] || "");
+    function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
+    function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
+    function slugify(s){
+      return (s||"").toString()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+        .replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase();
+    }
+    function ensureAndDownload(url){
+      return fetch(url,{method:"HEAD",cache:"no-store"})
+        .then(r=>{ if(!r.ok) throw 0; location.href=url; })
+        .catch(()=>alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
+    }
+    function cleanYears(s){ return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim(); }
+    function instFromTitle(title){
+      const parts=(title||"").split(emdash);
+      let base=(parts[0]||"").trim();
+      // se começar com "Concorrência", "Programas", "Prova", pegue o último segmento
+      if (/^(concorr[eê]ncia|programas|prova)/i.test(base) && parts.length>1){
+        base = parts[parts.length-1].trim();
       }
-      function jsonURL() {
-        return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`;
+      base = cleanYears(base);
+      return base || (title||"").trim();
+    }
+    function groupByInstitution(blocks){
+      const map=new Map();
+      for(const b of blocks){
+        const name=instFromTitle(b.titulo||"Instituição");
+        const slug=slugify(name);
+        if(!map.has(slug)) map.set(slug,{slug,name,tables:[],rows:0,cols:0});
+        const g=map.get(slug);
+        g.tables.push(b);
+        g.rows += Array.isArray(b.rows)? b.rows.length:0;
+        g.cols = Math.max(g.cols, Array.isArray(b.columns)? b.columns.length:0);
       }
-      function slugify(s) {
-        return (s || "").toString()
-          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-          .replace(/[^\w\s-]/g, "")
-          .trim().replace(/\s+/g, "-").toLowerCase();
-      }
-      function instKey(title) {
-        // “HCPA — Acesso Direto” -> “HCPA”
-        // Se não tiver separador, usa o título inteiro
-        const parts = (title || "").split(emdash);
-        return (parts[0] || "").trim() || (title || "").trim();
-      }
-      function ensureAndDownload(url) {
-        return fetch(url, { method: "HEAD", cache: "no-store" })
-          .then(resp => { if (!resp.ok) throw 0; window.location.href = url; })
-          .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em alguns instantes."));
-      }
-
-      function groupByInstitution(blocks) {
-        const map = new Map();
-        for (const b of blocks) {
-          const key = instKey(b.titulo || "Instituição");
-          const slug = slugify(key);
-          if (!map.has(key)) {
-            map.set(key, { key, slug, name: key, tables: [], rows: 0, cols: 0 });
-          }
-          const g = map.get(key);
-          g.tables.push(b);
-          g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
-          g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
-        }
-        return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
-      }
-
-      function renderList(groups, q = "") {
-        const term = q.trim().toLowerCase();
-        const filtered = term
-          ? groups.filter(g => (g.name || "").toLowerCase().includes(term))
-          : groups;
-
-        $grid.innerHTML = "";
-        if (!filtered.length) {
-          $grid.insertAdjacentHTML("beforeend",
-            `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
-        } else {
-          filtered.forEach(g => {
-            const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-            const card = `
-              <article class="card" aria-label="${g.name}">
-                <h3>${g.name}</h3>
-                <div class="meta">
-                  <span class="pill">${g.tables.length} tabela(s)</span>
-                  <span class="pill">${g.rows} linha(s)</span>
-                  <span class="pill">${g.cols} coluna(s)</span>
-                </div>
-                <div class="foot">
-                  <a class="btn" href="${href}">Abrir</a>
-                </div>
-              </article>
-            `;
-            $grid.insertAdjacentHTML("beforeend", card);
+      return Array.from(map.values()).sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+    }
+    function render(groups,q=""){
+      const term=q.trim().toLowerCase();
+      const list=term? groups.filter(g=>(g.name||"").toLowerCase().includes(term)) : groups;
+      $grid.innerHTML="";
+      if(!list.length){ $grid.innerHTML=`<div class="empty">Nenhuma instituição encontrada.</div>`; }
+      else{
+        list.forEach(g=>{
+          const href=`instituicao.html?g=${encodeURIComponent(g.slug)}`;
+          const card = `
+            <article class="card">
+              <h3>${g.name}</h3>
+              <div class="meta">
+                <span class="pill">${g.tables.length} tabela(s)</span>
+                <span class="pill">${g.rows} linha(s)</span>
+                <span class="pill">${g.cols} coluna(s)</span>
+              </div>
+              <div class="foot">
+                <a class="btn" href="${href}">Abrir</a>
+                <a class="btn alt" href="${DOWNLOADS_PATH}${ALL_XLSX_NAME}" data-dl="all">Extrair</a>
+              </div>
+            </article>`;
+          $grid.insertAdjacentHTML("beforeend",card);
+        });
+        // bind 'Extrair' -> consolidado
+        $grid.querySelectorAll('[data-dl="all"]').forEach(a=>{
+          a.addEventListener("click",(ev)=>{
+            ev.preventDefault();
+            ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
           });
-        }
-        $countHint.textContent = `${filtered.length} instituição(ões)`;
+        });
       }
+      $count.textContent = `${list.length} instituição(ões)`;
+    }
 
-      async function boot() {
-        try {
-          const resp = await fetch(jsonURL(), { cache: "no-store" });
-          if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
-          const payload = await resp.json();
-
-          if ($linkFonte && payload.fonte_url) $linkFonte.href = payload.fonte_url;
-          if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
-
-          const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
-          const groups = groupByInstitution(blocks);
-
-          renderList(groups);
-
-          $busca.addEventListener("input", (e) => renderList(groups, e.target.value));
-          if ($btnExtrairTodos) {
-            $btnExtrairTodos.onclick = () =>
-              ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
-          }
-        } catch (err) {
-          console.error("[HOME] Erro ao carregar os dados:", err);
-          $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
-        }
+    async function boot(){
+      try{
+        const resp=await fetch(jsonURL(),{cache:"no-store"});
+        const payload=await resp.json();
+        $updatedAt.textContent = payload.updated_at_br || "—";
+        const blocks=Array.isArray(payload.tabelas)? payload.tabelas : [];
+        render(groupByInstitution(blocks));
+        $busca.addEventListener("input",e=>render(groupByInstitution(blocks), e.target.value));
+      }catch(e){
+        console.error(e);
+        $grid.innerHTML=`<div class="empty">Erro ao carregar os dados.</div>`;
       }
-
-      document.readyState === "loading"
-        ? document.addEventListener("DOMContentLoaded", boot)
-        : boot();
-    })();
+    }
+    document.readyState==="loading"? document.addEventListener("DOMContentLoaded",boot):boot();
+  })();
   </script>
 </body>
 </html>
