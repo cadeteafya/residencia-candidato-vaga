@@ -107,10 +107,10 @@
 
   /* grid de cards */
   .grid {
-    align-items: stretch;
     display: grid;
     gap: 18px;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    align-items: stretch;         /* cards esticam até a altura da linha */
   }
   .card {
     background: var(--card);
@@ -149,11 +149,10 @@
     flex-wrap: wrap;
   }
   .card .foot {
-    margin-top: auto;
-    padding-top: 8px;
     display: flex;
     gap: 8px;
-    margin-top: 6px;
+    padding-top: 8px;
+    margin-top: auto;
   }
 
   /* estados */
@@ -313,5 +312,6 @@
   </script>
 </body>
 </html>
+
 
 
