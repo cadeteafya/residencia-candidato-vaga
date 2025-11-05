@@ -107,6 +107,7 @@
 
   /* grid de cards */
   .grid {
+    align-items: stretch;
     display: grid;
     gap: 18px;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -121,6 +122,7 @@
     gap: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     transition: box-shadow 0.2s ease;
+    height: 100%;
   }
   .card:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
@@ -147,6 +149,8 @@
     flex-wrap: wrap;
   }
   .card .foot {
+    margin-top: auto;
+    padding-top: 8px;
     display: flex;
     gap: 8px;
     margin-top: 6px;
@@ -309,4 +313,5 @@
   </script>
 </body>
 </html>
+
 
