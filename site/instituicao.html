@@ -5,24 +5,92 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Instituição • Concorrência 2026</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    .container { max-width: 980px; margin: 26px auto 60px; padding: 0 16px }
-    .hdr { display:grid; gap:6px; margin-bottom: 10px }
-    .topbar { display:flex; gap:10px; justify-content: flex-end }
-    .btn { padding:10px 14px; border-radius:10px; background:var(--primary); color:#fff; border:0; cursor:pointer; text-decoration:none }
-    .btn.alt { background:transparent; color:var(--text); border:1px solid var(--border) }
-    .btn.ghost { background:transparent; color:var(--muted); border:1px dashed var(--border) }
-    .muted { color: var(--muted) }
-    .section { margin-top: 18px }
-    .section h2 { margin: 0 0 10px; font-size: 1.15rem }
-    .table-wrap { overflow:auto; border:1px solid var(--border); border-radius:12px }
-    table { width:100%; border-collapse: collapse }
-    thead th { text-align:left }
-    th,td { padding:12px 14px; border-top:1px solid var(--border) }
-    thead th { border-top:0 }
-    .row { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap }
-    .empty { color: var(--muted); margin: 24px 0 }
-  </style>
+<style>
+  /* layout base */
+  .container { max-width: 980px; margin: 28px auto 60px; padding: 0 16px }
+
+  /* topo: botão Voltar à direita */
+  .topbar {
+    display:flex;
+    gap:12px;
+    justify-content:flex-end;
+    margin-bottom: 8px;
+  }
+
+  /* cabeçalho da página (título + data + extrair todos) */
+  .hdr { display:grid; gap:8px; margin-bottom: 12px }
+  .muted { color: var(--muted) }
+
+  /* botões no novo padrão */
+  .btn {
+    padding:10px 16px;
+    border-radius:12px;
+    background:var(--primary);
+    color:#fff;
+    border:0;
+    cursor:pointer;
+    text-decoration:none;
+    font-weight:500;
+    transition:.2s ease;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+  .btn:hover { background:var(--primary-hover); transform: translateY(-1px); }
+
+  /* botão “voltar” no formato da referência */
+  .btn.back {
+    padding:12px 18px;
+    border-radius:14px;
+  }
+
+  /* se precisar de variante contornada */
+  .btn.alt {
+    background:transparent;
+    color:var(--primary);
+    border:1.5px solid var(--primary);
+  }
+  .btn.alt:hover { background:var(--primary); color:#fff; }
+
+  /* seção + subtítulos de tabelas */
+  .section { margin-top: 22px }
+  .section h2 { margin: 0 0 12px; font-size: 1.15rem; color: var(--text) }
+
+  /* wrapper da tabela com canto arredondado */
+  .table-wrap {
+    overflow:hidden;                /* garante cantos arredondados */
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:#fff;                /* fundo branco como no index */
+  }
+
+  /* tabela */
+  table { width:100%; border-collapse: separate; border-spacing: 0; }
+  thead th { text-align:left; color:#fff; font-weight:700 }
+
+  /* cabeçalho rosa elegante */
+  thead tr { background: linear-gradient(180deg, var(--primary) 0%, #ff5a93 100%); }
+  thead th { padding:14px 16px; border:0; }
+
+  /* células */
+  td, th { padding:12px 16px; border:0; }
+
+  /* listrado (zebra) sutil no corpo */
+  tbody tr:nth-child(odd)  { background:#ffffff; }
+  tbody tr:nth-child(even) { background:#fff5f8; } /* rosa bem claro */
+  tbody tr:hover { background:#ffeaf2; }
+
+  /* separadores horizontais suaves */
+  tbody tr + tr td { border-top: 1px solid var(--border); }
+
+  /* linha de ações sob cada tabela (botão “Extrair esta tabela”) */
+  .row { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap }
+
+  /* estado vazio */
+  .empty { color: var(--muted); margin: 24px 0 }
+</style>
+
 </head>
 <body>
   <div class="container">
