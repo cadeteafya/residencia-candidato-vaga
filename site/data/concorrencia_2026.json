@@ -1,11 +1,547 @@
 {
-  "source": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at": "2025-11-06T14:37:56.458686-03:00",
-  "updated_at_br": "06/11/2025 14:37",
+  "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
+  "updated_at_iso": "2025-11-06T14:54:58.743536-03:00",
+  "updated_at_br": "06/11/2025 14:54",
   "tabelas": [
     {
+      "titulo": "AMP",
+      "columns": [
+        "INSTITUIÇÃO",
+        "PROGRAMA",
+        "VAGAS",
+        "CANDIDATOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Associação Beneficente de Saúde do Noroeste do Paraná – NOROSPAR",
+          "Residência: Cirurgia Geral",
+          "2",
+          "65",
+          "32,5"
+        ],
+        [
+          "Associação Beneficente de Saúde do Noroeste do Paraná – NOROSPAR",
+          "Residência: Clínica Médica",
+          "2",
+          "59",
+          "29,5"
+        ],
+        [
+          "Associação Beneficente de Saúde do Noroeste do Paraná – NOROSPAR",
+          "Residência: Ginecologia e Obstetrícia",
+          "4",
+          "95",
+          "23,75"
+        ],
+        [
+          "Associação Beneficente de Saúde do Noroeste do Paraná – NOROSPAR",
+          "Residência: Pediatria",
+          "4",
+          "78",
+          "19,5"
+        ],
+        [
+          "Associação Beneficente de Saúde do Noroeste do Paraná – NOROSPAR",
+          "Residência: Medicina de Família e Comunidade",
+          "2",
+          "19",
+          "9,5"
+        ],
+        [
+          "Escola de Saúde Pública de São José dos Pinhais",
+          "Residência: Cirurgia Geral",
+          "2",
+          "132",
+          "66"
+        ],
+        [
+          "Escola de Saúde Pública de São José dos Pinhais",
+          "Residência: Ginecologia e Obstetrícia",
+          "5",
+          "200",
+          "40"
+        ],
+        [
+          "Escola de Saúde Pública de São José dos Pinhais",
+          "Residência: Clínica Médica",
+          "6",
+          "222",
+          "37"
+        ],
+        [
+          "Escola de Saúde Pública de São José dos Pinhais",
+          "Residência: Pediatria",
+          "6",
+          "124",
+          "20,67"
+        ],
+        [
+          "Escola de Saúde Pública de São José dos Pinhais",
+          "Residência: Medicina de Família e Comunidade",
+          "6",
+          "107",
+          "17,83"
+        ],
+        [
+          "Fundação de Saúde Itaiguapy",
+          "Residência: Ginecologia e Obstetrícia",
+          "4",
+          "90",
+          "22,5"
+        ],
+        [
+          "Fundação Municipal de Saúde de Ponta Grossa",
+          "Residência: Medicina de Família e Comunidade",
+          "4",
+          "148",
+          "37"
+        ],
+        [
+          "Hospitais Universitários UEPG",
+          "Residência: Cirurgia Geral",
+          "3",
+          "121",
+          "40,33"
+        ],
+        [
+          "Hospitais Universitários UEPG",
+          "Residência: Ginecologia e Obstetrícia",
+          "3",
+          "98",
+          "32,67"
+        ],
+        [
+          "Hospitais Universitários UEPG",
+          "Residência: Pediatria",
+          "2",
+          "56",
+          "28"
+        ],
+        [
+          "Hospitais Universitários UEPG",
+          "Residência: Clínica Médica",
+          "6",
+          "148",
+          "24,67"
+        ],
+        [
+          "Hospital Cemil",
+          "Residência: Cirurgia Geral",
+          "2",
+          "60",
+          "30"
+        ],
+        [
+          "Hospital Cemil",
+          "Residência: Pediatria",
+          "2",
+          "43",
+          "21,5"
+        ],
+        [
+          "Hospital Cruz Vermelha",
+          "Residência: Cirurgia Geral",
+          "2",
+          "153",
+          "76,5"
+        ],
+        [
+          "Hospital Cruz Vermelha",
+          "Residência: Clínica Médica",
+          "2",
+          "125",
+          "62,5"
+        ],
+        [
+          "Hospital Cruz Vermelha",
+          "Residência: Clínica Médica – Sigresidência",
+          "2",
+          "33",
+          "16,5"
+        ],
+        [
+          "Hospital da Providência",
+          "Residência: Cirurgia Geral",
+          "2",
+          "46",
+          "23"
+        ],
+        [
+          "Hospital da Providência",
+          "Residência: Clínica Médica",
+          "5",
+          "82",
+          "16,4"
+        ],
+        [
+          "Hospital da Providência",
+          "Residência: Pediatria",
+          "3",
+          "48",
+          "16"
+        ],
+        [
+          "Hospital do Câncer – UOPECCAN Umuarama",
+          "Residência: Cirurgia Geral",
+          "1",
+          "100",
+          "100"
+        ],
+        [
+          "Hospital do Câncer – UOPECCAN Umuarama",
+          "Residência: Clínica Médica",
+          "2",
+          "129",
+          "64,5"
+        ],
+        [
+          "Hospital do Rocio",
+          "Residência: Cirurgia Geral",
+          "7",
+          "309",
+          "44,14"
+        ],
+        [
+          "Hospital do Trabalhador",
+          "Residência: Cirurgia Geral",
+          "7",
+          "419",
+          "59,86"
+        ],
+        [
+          "Hospital do Trabalhador",
+          "Residência: Ginecologia e Obstetrícia",
+          "5",
+          "275",
+          "55"
+        ],
+        [
+          "Hospital Dr. Anísio Figueiredo",
+          "Residência: Cirurgia Geral",
+          "2",
+          "110",
+          "55"
+        ],
+        [
+          "Hospital Dr. Anísio Figueiredo",
+          "Residência: Clínica Médica",
+          "3",
+          "113",
+          "37,67"
+        ],
+        [
+          "Hospital Dr. Anísio Figueiredo",
+          "Residência: Medicina de Família e Comunidade",
+          "6",
+          "80",
+          "13,33"
+        ],
+        [
+          "Hospital Dr. Eulalino Ignácio de Andrade",
+          "Residência: Clínica Médica",
+          "3",
+          "117",
+          "39"
+        ],
+        [
+          "Hospital Dr. Eulalino Ignácio de Andrade",
+          "Residência: Pediatria",
+          "4",
+          "113",
+          "28,25"
+        ],
+        [
+          "Hospital Evangélico de Londrina",
+          "Residência: Ginecologia e Obstetrícia",
+          "2",
+          "97",
+          "48,5"
+        ],
+        [
+          "Hospital Evangélico de Londrina",
+          "Residência: Clínica Médica",
+          "3",
+          "120",
+          "40"
+        ],
+        [
+          "Hospital Evangélico de Londrina",
+          "Residência: Cirurgia Geral",
+          "2",
+          "78",
+          "39"
+        ],
+        [
+          "Hospital Memorial UNINGÁ",
+          "Residência: Cirurgia Geral",
+          "2",
+          "77",
+          "38,5"
+        ],
+        [
+          "Hospital Memorial UNINGÁ",
+          "Residência: Clínica Médica",
+          "2",
+          "76",
+          "38"
+        ],
+        [
+          "Hospital Memorial UNINGÁ",
+          "Residência: Medicina de Família e Comunidade",
+          "1",
+          "16",
+          "16"
+        ],
+        [
+          "Hospital Nossa Senhora das Graças",
+          "Residência: Cirurgia Geral",
+          "3",
+          "266",
+          "88,67"
+        ],
+        [
+          "Hospital Nossa Senhora das Graças",
+          "Residência: Clínica Médica",
+          "4",
+          "245",
+          "61,25"
+        ],
+        [
+          "Hospital Nossa Senhora das Graças",
+          "Residência: Pediatria",
+          "2",
+          "89",
+          "44,5"
+        ],
+        [
+          "Hospital Nossa Senhora das Graças",
+          "Residência: Ginecologia e Obstetrícia",
+          "7",
+          "299",
+          "42,71"
+        ],
+        [
+          "Hospital Regional do Litoral",
+          "Residência: Cirurgia Geral",
+          "2",
+          "148",
+          "74"
+        ],
+        [
+          "Hospital Santa Brígida",
+          "Residência: Ginecologia e Obstetrícia",
+          "5",
+          "276",
+          "55,2"
+        ],
+        [
+          "Hospital Santa Casa de Curitiba",
+          "Residência: Cirurgia Geral",
+          "4",
+          "314",
+          "78,5"
+        ],
+        [
+          "Hospital Santa Casa de Curitiba",
+          "Residência: Ginecologia e Obstetrícia",
+          "4",
+          "228",
+          "57"
+        ],
+        [
+          "Hospital São Lucas de Pato Branco",
+          "Residência: Ginecologia e Obstetrícia",
+          "3",
+          "84",
+          "28"
+        ],
+        [
+          "Hospital São Lucas de Pato Branco",
+          "Residência: Clínica Médica",
+          "2",
+          "53",
+          "26,5"
+        ],
+        [
+          "Hospital São Lucas de Pato Branco",
+          "Residência: Pediatria",
+          "2",
+          "40",
+          "20"
+        ],
+        [
+          "Hospital São Vicente",
+          "Residência: Cirurgia Geral",
+          "2",
+          "123",
+          "61,5"
+        ],
+        [
+          "Hospital São Vicente de Paulo",
+          "Residência: Cirurgia Geral",
+          "2",
+          "69",
+          "34,5"
+        ],
+        [
+          "Hospital São Vicente de Paulo",
+          "Residência: Ginecologia e Obstetrícia",
+          "2",
+          "69",
+          "34,5"
+        ],
+        [
+          "Hospital São Vicente de Paulo",
+          "Residência: Pediatria",
+          "2",
+          "57",
+          "28,5"
+        ],
+        [
+          "Instituto Nossa Senhora Aparecida",
+          "Residência: Clínica Médica",
+          "2",
+          "48",
+          "24"
+        ],
+        [
+          "Instituto Nossa Senhora Aparecida",
+          "Residência: Medicina de Família e Comunidade",
+          "2",
+          "14",
+          "7"
+        ],
+        [
+          "Instituto Policlínica de Pato Branco",
+          "Residência: Cirurgia Geral",
+          "2",
+          "43",
+          "21,5"
+        ],
+        [
+          "Instituto Policlínica de Pato Branco",
+          "Residência: Clínica Médica",
+          "3",
+          "50",
+          "16,67"
+        ],
+        [
+          "Instituto Policlínica de Pato Branco",
+          "Residência: Pediatria",
+          "2",
+          "30",
+          "15"
+        ],
+        [
+          "Irmandade da Santa Casa de Londrina",
+          "Residência: Pediatria",
+          "2",
+          "61",
+          "30,5"
+        ],
+        [
+          "Irmandade da Santa Casa de Londrina",
+          "Residência: Cirurgia Geral",
+          "4",
+          "120",
+          "30"
+        ],
+        [
+          "Irmandade da Santa Casa de Londrina",
+          "Residência: Clínica Médica",
+          "6",
+          "159",
+          "26,5"
+        ],
+        [
+          "Maternidade e Cirurgia Nossa Senhora do Rocio",
+          "Residência: Ginecologia e Obstetrícia – Capacitação",
+          "6",
+          "78",
+          "13"
+        ],
+        [
+          "Maternidade e Cirurgia Nossa Senhora do Rocio",
+          "Residência: Cirurgia Geral – Capacitação",
+          "5",
+          "34",
+          "6,8"
+        ],
+        [
+          "Santa Casa de Ponta Grossa",
+          "Residência: Cirurgia Geral",
+          "3",
+          "114",
+          "38"
+        ],
+        [
+          "Santa Casa de Ponta Grossa",
+          "Residência: Clínica Médica",
+          "6",
+          "133",
+          "22,17"
+        ],
+        [
+          "Universidade Estadual do Centro-Oeste (UNICENTRO)",
+          "Residência: Clínica Médica",
+          "5",
+          "113",
+          "22,6"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Campus de Francisco Beltrão",
+          "Residência: Cirurgia Geral",
+          "3",
+          "83",
+          "27,67"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Campus de Francisco Beltrão",
+          "Residência: Clínica Médica",
+          "3",
+          "59",
+          "19,67"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Campus de Francisco Beltrão",
+          "Residência: Pediatria",
+          "2",
+          "35",
+          "17,5"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Cascavel",
+          "Residência: Cirurgia Geral",
+          "5",
+          "134",
+          "26,8"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Cascavel",
+          "Residência: Ginecologia e Obstetrícia",
+          "4",
+          "106",
+          "26,5"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Cascavel",
+          "Residência: Clínica Médica",
+          "8",
+          "178",
+          "22,25"
+        ],
+        [
+          "Universidade Estadual do Oeste do Paraná – UNIOESTE Cascavel",
+          "Residência: Pediatria",
+          "6",
+          "125",
+          "20,83"
+        ]
+      ]
+    },
+    {
       "titulo": "HCPA — Acesso Direto",
-      "card_title": "HCPA",
       "columns": [
         "PROGRAMAS",
         "VAGAS DISPONÍVEIS*",
@@ -167,7 +703,6 @@
     },
     {
       "titulo": "HCPA — Pré-Requisito",
-      "card_title": "HCPA",
       "columns": [
         "PROGRAMA",
         "VAGAS DISPONÍVEIS",
@@ -532,8 +1067,7 @@
       ]
     },
     {
-      "titulo": "PUC-PR — Concorrência PUC-PR 2026",
-      "card_title": "PUC-PR",
+      "titulo": "Concorrência PUC-PR 2026",
       "columns": [
         "ESPECIALIDADE",
         "VAGAS",
@@ -664,38 +1198,7 @@
       ]
     },
     {
-      "titulo": "PUC-PR — Concorrência PUC-PR 2026",
-      "card_title": "PUC-PR",
-      "columns": [
-        "ESPECIALIDADE (AÇÕES AFIRMATIVAS)",
-        "VAGAS",
-        "INSCRITOS",
-        "CONCORRÊNCIA"
-      ],
-      "rows": [
-        [
-          "CIRURGIA GERAL",
-          "1",
-          "13",
-          "13"
-        ],
-        [
-          "CLÍNICA MÉDICA",
-          "1",
-          "9",
-          "9"
-        ],
-        [
-          "MEDICINA DA FAMÍLIA E COMUNIDADE",
-          "1",
-          "1",
-          "1"
-        ]
-      ]
-    },
-    {
       "titulo": "PUC-PR — Prova Objetiva",
-      "card_title": "PUC-PR",
       "columns": [
         "Programas",
         "Conteúdo Programático",
@@ -742,8 +1245,54 @@
       ]
     },
     {
+      "titulo": "SMS-Curitiba",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS AC",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Clínica Médica",
+          "7",
+          "200",
+          "28,58"
+        ],
+        [
+          "Medicina de Emergência",
+          "2",
+          "12",
+          "6"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "31",
+          "113",
+          "3,65"
+        ],
+        [
+          "Medicina Intensiva",
+          "2",
+          "18",
+          "9"
+        ],
+        [
+          "Psiquiatria",
+          "5",
+          "225",
+          "45"
+        ],
+        [
+          "Geriatria*",
+          "4",
+          "22",
+          "5,5"
+        ]
+      ]
+    },
+    {
       "titulo": "UFCSPA — Acesso Direto",
-      "card_title": "UFCSPA",
       "columns": [
         "PROGRAMAS",
         "VAGAS OFERTADAS",
@@ -869,7 +1418,6 @@
     },
     {
       "titulo": "UFCSPA — Pré-Requisito",
-      "card_title": "UFCSPA",
       "columns": [
         "PROGRAMAS",
         "VAGAS OFERTADAS",
@@ -1156,8 +1704,7 @@
       ]
     },
     {
-      "titulo": "UEL — Concorrência UEL 2026",
-      "card_title": "UEL",
+      "titulo": "Concorrência UEL 2026",
       "columns": [
         "PROGRAMA",
         "VAGAS TOTAIS",
@@ -1360,8 +1907,7 @@
       ]
     },
     {
-      "titulo": "USP-SP — Relação candidato/vaga residência médica USP-SP 2026",
-      "card_title": "USP-SP",
+      "titulo": "Relação candidato/vaga residência médica USP-SP 2026",
       "columns": [
         "Especialidade",
         "Relação Candidato/Vaga"
@@ -1431,7 +1977,6 @@
     },
     {
       "titulo": "USP-SP — Acesso Direto",
-      "card_title": "USP-SP",
       "columns": [
         "Especialidade",
         "Nº de Inscritos",
@@ -1623,7 +2168,6 @@
     },
     {
       "titulo": "USP-SP — Pré-Requisito",
-      "card_title": "USP-SP",
       "columns": [
         "Especialidade",
         "Nº de Inscritos",
@@ -1665,7 +2209,6 @@
     },
     {
       "titulo": "USP-SP — Pré-Requisito – Especialidades Clínicas",
-      "card_title": "USP-SP",
       "columns": [
         "Especialidade",
         "Nº de Inscritos",
@@ -1737,7 +2280,6 @@
     },
     {
       "titulo": "USP-SP — Pré-Requisito – Especialidades Cirúrgicas",
-      "card_title": "USP-SP",
       "columns": [
         "Especialidade",
         "Nº de Inscritos",
@@ -1791,7 +2333,6 @@
     },
     {
       "titulo": "USP-SP — Pré-Requisito – Especialidades Pediátricas",
-      "card_title": "USP-SP",
       "columns": [
         "Especialidade",
         "Nº de Inscritos",
@@ -1911,7 +2452,6 @@
     },
     {
       "titulo": "USP-SP — Áreas de Atuação e Anos Adicionais",
-      "card_title": "USP-SP",
       "columns": [
         "Especialidade",
         "Nº de Inscritos",
@@ -2168,8 +2708,7 @@
       ]
     },
     {
-      "titulo": "UNESP — Concorrência Unesp 2026",
-      "card_title": "UNESP",
+      "titulo": "Concorrência Unesp 2026",
       "columns": [
         "Especialidade",
         "Inscritos",
@@ -2414,8 +2953,717 @@
       ]
     },
     {
-      "titulo": "UNIFESP — Relação Candidato/Vaga Residência Médica UNIFESP 2026",
-      "card_title": "UNIFESP",
+      "titulo": "HIAE",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS DISPONÍVEIS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Cirurgia Geral",
+          "6",
+          "793",
+          "132,67"
+        ],
+        [
+          "Psiquiatria",
+          "4",
+          "390",
+          "97,5"
+        ],
+        [
+          "Neurologia",
+          "3",
+          "255",
+          "85"
+        ],
+        [
+          "Ginecologia e Obstetrícia",
+          "8",
+          "645",
+          "80,62"
+        ],
+        [
+          "Clínica Médica",
+          "11",
+          "812",
+          "73,81"
+        ],
+        [
+          "Anestesiologia",
+          "6",
+          "426",
+          "71"
+        ],
+        [
+          "Ortopedia e Traumatologia",
+          "4",
+          "245",
+          "61,25"
+        ],
+        [
+          "Radiologia e Diagnóstico por Imagem",
+          "6",
+          "290",
+          "48,33"
+        ],
+        [
+          "Cardiologia",
+          "3",
+          "137",
+          "45,67"
+        ],
+        [
+          "Pediatria",
+          "8",
+          "355",
+          "44,37"
+        ]
+      ]
+    },
+    {
+      "titulo": "HOS/BOS",
+      "columns": [
+        "Especialidade",
+        "Inscritos",
+        "Vagas",
+        "Cand/Vaga"
+      ],
+      "rows": [
+        [
+          "Oftalmologia",
+          "705",
+          "8",
+          "88,12"
+        ],
+        [
+          "Otorrinolaringologia",
+          "235",
+          "3",
+          "78,33"
+        ]
+      ]
+    },
+    {
+      "titulo": "Santa Casa de Limeira",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS TOTAIS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Anestesiologia",
+          "5",
+          "205",
+          "41"
+        ],
+        [
+          "Angiorradiologia e Cirurgia Endovascular",
+          "3",
+          "1",
+          "0,33"
+        ],
+        [
+          "Cardiologia",
+          "2",
+          "12",
+          "6"
+        ],
+        [
+          "Cirurgia Cardiovascular",
+          "1",
+          "18",
+          "18"
+        ],
+        [
+          "Cirurgia Geral",
+          "4",
+          "196",
+          "49"
+        ],
+        [
+          "Cirurgia Vascular",
+          "3",
+          "13",
+          "4,33"
+        ],
+        [
+          "Clínica Médica",
+          "4",
+          "166",
+          "41,5"
+        ],
+        [
+          "Ginecologia e Obstetrícia",
+          "5",
+          "216",
+          "43,2"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "3",
+          "23",
+          "7,67"
+        ],
+        [
+          "Medicina Intensiva Pediátrica",
+          "1",
+          "3",
+          "3"
+        ],
+        [
+          "Neonatologia",
+          "3",
+          "4",
+          "1,33"
+        ],
+        [
+          "Neurocirurgia",
+          "1",
+          "64",
+          "64"
+        ],
+        [
+          "Oftalmologia",
+          "2",
+          "97",
+          "48,5"
+        ],
+        [
+          "Oncologia Clínica",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Ortopedia e Traumatologia",
+          "4",
+          "127",
+          "31,75"
+        ],
+        [
+          "Otorrinolaringologia",
+          "2",
+          "120",
+          "60"
+        ],
+        [
+          "Pediatria",
+          "4",
+          "157",
+          "39,25"
+        ],
+        [
+          "Urologia",
+          "2",
+          "14",
+          "7"
+        ]
+      ]
+    },
+    {
+      "titulo": "SES-RJ",
+      "columns": [
+        "Cargo",
+        "Inscritos",
+        "PcD",
+        "PNI",
+        "Vagas",
+        "Densidade/Vaga"
+      ],
+      "rows": [
+        [
+          "Anestesiologia – HEAL",
+          "63",
+          "0",
+          "1",
+          "2",
+          "31,50"
+        ],
+        [
+          "Anestesiologia – HEGV",
+          "107",
+          "1",
+          "17",
+          "4",
+          "26,75"
+        ],
+        [
+          "Anestesiologia – HEAT",
+          "60",
+          "2",
+          "7",
+          "4",
+          "15,00"
+        ],
+        [
+          "Anestesiologia – HMMRC",
+          "64",
+          "0",
+          "9",
+          "4",
+          "16,00"
+        ],
+        [
+          "Anestesiologia – HMAPN",
+          "51",
+          "1",
+          "2",
+          "2",
+          "25,50"
+        ],
+        [
+          "Cirurgia Cardiovascular – IECAC",
+          "23",
+          "0",
+          "0",
+          "1",
+          "23,00"
+        ],
+        [
+          "Cirurgia Geral – HEAT",
+          "22",
+          "0",
+          "1",
+          "1",
+          "22,00"
+        ],
+        [
+          "Cirurgia Geral – HEGV",
+          "144",
+          "3",
+          "14",
+          "5",
+          "28,80"
+        ],
+        [
+          "Cirurgia Geral – HMMRC",
+          "64",
+          "0",
+          "11",
+          "4",
+          "16,00"
+        ],
+        [
+          "Cirurgia Geral – HMAPN",
+          "43",
+          "0",
+          "3",
+          "2",
+          "21,50"
+        ],
+        [
+          "Cirurgia Geral – HOF",
+          "147",
+          "1",
+          "17",
+          "6",
+          "24,50"
+        ],
+        [
+          "Cirurgia Geral – HECC",
+          "26",
+          "0",
+          "3",
+          "3",
+          "8,67"
+        ],
+        [
+          "Clínica Médica – HMMRC",
+          "94",
+          "0",
+          "5",
+          "3",
+          "31,33"
+        ],
+        [
+          "Ginecologia e Obstetrícia – HMHS",
+          "80",
+          "0",
+          "8",
+          "4",
+          "20,00"
+        ],
+        [
+          "Ginecologia e Obstetrícia – HMAPN",
+          "116",
+          "0",
+          "5",
+          "2",
+          "58,00"
+        ],
+        [
+          "Medicina Intensiva – HEAT",
+          "16",
+          "0",
+          "0",
+          "2",
+          "8,00"
+        ],
+        [
+          "Medicina Intensiva – HEAL",
+          "13",
+          "0",
+          "0",
+          "2",
+          "6,50"
+        ],
+        [
+          "Medicina Intensiva – HEGV",
+          "10",
+          "0",
+          "0",
+          "2",
+          "5,00"
+        ],
+        [
+          "Neurocirurgia – IEC",
+          "139",
+          "2",
+          "17",
+          "2",
+          "69,50"
+        ],
+        [
+          "Ortopedia e Traumatologia – HEGV",
+          "48",
+          "0",
+          "7",
+          "4",
+          "12,00"
+        ],
+        [
+          "Ortopedia e Traumatologia – HEAT",
+          "19",
+          "0",
+          "2",
+          "CR*",
+          "0,00"
+        ],
+        [
+          "Ortopedia e Traumatologia – HEAL",
+          "25",
+          "0",
+          "1",
+          "2",
+          "12,50"
+        ],
+        [
+          "Ortopedia e Traumatologia – HETDOL",
+          "70",
+          "0",
+          "3",
+          "5",
+          "14,00"
+        ],
+        [
+          "Ortopedia e Traumatologia – HMAPN",
+          "14",
+          "0",
+          "0",
+          "1",
+          "14,00"
+        ],
+        [
+          "Pediatria – HMAPN",
+          "104",
+          "3",
+          "7",
+          "6",
+          "17,33"
+        ],
+        [
+          "Psiquiatria – CPRJ",
+          "126",
+          "1",
+          "16",
+          "3",
+          "42,00"
+        ],
+        [
+          "Psiquiatria – HPJ",
+          "157",
+          "1",
+          "16",
+          "3",
+          "52,33"
+        ],
+        [
+          "Cardiologia – IECAC",
+          "22",
+          "0",
+          "0",
+          "5",
+          "4,40"
+        ],
+        [
+          "Cirurgia Pediátrica – HMAPN",
+          "2",
+          "0",
+          "0",
+          "2",
+          "1,00"
+        ],
+        [
+          "Cirurgia Vascular – IECAC",
+          "14",
+          "0",
+          "2",
+          "1",
+          "14,00"
+        ],
+        [
+          "Endocrinologia e Metabologia – IEDE",
+          "95",
+          "2",
+          "6",
+          "12",
+          "7,92"
+        ],
+        [
+          "Hematologia e Hemoterapia Adulto – HEMORIO",
+          "17",
+          "0",
+          "1",
+          "6",
+          "2,83"
+        ],
+        [
+          "Angiorradiologia e Cirurgia Endovascular – IECAC",
+          "6",
+          "0",
+          "0",
+          "1",
+          "6,00"
+        ],
+        [
+          "Cardiologia Pediátrica – IECAC",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0,00"
+        ],
+        [
+          "Ecocardiografia – IECAC",
+          "6",
+          "0",
+          "1",
+          "2",
+          "3,00"
+        ],
+        [
+          "Eletrofisiologia Clínica Invasiva – IECAC",
+          "1",
+          "0",
+          "0",
+          "1",
+          "1,00"
+        ],
+        [
+          "Endocrinologia e Metabologia Pediátrica – IEDE",
+          "22",
+          "0",
+          "0",
+          "2",
+          "11,00"
+        ],
+        [
+          "Ergometria – IECAC",
+          "1",
+          "0",
+          "0",
+          "1",
+          "1,00"
+        ],
+        [
+          "Hemodinâmica e Cardiologia Intervencionista – IECAC",
+          "5",
+          "0",
+          "0",
+          "2",
+          "2,50"
+        ],
+        [
+          "Hematologia e Hemoterapia Pediátrica – HEMORIO",
+          "4",
+          "0",
+          "0",
+          "3",
+          "1,33"
+        ],
+        [
+          "Medicina Intensiva Pediátrica – HMAPN",
+          "6",
+          "0",
+          "0",
+          "2",
+          "3,00"
+        ],
+        [
+          "Biologia/Biomedicina em Hematologia e Hemoterapia – HEMORIO",
+          "139",
+          "3",
+          "28",
+          "3",
+          "46,33"
+        ],
+        [
+          "Enfermagem em Hematologia e Hemoterapia – HEMORIO",
+          "53",
+          "0",
+          "15",
+          "3",
+          "17,67"
+        ],
+        [
+          "Serviço Social em Hematologia e Hemoterapia – HEMORIO",
+          "44",
+          "1",
+          "13",
+          "3",
+          "14,67"
+        ],
+        [
+          "Enfermagem em Saúde Cardiovascular – IECAC",
+          "43",
+          "0",
+          "13",
+          "2",
+          "21,50"
+        ],
+        [
+          "Farmácia em Saúde Cardiovascular – IECAC",
+          "18",
+          "0",
+          "3",
+          "2",
+          "9,00"
+        ],
+        [
+          "Fisioterapia em Saúde Cardiovascular – IECAC",
+          "47",
+          "0",
+          "10",
+          "2",
+          "23,50"
+        ],
+        [
+          "Nutrição em Saúde Cardiovascular – IECAC",
+          "85",
+          "0",
+          "13",
+          "2",
+          "42,50"
+        ],
+        [
+          "Enfermagem em Saúde da Família – Baixada Litorânea",
+          "68",
+          "0",
+          "18",
+          "4",
+          "17,00"
+        ],
+        [
+          "Psicologia em Saúde da Família – Baixada Litorânea",
+          "47",
+          "0",
+          "12",
+          "4",
+          "11,75"
+        ],
+        [
+          "Serviço Social em Saúde da Família – Baixada Litorânea",
+          "26",
+          "0",
+          "8",
+          "4",
+          "6,50"
+        ],
+        [
+          "Cirurgia Vascular – HMAPN",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0,00"
+        ],
+        [
+          "Cirurgia Pediátrica – HEC",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0,00"
+        ]
+      ]
+    },
+    {
+      "titulo": "UERJ",
+      "columns": [
+        "COLOCAÇÃO",
+        "PROGRAMA",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "1º",
+          "Cirurgia Geral",
+          "144"
+        ],
+        [
+          "2º",
+          "Cirurgia Plástica",
+          "87"
+        ],
+        [
+          "3º",
+          "Ginecologia e Obstetrícia",
+          "86,5"
+        ],
+        [
+          "4º",
+          "Neurocirurgia",
+          "84"
+        ],
+        [
+          "5º",
+          "Psiquiatria",
+          "67,2"
+        ],
+        [
+          "6º",
+          "Otorrinolaringologia",
+          "65"
+        ],
+        [
+          "7º",
+          "Dermatologia",
+          "63"
+        ],
+        [
+          "8º",
+          "Oftalmologia",
+          "57,75"
+        ],
+        [
+          "9º",
+          "Anestesiologia",
+          "51,42"
+        ],
+        [
+          "10º",
+          "Ortopedia e Traumatologia",
+          "40,5"
+        ]
+      ]
+    },
+    {
+      "titulo": "Relação Candidato/Vaga Residência Médica UNIFESP 2026",
       "columns": [
         "PROGRAMA",
         "Nº TOTAL VAGAS",
@@ -3273,10 +4521,9 @@
       ]
     },
     {
-      "titulo": "UNICAMP — Acesso Direto",
-      "card_title": "UNICAMP",
+      "titulo": "UNICAMP",
       "columns": [
-        "PROGRAMA",
+        "PROGRAMAS ACESSO DIRETO",
         "CANDIDATOS",
         "VAGAS DISPONÍVEIS",
         "CONCORRÊNCIA"
@@ -3441,356 +4688,7 @@
       ]
     },
     {
-      "titulo": "UNICAMP — Pré-Requisito, Áreas de Atuação e Anos Adicionais",
-      "card_title": "UNICAMP",
-      "columns": [
-        "PROGRAMA",
-        "CANDIDATOS",
-        "VAGAS DISPONÍVEIS",
-        "CONCORRÊNCIA"
-      ],
-      "rows": [
-        [
-          "ADMINISTRACAO EM SAUDE",
-          "1",
-          "1",
-          "1,00"
-        ],
-        [
-          "ALERGIA E IMUNOLOGIA",
-          "7",
-          "2",
-          "3,50"
-        ],
-        [
-          "ALERGIA E IMUNOLOGIA PEDIATRICA",
-          "20",
-          "4",
-          "5,00"
-        ],
-        [
-          "ANGIORRADIOLOGIA E CIRURGIA ENDOVASCULAR",
-          "2",
-          "2",
-          "1,00"
-        ],
-        [
-          "CARDIOLOGIA",
-          "63",
-          "8",
-          "7,88"
-        ],
-        [
-          "CARDIOLOGIA PEDIATRICA",
-          "6",
-          "2",
-          "3,00"
-        ],
-        [
-          "CIRURGIA BARIATRICA",
-          "0",
-          "1",
-          "–"
-        ],
-        [
-          "CIRURGIA DA MAO",
-          "8",
-          "2",
-          "4,00"
-        ],
-        [
-          "CIRURGIA DE CABECA E PESCOCO",
-          "4",
-          "1",
-          "4,00"
-        ],
-        [
-          "CIRURGIA DO APARELHO DIGESTIVO",
-          "16",
-          "4",
-          "4,00"
-        ],
-        [
-          "CIRURGIA DO TRAUMA",
-          "1",
-          "2",
-          "0,50"
-        ],
-        [
-          "CIRURGIA PEDIATRICA",
-          "9",
-          "2",
-          "4,50"
-        ],
-        [
-          "CIRURGIA PLASTICA",
-          "74",
-          "2",
-          "37,00"
-        ],
-        [
-          "CIRURGIA TORACICA",
-          "6",
-          "1",
-          "6,00"
-        ],
-        [
-          "CIRURGIA VASCULAR",
-          "25",
-          "3",
-          "8,33"
-        ],
-        [
-          "CLINICA MEDICA (R3)",
-          "2",
-          "2",
-          "1,00"
-        ],
-        [
-          "COLOPROCTOLOGIA",
-          "15",
-          "1",
-          "15,00"
-        ],
-        [
-          "EMERGENCIA PEDIATRICA",
-          "3",
-          "1",
-          "3,00"
-        ],
-        [
-          "ENDOCRINOLOGIA",
-          "118",
-          "5",
-          "23,60"
-        ],
-        [
-          "ENDOCRINOLOGIA PEDIATRICA",
-          "29",
-          "2",
-          "14,50"
-        ],
-        [
-          "ENDOSCOPIA",
-          "28",
-          "3",
-          "9,33"
-        ],
-        [
-          "ENDOSCOPIA DIGESTIVA",
-          "4",
-          "1",
-          "4,00"
-        ],
-        [
-          "ENDOSCOPIA GINECOLOGICA",
-          "10",
-          "1",
-          "10,00"
-        ],
-        [
-          "GASTROENTEROLOGIA",
-          "71",
-          "6",
-          "11,83"
-        ],
-        [
-          "GASTROENTEROLOGIA PEDIATRICA",
-          "8",
-          "4",
-          "2,00"
-        ],
-        [
-          "GERIATRIA",
-          "38",
-          "3",
-          "12,67"
-        ],
-        [
-          "HEMATOLOGIA E HEMOTERAPIA",
-          "65",
-          "8",
-          "8,13"
-        ],
-        [
-          "HEMATOLOGIA E HEMOTERAPIA PEDIATRICA",
-          "6",
-          "1",
-          "6,00"
-        ],
-        [
-          "HEMODINAMICA E CARDIOLOGIA INTERVENCIONISTA",
-          "2",
-          "1",
-          "2,00"
-        ],
-        [
-          "HEPATOLOGIA",
-          "1",
-          "1",
-          "1,00"
-        ],
-        [
-          "INFECTOLOGIA HOSPITALAR",
-          "1",
-          "1",
-          "1,00"
-        ],
-        [
-          "MASTOLOGIA",
-          "10",
-          "2",
-          "5,00"
-        ],
-        [
-          "MEDICINA DO ADOLESCENTE",
-          "1",
-          "1",
-          "1,00"
-        ],
-        [
-          "MEDICINA FETAL",
-          "15",
-          "2",
-          "7,50"
-        ],
-        [
-          "MEDICINA INTENSIVA PEDIATRICA",
-          "13",
-          "5",
-          "2,60"
-        ],
-        [
-          "NEFROLOGIA",
-          "33",
-          "7",
-          "4,71"
-        ],
-        [
-          "NEFROLOGIA PEDIATRICA",
-          "3",
-          "1",
-          "3,00"
-        ],
-        [
-          "NEONATOLOGIA",
-          "18",
-          "6",
-          "3,00"
-        ],
-        [
-          "NEUROFISIOLOGIA CLINICA",
-          "10",
-          "2",
-          "5,00"
-        ],
-        [
-          "NEUROLOGIA PEDIATRICA",
-          "61",
-          "3",
-          "20,33"
-        ],
-        [
-          "NUTROLOGIA",
-          "1",
-          "1",
-          "1,00"
-        ],
-        [
-          "ONCOLOGIA CLINICA",
-          "26",
-          "5",
-          "5,20"
-        ],
-        [
-          "ONCOLOGIA PEDIATRICA",
-          "2",
-          "1",
-          "2,00"
-        ],
-        [
-          "PNEUMOLOGIA",
-          "33",
-          "4",
-          "8,25"
-        ],
-        [
-          "PNEUMOLOGIA PEDIATRICA",
-          "15",
-          "3",
-          "5,00"
-        ],
-        [
-          "PSICOGERIATRIA",
-          "13",
-          "2",
-          "6,50"
-        ],
-        [
-          "PSIQUIATRIA DA INFANCIA E DA ADOLESCENCIA",
-          "27",
-          "6",
-          "4,50"
-        ],
-        [
-          "REUMATOLOGIA",
-          "36",
-          "4",
-          "9,00"
-        ],
-        [
-          "REUMATOLOGIA PEDIATRICA",
-          "2",
-          "2",
-          "1,00"
-        ],
-        [
-          "TRANSPLANTE DE CORNEA",
-          "11",
-          "5",
-          "2,20"
-        ],
-        [
-          "TRANSPLANTE DE FIGADO",
-          "2",
-          "2",
-          "1,00"
-        ],
-        [
-          "TRANSPLANTE DE MEDULA OSSEA",
-          "3",
-          "1",
-          "3,00"
-        ],
-        [
-          "TRANSPLANTE DE RIM – NEFROLOGIA",
-          "2",
-          "2",
-          "1,00"
-        ],
-        [
-          "TRANSPLANTE DE RIM – UROLOGIA",
-          "0",
-          "1",
-          "–"
-        ],
-        [
-          "ULTRASSONOGRAFIA EM GINECOLOGIA E OBSTETRICIA",
-          "11",
-          "2",
-          "5,50"
-        ],
-        [
-          "UROLOGIA",
-          "57",
-          "3",
-          "19,00"
-        ]
-      ]
-    },
-    {
       "titulo": "Instituto do Câncer do Ceará – ICC — Concorrência ICC 2026",
-      "card_title": "Instituto do Câncer do Ceará – ICC",
       "columns": [
         "PROGRAMA",
         "VAGAS",
@@ -3851,6 +4749,973 @@
           "1",
           "19",
           "19"
+        ]
+      ]
+    },
+    {
+      "titulo": "UFPA",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Clínica Médica (Belém)",
+          "10",
+          "200",
+          "20"
+        ],
+        [
+          "Clínica Médica (Altamira)",
+          "2",
+          "6",
+          "3"
+        ],
+        [
+          "Cirurgia Geral (Belém)",
+          "6",
+          "169",
+          "28,17"
+        ],
+        [
+          "Dermatologia (Belém)",
+          "3",
+          "70",
+          "23,33"
+        ],
+        [
+          "Ginecologia e Obstetrícia (Belém)",
+          "6",
+          "95",
+          "15,83"
+        ],
+        [
+          "Medicina de Família e Comunidade (Belém)",
+          "10",
+          "133",
+          "13,3"
+        ],
+        [
+          "Medicina de Família e Comunidade (Altamira)",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Oftalmologia (Belém)",
+          "4",
+          "88",
+          "22"
+        ],
+        [
+          "Otorrinolaringologia (Belém)",
+          "4",
+          "90",
+          "22,5"
+        ],
+        [
+          "Pediatria (Belém)",
+          "8",
+          "92",
+          "11,5"
+        ],
+        [
+          "Endocrinologia (Belém)",
+          "2",
+          "20",
+          "10"
+        ],
+        [
+          "Geriatria (Belém)",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Oncologia Clínica (Belém)",
+          "1",
+          "7",
+          "7"
+        ],
+        [
+          "Pneumologia (Belém)",
+          "2",
+          "9",
+          "4,5"
+        ],
+        [
+          "Medicina Paliativa (Belém)",
+          "2",
+          "4",
+          "2"
+        ]
+      ]
+    },
+    {
+      "titulo": "Enare — Acesso Direto",
+      "columns": [
+        "PROGRAMA",
+        "TOTAL DE VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Acupuntura",
+          "6",
+          "24",
+          "4"
+        ],
+        [
+          "Anestesiologia",
+          "291",
+          "7.657",
+          "26,3"
+        ],
+        [
+          "Cirurgia Cardiovascular",
+          "13",
+          "307",
+          "23,6"
+        ],
+        [
+          "Cirurgia Geral",
+          "405",
+          "9.723",
+          "24"
+        ],
+        [
+          "Clínica Médica",
+          "910",
+          "11.867",
+          "13"
+        ],
+        [
+          "Dermatologia",
+          "99",
+          "3.623",
+          "36,6"
+        ],
+        [
+          "Genética Médica",
+          "8",
+          "79",
+          "9,9"
+        ],
+        [
+          "Ginecologia e Obstetrícia",
+          "450",
+          "8.315",
+          "18,5"
+        ],
+        [
+          "Homeopatia",
+          "2",
+          "9",
+          "4,5"
+        ],
+        [
+          "Infectologia",
+          "90",
+          "481",
+          "5,3"
+        ],
+        [
+          "Medicina de Emergência",
+          "85",
+          "410",
+          "4,8"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "845",
+          "4.425",
+          "5,2"
+        ],
+        [
+          "Medicina do Trabalho",
+          "8",
+          "209",
+          "26,1"
+        ],
+        [
+          "Medicina do Tráfego",
+          "2",
+          "15",
+          "7,5"
+        ],
+        [
+          "Medicina Esportiva",
+          "3",
+          "179",
+          "59,7"
+        ],
+        [
+          "Medicina Física e Reabilitação",
+          "8",
+          "70",
+          "8,8"
+        ],
+        [
+          "Medicina Intensiva",
+          "164",
+          "962",
+          "5,9"
+        ],
+        [
+          "Medicina Legal e Perícias Médicas",
+          "3",
+          "76",
+          "25,3"
+        ],
+        [
+          "Medicina Nuclear",
+          "8",
+          "57",
+          "7,1"
+        ],
+        [
+          "Medicina Preventiva e Social",
+          "2",
+          "11",
+          "5,5"
+        ],
+        [
+          "Neurocirurgia",
+          "25",
+          "1.199",
+          "48"
+        ],
+        [
+          "Neurologia",
+          "87",
+          "2.419",
+          "27,8"
+        ],
+        [
+          "Oftalmologia",
+          "99",
+          "3.871",
+          "39,1"
+        ],
+        [
+          "Ortopedia e Traumatologia",
+          "259",
+          "3.850",
+          "14,9"
+        ],
+        [
+          "Otorrinolaringologia",
+          "54",
+          "2.768",
+          "51,3"
+        ],
+        [
+          "Patologia",
+          "51",
+          "440",
+          "8,6"
+        ],
+        [
+          "Patologia Clínica/Medicina Laboratorial",
+          "3",
+          "18",
+          "6"
+        ],
+        [
+          "Pediatria",
+          "630",
+          "7.086",
+          "11,2"
+        ],
+        [
+          "Psiquiatria",
+          "229",
+          "7.087",
+          "30,9"
+        ],
+        [
+          "Radiologia e Diagnóstico por Imagem",
+          "160",
+          "2.804",
+          "17,5"
+        ],
+        [
+          "Radioterapia",
+          "22",
+          "86",
+          "3,9"
+        ]
+      ]
+    },
+    {
+      "titulo": "Enare — Pré-Requisito",
+      "columns": [
+        "PROGRAMA",
+        "TOTAL DE VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Alergia e Imunologia",
+          "6",
+          "12",
+          "2"
+        ],
+        [
+          "Cardiologia",
+          "159",
+          "707",
+          "4,45"
+        ],
+        [
+          "Cirurgia da Mão",
+          "11",
+          "80",
+          "7,27"
+        ],
+        [
+          "Cirurgia de Cabeça e Pescoço",
+          "14",
+          "25",
+          "1,79"
+        ],
+        [
+          "Cirurgia do Aparelho Digestivo",
+          "42",
+          "81",
+          "1,93"
+        ],
+        [
+          "Cirurgia Oncológica",
+          "42",
+          "74",
+          "1,76"
+        ],
+        [
+          "Cirurgia Pediátrica",
+          "22",
+          "66",
+          "3"
+        ],
+        [
+          "Cirurgia Plástica",
+          "61",
+          "678",
+          "11,11"
+        ],
+        [
+          "Cirurgia Torácica",
+          "8",
+          "30",
+          "3,75"
+        ],
+        [
+          "Cirurgia Vascular",
+          "72",
+          "220",
+          "3,06"
+        ],
+        [
+          "Coloproctologia",
+          "31",
+          "150",
+          "4,84"
+        ],
+        [
+          "Endocrinologia e Metabologia",
+          "83",
+          "595",
+          "7,17"
+        ],
+        [
+          "Endoscopia",
+          "30",
+          "136",
+          "4,53"
+        ],
+        [
+          "Gastroenterologia",
+          "72",
+          "422",
+          "5,86"
+        ],
+        [
+          "Geriatria",
+          "50",
+          "293",
+          "5,86"
+        ],
+        [
+          "Hematologia e Hemoterapia",
+          "41",
+          "149",
+          "3,63"
+        ],
+        [
+          "Mastologia",
+          "40",
+          "93",
+          "2,33"
+        ],
+        [
+          "Nefrologia",
+          "78",
+          "148",
+          "1,9"
+        ],
+        [
+          "Nutrologia",
+          "4",
+          "3",
+          "0,75"
+        ],
+        [
+          "Oncologia Clínica",
+          "67",
+          "251",
+          "3,75"
+        ],
+        [
+          "Pneumologia",
+          "45",
+          "165",
+          "3,67"
+        ],
+        [
+          "Reumatologia",
+          "61",
+          "188",
+          "3,08"
+        ],
+        [
+          "Urologia",
+          "76",
+          "307",
+          "4,04"
+        ]
+      ]
+    },
+    {
+      "titulo": "Enare — Área de Atuação",
+      "columns": [
+        "PROGRAMA",
+        "TOTAL DE VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Administração em Saúde",
+          "4",
+          "9",
+          "2,3"
+        ],
+        [
+          "Alergia e Imunologia Pediátrica",
+          "13",
+          "53",
+          "4,1"
+        ],
+        [
+          "Angiorradiologia e Cirurgia Endovascular",
+          "25",
+          "34",
+          "1,4"
+        ],
+        [
+          "Atendimento ao Queimado",
+          "6",
+          "10",
+          "1,7"
+        ],
+        [
+          "Cardiologia Pediátrica",
+          "16",
+          "47",
+          "2,9"
+        ],
+        [
+          "Cirurgia Bariátrica",
+          "3",
+          "2",
+          "0,7"
+        ],
+        [
+          "Cirurgia Crânio-Maxilo-Facial",
+          "2",
+          "10",
+          "5"
+        ],
+        [
+          "Cirurgia do Trauma",
+          "18",
+          "13",
+          "0,7"
+        ],
+        [
+          "Cirurgia Videolaparoscópica",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "Citopatologia",
+          "3",
+          "1",
+          "0,3"
+        ],
+        [
+          "Dor",
+          "6",
+          "28",
+          "4,7"
+        ],
+        [
+          "Ecocardiografia",
+          "29",
+          "101",
+          "3,5"
+        ],
+        [
+          "Ecografia Vascular com Doppler",
+          "6",
+          "8",
+          "1,3"
+        ],
+        [
+          "Eletrofisiologia Clínica Invasiva",
+          "4",
+          "19",
+          "4,8"
+        ],
+        [
+          "Emergência Pediátrica",
+          "8",
+          "11",
+          "1,4"
+        ],
+        [
+          "Endocrinologia Pediátrica",
+          "25",
+          "115",
+          "4,6"
+        ],
+        [
+          "Endoscopia Digestiva",
+          "14",
+          "35",
+          "2,5"
+        ],
+        [
+          "Endoscopia Ginecológica",
+          "23",
+          "167",
+          "7,3"
+        ],
+        [
+          "Endoscopia Respiratória",
+          "6",
+          "5",
+          "0,8"
+        ],
+        [
+          "Ergometria",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Foniatria",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "Gastroenterologia Pediátrica",
+          "21",
+          "48",
+          "2,3"
+        ],
+        [
+          "Hansenologia",
+          "6",
+          "15",
+          "2,5"
+        ],
+        [
+          "Hematologia e Hemoterapia Pediátrica",
+          "12",
+          "21",
+          "1,8"
+        ],
+        [
+          "Hemodinâmica e Cardiologia Intervencionista",
+          "10",
+          "32",
+          "3,2"
+        ],
+        [
+          "Hepatologia",
+          "13",
+          "10",
+          "0,8"
+        ],
+        [
+          "Infectologia Hospitalar",
+          "4",
+          "6",
+          "1,5"
+        ],
+        [
+          "Infectologia Pediátrica",
+          "10",
+          "14",
+          "1,4"
+        ],
+        [
+          "Medicina do Adolescente",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Medicina Fetal",
+          "13",
+          "61",
+          "4,7"
+        ],
+        [
+          "Medicina Intensiva Pediátrica",
+          "60",
+          "77",
+          "1,3"
+        ],
+        [
+          "Medicina Paliativa",
+          "17",
+          "42",
+          "2,5"
+        ],
+        [
+          "Medicina do Sono",
+          "5",
+          "8",
+          "1,6"
+        ],
+        [
+          "Nefrologia Pediátrica",
+          "8",
+          "20",
+          "2,5"
+        ],
+        [
+          "Neonatologia",
+          "146",
+          "119",
+          "0,8"
+        ],
+        [
+          "Neurofisiologia Clínica",
+          "12",
+          "27",
+          "2,3"
+        ],
+        [
+          "Neurologia Pediátrica",
+          "24",
+          "317",
+          "13,2"
+        ],
+        [
+          "Nutrição Parenteral e Enteral",
+          "1",
+          "5",
+          "5"
+        ],
+        [
+          "Nutrologia Pediátrica",
+          "4",
+          "1",
+          "0,3"
+        ],
+        [
+          "Oncologia Pediátrica",
+          "22",
+          "29",
+          "1,3"
+        ],
+        [
+          "Pneumologia Pediátrica",
+          "18",
+          "53",
+          "2,9"
+        ],
+        [
+          "Psicogeriatria",
+          "6",
+          "11",
+          "1,8"
+        ],
+        [
+          "Psicoterapia",
+          "2",
+          "7",
+          "3,5"
+        ],
+        [
+          "Psiquiatria da Infância e Adolescência",
+          "22",
+          "75",
+          "3,4"
+        ],
+        [
+          "Psiquiatria Forense",
+          "4",
+          "17",
+          "4,3"
+        ],
+        [
+          "Reprodução Assistida",
+          "2",
+          "21",
+          "10,5"
+        ],
+        [
+          "Reumatologia Pediátrica",
+          "3",
+          "5",
+          "1,7"
+        ],
+        [
+          "Transplante de Fígado – R3",
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "Transplante de Medula Óssea",
+          "11",
+          "27",
+          "2,5"
+        ],
+        [
+          "Ultrassonografia em Ginecologia e Obstetrícia",
+          "13",
+          "36",
+          "2,8"
+        ]
+      ]
+    },
+    {
+      "titulo": "Enare — Ano Adicional",
+      "columns": [
+        "PROGRAMA",
+        "TOTAL DE VAGAS",
+        "NSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Cardiologia Cardio-Oncologia",
+          "4",
+          "3",
+          "0,8"
+        ],
+        [
+          "Cardiologia R3",
+          "4",
+          "6",
+          "1,5"
+        ],
+        [
+          "Cirurgia de Cabeça e Pescoço – R3",
+          "4",
+          "4",
+          "1"
+        ],
+        [
+          "Cirurgia do Aparelho Digestivo em Transplante de Fígado – R4",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Cirurgia Oncológica – R4",
+          "4",
+          "0",
+          "0"
+        ],
+        [
+          "Cirurgia Plástica",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "Cirurgia Torácica",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "Clínica Médica",
+          "21",
+          "23",
+          "1,1"
+        ],
+        [
+          "Gastroenterologia R3 – Com Ênfase em Doenças do Fígado",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Ginecologia e Obstetrícia R4",
+          "1",
+          "35",
+          "35"
+        ],
+        [
+          "Homeopatia R3",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "Medicina de Família e Comunidade – Saúde Indígena",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "Medicina de Família e Comunidade – Saúde Mental",
+          "4",
+          "32",
+          "8"
+        ],
+        [
+          "Medicina de Família e Comunidade R3",
+          "22",
+          "71",
+          "3,2"
+        ],
+        [
+          "Neurologia",
+          "9",
+          "9",
+          "1"
+        ],
+        [
+          "Ortopedia e Traumatologia R4",
+          "13",
+          "56",
+          "4,3"
+        ],
+        [
+          "Otorrinolaringologia – R4",
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "Patologia R4",
+          "5",
+          "1",
+          "0,2"
+        ],
+        [
+          "Radiologia e Diagnóstico por Imagem R4",
+          "5",
+          "5",
+          "1"
+        ],
+        [
+          "Transplante – Pediatria R3",
+          "2",
+          "1",
+          "0,5"
+        ],
+        [
+          "Transplante de Córnea",
+          "4",
+          "6",
+          "1,5"
+        ],
+        [
+          "Transplante de Rim – Nefrologia R3",
+          "2",
+          "5",
+          "2,5"
+        ],
+        [
+          "Transplante de Rim – Urologia",
+          "1",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "titulo": "Enare — Quais as mais concorridas?",
+      "columns": [
+        "COLOCAÇÃO",
+        "PROGRAMA",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "1º",
+          "MEDICINA ESPORTIVA",
+          "59,7"
+        ],
+        [
+          "2º",
+          "OTORRINOLARINGOLOGIA",
+          "51,3"
+        ],
+        [
+          "3º",
+          "NEUROCIRURGIA",
+          "48"
+        ],
+        [
+          "4º",
+          "OFTALMOLOGIA",
+          "39,1"
+        ],
+        [
+          "5º",
+          "DERMATOLOGIA",
+          "36,6"
+        ],
+        [
+          "6º",
+          "GINECOLOGIA E OBSTETRÍCIA R4",
+          "35"
+        ],
+        [
+          "7º",
+          "PSIQUIATRIA",
+          "30,9"
+        ],
+        [
+          "8º",
+          "NEUROLOGIA",
+          "27,8"
+        ],
+        [
+          "9º",
+          "ANESTESIOLOGIA",
+          "26,3"
+        ],
+        [
+          "10º",
+          "MEDICINA DO TRABALHO",
+          "26,1"
         ]
       ]
     }
