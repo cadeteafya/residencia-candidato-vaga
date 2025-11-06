@@ -81,14 +81,14 @@
   }
 
   // mesmo padrão do scraper para nome de arquivo
-  function fileNameFromTitle(title) {
-    const base = (title || "").toString().replace(/[^\w\s-]/g, "_").trim() || "tabela";
+  // === helpers de nomes/baixa (mesmo padrão do scraper) ===
+  function instFileName(name) {
+    const base = (name || "").toString().replace(/[^\w\s-]/g, "_").trim() || "modelo";
     const cut = base.length > 40 ? base.slice(0, 40) : base;
     return `${cut}.xlsx`;
   }
-
-  // download robusto (URL-encode + retries)
   async function ensureAndDownload(url, tries = 3, delay = 900) {
+    // URL-encode seguro para nomes com espaço/acentos/“ – ”
     const encoded = url.split("/").map((p, i) => (i === 0 ? p : encodeURIComponent(p))).join("/");
     for (let i = 0; i < tries; i++) {
       try {
@@ -100,45 +100,46 @@
     alert("Arquivo ainda não está disponível. Tente novamente em instantes.");
   }
 
-  function renderList(groups, q = "") {
-    const term = q.trim().toLowerCase();
-    const filtered = term ? groups.filter(g => (g.name || "").toLowerCase().includes(term)) : groups;
 
-    $grid.innerHTML = "";
-    if (!filtered.length) {
-      $grid.insertAdjacentHTML("beforeend",
-        `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
-    } else {
-      filtered.forEach(g => {
-        const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-        const card = `
-          <article class="card" aria-label="${g.name}">
-            <h3>${g.name}</h3>
-            <div class="meta">
-              <span class="pill">${g.tables.length} tabela(s)</span>
-              <span class="pill">${g.rows} linha(s)</span>
-              <span class="pill">${g.cols} coluna(s)</span>
-            </div>
-            <div class="foot">
-              <a class="btn" href="${href}">Abrir</a>
-              <button class="btn alt js-extract" type="button">Extrair</button>
-            </div>
-          </article>
-        `;
-        $grid.insertAdjacentHTML("beforeend", card);
-        const btn = $grid.lastElementChild.querySelector(".js-extract");
+ function renderList(groups, q = "") {
+  const term = q.trim().toLowerCase();
+  const filtered = term ? groups.filter(g => (g.name || "").toLowerCase().includes(term)) : groups;
 
-        // >>> Extrair DO CARD: apenas os modelos dessa instituição
-        btn.addEventListener("click", () => {
-          g.tables.forEach((t, idx) => {
-            const fn = fileNameFromTitle(t.titulo);
-            setTimeout(() => ensureAndDownload(`${DOWNLOADS_PATH}${fn}`), idx * 350);
-          });
-        });
+  $grid.innerHTML = "";
+  if (!filtered.length) {
+    $grid.insertAdjacentHTML("beforeend",
+      `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
+  } else {
+    filtered.forEach(g => {
+      const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
+      const instXlsx = `${DOWNLOADS_PATH}${instFileName(g.name)}`; // <<< arquivo único da instituição
+      const card = `
+        <article class="card" aria-label="${g.name}">
+          <h3>${g.name}</h3>
+          <div class="meta">
+            <span class="pill">${g.tables.length} tabela(s)</span>
+            <span class="pill">${g.rows} linha(s)</span>
+            <span class="pill">${g.cols} coluna(s)</span>
+          </div>
+          <div class="foot">
+            <a class="btn" href="${href}">Abrir</a>
+            <button class="btn alt js-extract" type="button" data-url="${instXlsx}">Extrair</button>
+          </div>
+        </article>
+      `;
+      $grid.insertAdjacentHTML("beforeend", card);
+    });
+
+    // “Extrair” do card → baixa o .xlsx da instituição (uma aba por tabela)
+    $grid.querySelectorAll(".js-extract").forEach(btn => {
+      btn.addEventListener("click", ev => {
+        const url = ev.currentTarget.getAttribute("data-url");
+        ensureAndDownload(url);
       });
-    }
-    $countHint.textContent = `${filtered.length} instituição(ões)`;
+    });
   }
+  $countHint.textContent = `${filtered.length} instituição(ões)`;
+}
 
   async function boot() {
     try {
@@ -174,6 +175,7 @@
 
 </body>
 </html>
+
 
 
 
