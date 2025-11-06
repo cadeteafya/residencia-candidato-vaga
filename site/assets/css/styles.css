@@ -1,243 +1,150 @@
 /* ============================================================
-   Concorrência Residência Médica 2026 — Estilo principal
-   Autor: ricardo.cadete
+   Concorrência Residência Médica 2026 — Estilo unificado (claro)
+   Mantém: cards alinhados, botões rosa, tabelas em zebra clara,
+   cabeçalho rosa, responsividade e tipografia moderna.
    ============================================================ */
 
-:root {
-  --bg: #0b0c10;
-  --card: #111317;
-  --border: #21252d;
-  --text: #e7e9ee;
-  --muted: #a9afbf;
-  --accent: #3366ff;
-  --radius: 14px;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue";
+:root{
+  /* Paleta clara */
+  --bg:#f9f9fb;
+  --card:#ffffff;
+  --text:#1a1a1a;
+  --muted:#666;
+  --border:#e5e5e9;
+  --primary:#ff4081;           /* rosa elegante */
+  --primary-hover:#e63773;
+  --radius:14px;
+  --shadow:0 2px 8px rgba(0,0,0,.04);
+  --font:"Inter","Segoe UI",Roboto,system-ui,-apple-system,Arial,"Helvetica Neue",sans-serif;
 }
 
-/* === RESET === */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ========== RESET ========== */
+*{ box-sizing:border-box; margin:0; padding:0 }
+html,body{ height:100% }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.55 var(--font);
 }
 
-html, body {
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.55 var(--font);
+/* ========== CONTAINER ========== */
+.container{ max-width:980px; margin:28px auto 60px; padding:0 16px }
+
+/* ========== TIPOS ========== */
+h1{ font-size:1.9rem; font-weight:800; letter-spacing:.2px }
+h2{ font-size:1.15rem; font-weight:700 }
+.muted,.subtle{ color:var(--muted) }
+
+/* ========== BOTÕES ========== */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:10px 16px; border-radius:10px;
+  background:var(--primary); color:#fff; border:none; cursor:pointer;
+  font-weight:600; text-decoration:none; transition:all .2s ease;
+}
+.btn:hover{ background:var(--primary-hover); transform:translateY(-1px) }
+.btn.alt{
+  background:transparent; color:var(--primary); border:1.5px solid var(--primary);
+}
+.btn.alt:hover{ background:var(--primary); color:#fff }
+.btn.back{ padding:12px 18px; border-radius:14px }
+
+/* ========== HEADER (INDEX) ========== */
+.page-header{
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:32px 28px;
+  margin-bottom:18px;
+}
+.actions{ margin-top:14px; display:flex; gap:12px; flex-wrap:wrap }
+
+/* ========== TOPO (INSTITUIÇÃO) ========== */
+.topbar{ display:flex; gap:12px; justify-content:flex-end; margin-bottom:8px }
+
+/* ========== BARRA DE BUSCA (INDEX) ========== */
+.toolbar{
+  margin:26px 0 14px;
+  display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center;
+}
+.search{
+  background:var(--card); color:var(--text);
+  border:1px solid var(--border); border-radius:10px;
+  padding:12px 14px; font-size:.95rem; transition:box-shadow .2s ease;
+}
+.search:focus{ outline:none; box-shadow:0 0 0 3px rgba(255,64,129,.15) }
+
+/* ========== GRID DE CARDS (INDEX) ========== */
+.grid{
+  display:grid; gap:18px;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  align-items:stretch;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px 18px;
+  display:flex; flex-direction:column; gap:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.03);
+  transition:box-shadow .2s ease;
+  height:100%;
+}
+.card:hover{ box-shadow:0 4px 10px rgba(0,0,0,.06) }
+.card h3{ margin:0; font-size:1.05rem; color:var(--text) }
+
+.pill{
+  display:inline-block; font-size:.82rem;
+  padding:5px 10px; border-radius:999px;
+  background:#f5f5f5; color:var(--muted); border:1px solid var(--border);
+}
+.card .meta{ display:flex; gap:8px; flex-wrap:wrap }
+.card .foot{ display:flex; gap:8px; padding-top:8px; margin-top:auto } /* fixa botões no rodapé do card */
+
+/* ========== SEÇÕES (INSTITUIÇÃO) ========== */
+.hdr{ display:grid; gap:8px; margin-bottom:14px }
+.section{ margin-top:22px }
+.section h2{ margin:0 0 12px }
+
+/* ========== TABELAS (tema claro unificado) ========== */
+.table-wrap{
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#fff;          /* garante cartão branco */
+}
+table{ width:100%; border-collapse:separate; border-spacing:0; background:#fff; color:var(--text) }
+
+/* Cabeçalho rosa com gradiente */
+thead tr{ background:linear-gradient(180deg,var(--primary),#ff5a93) }
+thead th{
+  color:#fff; font-weight:700; text-align:left;
+  padding:14px 16px; border:0;
 }
 
-/* === CONTAINER === */
-.container {
-  max-width: 1000px;
-  margin: 32px auto;
-  padding: 0 16px;
+/* Corpo com zebra clara e separadores sutis */
+tbody th, tbody td{
+  padding:12px 16px; border:0; color:var(--text);
 }
+tbody tr:nth-child(odd){  background:#ffffff }
+tbody tr:nth-child(even){ background:#fff5f8 }
+tbody tr:hover{           background:#ffeaf2 }
+tbody tr + tr td{ border-top:1px solid var(--border) }
 
-/* === HEADER === */
-header.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 22px 20px;
-  margin-bottom: 18px;
+/* Ações abaixo da tabela (instituição) */
+.row{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap }
+
+/* ========== ESTADOS / MENSAGENS ========== */
+.empty{ margin:40px 0; text-align:center; color:var(--muted) }
+.noscript{ margin:24px 0; color:#c73636 }
+
+/* ========== FOOTER ========== */
+footer{ opacity:.75; font-size:13px; margin:26px 0 40px }
+
+/* ========== RESPONSIVO ========== */
+@media (max-width:700px){
+  h1{ font-size:1.6rem }
+  .section h2{ font-size:1.05rem }
+  .toolbar{ grid-template-columns:1fr; }
+  th,td{ padding:10px 10px }
 }
-
-h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.muted {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.toolbar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-/* === BOTÕES === */
-.btn {
-  appearance: none;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #1a1d24;
-  color: var(--text);
-  padding: 10px 14px;
-  cursor: pointer;
-  transition: 0.15s;
-}
-
-.btn:hover {
-  border-color: #2a2f3a;
-  background: #1f232b;
-}
-
-.btn.accent {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-}
-
-.btn.accent:hover {
-  filter: brightness(1.05);
-}
-
-/* === BLOCOS === */
-.section {
-  margin: 16px 0;
-}
-
-.block {
-  margin: 18px 0 26px;
-}
-
-.block h2 {
-  margin-bottom: 8px;
-  font-size: 22px;
-}
-
-.block .block-actions {
-  margin: 8px 0 12px;
-}
-
-/* === TABELAS === */
-.table-wrap {
-  overflow: auto;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-}
-
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-thead th {
-  background: #141821;
-  color: #dfe4f2;
-  font-weight: 700;
-  text-align: left;
-  padding: 12px 14px;
-}
-
-th, td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-
-tbody tr:nth-child(odd) td {
-  background: #0f1319;
-}
-
-tbody tr:nth-child(even) td {
-  background: #0c0f14;
-}
-
-/* === MENSAGENS / ESTADOS === */
-.noscript {
-  margin: 24px 0;
-  color: #ffb4b4;
-}
-
-.muted.center {
-  text-align: center;
-}
-
-/* === FOOTER === */
-footer {
-  opacity: 0.7;
-  font-size: 13px;
-  margin: 26px 0 40px;
-}
-
-a.link {
-  color: #9db7ff;
-  text-decoration: none;
-}
-
-a.link:hover {
-  text-decoration: underline;
-}
-
-/* === RESPONSIVIDADE === */
-@media (max-width: 700px) {
-  h1 {
-    font-size: 24px;
-  }
-
-  .block h2 {
-    font-size: 20px;
-  }
-
-  th, td {
-    padding: 10px 8px;
-  }
-
-  .toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-
-/* === Override de tema escuro APENAS na página de instituição === */
-/* Se não puder adicionar a classe no <body>, remova "body.instituicao" dos seletores abaixo. */
-
-body.instituicao { background:#f9f9fb !important; color:#1a1a1a !important; }
-
-/* container da tabela */
-body.instituicao .table-wrap{
-  background:#fff !important;
-  border:1px solid #e7e7ec !important;
-  border-radius:14px !important;
-  overflow:hidden !important;
-}
-body.instituicao .table-wrap table{
-  background:#fff !important;
-  color:#1a1a1a !important;
-  border-collapse:separate !important;
-  border-spacing:0 !important;
-}
-
-/* cabeçalho rosa (sobrepõe o thead global) */
-body.instituicao .table-wrap thead tr{
-  background:linear-gradient(180deg,#ff4081,#ff5a93) !important;
-}
-body.instituicao .table-wrap thead th{
-  color:#fff !important;
-  font-weight:700 !important;
-  padding:14px 16px !important;
-  border:0 !important;
-  text-align:left !important;
-}
-
-/* listras claras (sobrepõe tbody global) */
-body.instituicao .table-wrap tbody td,
-body.instituicao .table-wrap tbody th{
-  color:#1a1a1a !important;
-  padding:12px 16px !important;
-  border:0 !important;
-}
-body.instituicao .table-wrap tbody tr:nth-child(odd) td{  background:#ffffff !important; }
-body.instituicao .table-wrap tbody tr:nth-child(even) td{ background:#fff5f8 !important; }
-body.instituicao .table-wrap tbody tr:hover td{       background:#ffeaf2 !important; }
-
-/* divisor sutil entre linhas */
-body.instituicao .table-wrap tbody tr + tr td{
-  border-top:1px solid #e7e7ec !important;
-}
-
-
-   
-}
-
