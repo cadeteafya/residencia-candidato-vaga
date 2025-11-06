@@ -188,4 +188,56 @@ a.link:hover {
     flex-direction: column;
     align-items: flex-start;
   }
+
+
+/* === Override de tema escuro APENAS na página de instituição === */
+/* Se não puder adicionar a classe no <body>, remova "body.instituicao" dos seletores abaixo. */
+
+body.instituicao { background:#f9f9fb !important; color:#1a1a1a !important; }
+
+/* container da tabela */
+body.instituicao .table-wrap{
+  background:#fff !important;
+  border:1px solid #e7e7ec !important;
+  border-radius:14px !important;
+  overflow:hidden !important;
 }
+body.instituicao .table-wrap table{
+  background:#fff !important;
+  color:#1a1a1a !important;
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+}
+
+/* cabeçalho rosa (sobrepõe o thead global) */
+body.instituicao .table-wrap thead tr{
+  background:linear-gradient(180deg,#ff4081,#ff5a93) !important;
+}
+body.instituicao .table-wrap thead th{
+  color:#fff !important;
+  font-weight:700 !important;
+  padding:14px 16px !important;
+  border:0 !important;
+  text-align:left !important;
+}
+
+/* listras claras (sobrepõe tbody global) */
+body.instituicao .table-wrap tbody td,
+body.instituicao .table-wrap tbody th{
+  color:#1a1a1a !important;
+  padding:12px 16px !important;
+  border:0 !important;
+}
+body.instituicao .table-wrap tbody tr:nth-child(odd) td{  background:#ffffff !important; }
+body.instituicao .table-wrap tbody tr:nth-child(even) td{ background:#fff5f8 !important; }
+body.instituicao .table-wrap tbody tr:hover td{       background:#ffeaf2 !important; }
+
+/* divisor sutil entre linhas */
+body.instituicao .table-wrap tbody tr + tr td{
+  border-top:1px solid #e7e7ec !important;
+}
+
+
+   
+}
+
