@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-11-07T07:41:40.037811-03:00",
-  "updated_at_br": "07/11/2025 07:41",
+  "updated_at_iso": "2025-11-08T07:09:39.493550-03:00",
+  "updated_at_br": "08/11/2025 07:09",
   "tabelas": [
     {
       "titulo": "Concorrência AMP 2025/2026",
@@ -1633,7 +1633,7 @@
       ]
     },
     {
-      "titulo": "HCPA",
+      "titulo": "HCPA — Acesso Direto",
       "columns": [
         "PROGRAMAS",
         "VAGAS DISPONÍVEIS*",
@@ -1790,6 +1790,371 @@
           "1",
           "6",
           "6"
+        ]
+      ]
+    },
+    {
+      "titulo": "HCPA — Pré-Requisito",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS DISPONÍVEIS",
+        "CANDIDATOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Cardiologia",
+          "6",
+          "67",
+          "11,17"
+        ],
+        [
+          "Cirurgia de Cabeça e Pescoço",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Cirurgia do Aparelho Digestivo",
+          "4",
+          "13",
+          "3,25"
+        ],
+        [
+          "Cirurgia Pediátrica",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Cirurgia Plástica",
+          "1",
+          "47",
+          "47"
+        ],
+        [
+          "Cirurgia Torácica",
+          "1",
+          "8",
+          "8"
+        ],
+        [
+          "Cirurgia Vascular",
+          "2",
+          "22",
+          "11"
+        ],
+        [
+          "Coloproctologia",
+          "1",
+          "12",
+          "12"
+        ],
+        [
+          "Endocrinologia e Metabologia",
+          "3",
+          "53",
+          "17,67"
+        ],
+        [
+          "Gastroenterologia",
+          "4",
+          "43",
+          "10,75"
+        ],
+        [
+          "Geriatria",
+          "4",
+          "34",
+          "8,5"
+        ],
+        [
+          "Hematologia e Hemoterapia",
+          "4",
+          "19",
+          "4,75"
+        ],
+        [
+          "Mastologia",
+          "1",
+          "9",
+          "9"
+        ],
+        [
+          "Nefrologia",
+          "5",
+          "21",
+          "4,2"
+        ],
+        [
+          "Oncologia Clínica",
+          "5",
+          "25",
+          "5"
+        ],
+        [
+          "Oncologia Pediátrica",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Pneumologia",
+          "5",
+          "37",
+          "7,4"
+        ],
+        [
+          "Reumatologia",
+          "3",
+          "21",
+          "7"
+        ],
+        [
+          "Urologia",
+          "3",
+          "32",
+          "10,67"
+        ],
+        [
+          "Administração em Saúde",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "Angiorradiologia e Cirurgia Endovascular",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Cirurgia Craniomaxilofacial",
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "Dor",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Ecocardiografia",
+          "2",
+          "13",
+          "6,5"
+        ],
+        [
+          "Eletrofisiologia Clínica Invasiva",
+          "1",
+          "7",
+          "7"
+        ],
+        [
+          "Emergência Pediátrica",
+          "2",
+          "1",
+          "0,5"
+        ],
+        [
+          "Endocrinologia Pediátrica",
+          "1",
+          "9",
+          "9"
+        ],
+        [
+          "Endoscopia Digestiva",
+          "2",
+          "7",
+          "3,5"
+        ],
+        [
+          "Endoscopia Ginecológica",
+          "1",
+          "10",
+          "10"
+        ],
+        [
+          "Endoscopia Respiratória",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Endoscopia Respiratória",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Ergometria",
+          "1",
+          "3",
+          "3"
+        ],
+        [
+          "Gastroenterologia Pediátrica",
+          "4",
+          "10",
+          "2,5"
+        ],
+        [
+          "Hematologia e Hemoterapia Pediátrica",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Hemodinâmica e Cardiologia Intervencionista",
+          "1",
+          "7",
+          "7"
+        ],
+        [
+          "Hepatologia",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "Infectologia Hospitalar",
+          "1",
+          "4",
+          "4"
+        ],
+        [
+          "Medicina Fetal",
+          "1",
+          "10",
+          "10"
+        ],
+        [
+          "Medicina Intensiva Pediátrica",
+          "3",
+          "7",
+          "2,33"
+        ],
+        [
+          "Medicina Paliativa",
+          "4",
+          "5",
+          "1,25"
+        ],
+        [
+          "Neonatologia",
+          "5",
+          "9",
+          "1,8"
+        ],
+        [
+          "Neurofisiologia Clínica",
+          "1",
+          "5",
+          "5"
+        ],
+        [
+          "Neurologia Pediátrica",
+          "3",
+          "43",
+          "14,33"
+        ],
+        [
+          "Nutrologia Pediátrica",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "Pneumologia Pediátrica",
+          "3",
+          "5",
+          "1,67"
+        ],
+        [
+          "Psicoterapia",
+          "4",
+          "2",
+          "0,5"
+        ],
+        [
+          "Psiquiatria da Infância e Adolescência",
+          "6",
+          "15",
+          "2,5"
+        ],
+        [
+          "Psiquiatria Forense",
+          "2",
+          "5",
+          "2,5"
+        ],
+        [
+          "Reprodução Assistida",
+          "1",
+          "8",
+          "8"
+        ],
+        [
+          "Reumatologia Pediátrica",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Transplante de Fígado",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "Transplante de Medula Óssea",
+          "2",
+          "5",
+          "2,5"
+        ],
+        [
+          "Clínica Médica (Ano Adicional)",
+          "3",
+          "2",
+          "0,67"
+        ],
+        [
+          "Ginecologia e Obstetrícia (Ano Adicional)",
+          "3",
+          "15",
+          "5"
+        ],
+        [
+          "Psiquiatria (Ano Adicional)",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Transplante de Coração (Ano Adicional)",
+          "2",
+          "1",
+          "0,5"
+        ],
+        [
+          "Transplante de Córnea (Ano Adicional)",
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "Transplante Renal (Ano Adicional)",
+          "2",
+          "0",
+          "0"
+        ],
+        [
+          "Transplante Renal (Ano Adicional)",
+          "2",
+          "0",
+          "0"
         ]
       ]
     },
@@ -2630,6 +2995,184 @@
           "1",
           "10",
           "10"
+        ]
+      ]
+    },
+    {
+      "titulo": "HONPAR",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Anestesiologia",
+          "6",
+          "89",
+          "14,83"
+        ],
+        [
+          "Cirurgia Cardiovascular",
+          "6",
+          "13",
+          "2,17"
+        ],
+        [
+          "Cirurgia Geral",
+          "6",
+          "75",
+          "12,5"
+        ],
+        [
+          "Clínica Médica",
+          "6",
+          "52",
+          "8,67"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "4",
+          "2",
+          "0,5"
+        ],
+        [
+          "Medicina Intensiva",
+          "4",
+          "13",
+          "3,25"
+        ],
+        [
+          "Ortopedia e Traumatologia",
+          "4",
+          "21",
+          "5,25"
+        ],
+        [
+          "Cardiologia",
+          "4",
+          "9",
+          "2,25"
+        ],
+        [
+          "Cirurgia Vascular",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Urologia",
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "Hemodinâmica e Cardiologia Intervencionista",
+          "2",
+          "2",
+          "1"
+        ]
+      ]
+    },
+    {
+      "titulo": "Hospital Pequeno Príncipe",
+      "columns": [
+        "Programa",
+        "Vagas",
+        "Inscritos",
+        "Concorrência"
+      ],
+      "rows": [
+        [
+          "Medicina de Família e Comunidade",
+          "11",
+          "20",
+          "1,82"
+        ],
+        [
+          "Ortopedia e Traumatologia",
+          "3",
+          "42",
+          "14"
+        ],
+        [
+          "Pediatria",
+          "21",
+          "405",
+          "19,29"
+        ],
+        [
+          "Cardiologia Pediátrica",
+          "4",
+          "15",
+          "3,75"
+        ],
+        [
+          "Cirurgia Pediátrica",
+          "2",
+          "17",
+          "8,5"
+        ],
+        [
+          "Gastroenterologia Pediátrica",
+          "2",
+          "8",
+          "4"
+        ],
+        [
+          "Medicina Intensiva Pediátrica",
+          "4",
+          "7",
+          "1,75"
+        ],
+        [
+          "Nefrologia Pediátrica",
+          "3",
+          "7",
+          "2,33"
+        ],
+        [
+          "Neonatologia Pediátrica",
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "Neurologia Pediátrica",
+          "4",
+          "44",
+          "11"
+        ],
+        [
+          "Nutrologia Pediátrica",
+          "2",
+          "3",
+          "1,5"
+        ],
+        [
+          "Oncologia Pediátrica",
+          "2",
+          "1",
+          "0,5"
+        ],
+        [
+          "Pneumologia Pediátrica",
+          "2",
+          "7",
+          "3,5"
+        ],
+        [
+          "Psiquiatria da Infância e da Adolescência",
+          "2",
+          "5",
+          "2,5"
+        ],
+        [
+          "Reumatologia Pediátrica",
+          "1",
+          "0",
+          "0"
         ]
       ]
     },
@@ -7206,6 +7749,217 @@
       ]
     },
     {
+      "titulo": "PSU-ES/SUL",
+      "columns": [
+        "INSTITUIÇÃO",
+        "PROGRAMA",
+        "VAGAS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "HECI",
+          "Anestesiologia",
+          "4",
+          "82",
+          "20,5"
+        ],
+        [
+          "HECI",
+          "Cirurgia Geral",
+          "2",
+          "68",
+          "34"
+        ],
+        [
+          "HECI",
+          "Clínica Médica",
+          "11",
+          "147",
+          "13,36"
+        ],
+        [
+          "HECI",
+          "Medicina de Emergência",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "HECI",
+          "Medicina Intensiva",
+          "2",
+          "8",
+          "4"
+        ],
+        [
+          "HECI",
+          "Neurologia",
+          "1",
+          "24",
+          "24"
+        ],
+        [
+          "HECI",
+          "Oftalmologia",
+          "1",
+          "37",
+          "37"
+        ],
+        [
+          "HECI",
+          "Cardiologia",
+          "2",
+          "12",
+          "6"
+        ],
+        [
+          "HECI",
+          "Cirurgia do Aparelho Digestivo",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "HECI",
+          "Medicina Paliativa",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "HIFA",
+          "Ginecologia e Obstetrícia",
+          "6",
+          "102",
+          "17"
+        ],
+        [
+          "HIFA",
+          "Pediatria",
+          "10",
+          "137",
+          "13,7"
+        ],
+        [
+          "HIFA",
+          "Medicina Intensiva Pediátrica",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "HIFA",
+          "Neonatologia",
+          "2",
+          "2",
+          "1"
+        ]
+      ]
+    },
+    {
+      "titulo": "Hospital Evangélico de Vila Velha (HEVV)",
+      "columns": [
+        "Programa",
+        "Vagas",
+        "Inscritos",
+        "Concorrência"
+      ],
+      "rows": [
+        [
+          "Anestesiologia",
+          "8",
+          "199",
+          "24,875"
+        ],
+        [
+          "Cirurgia Cardiovascular",
+          "1",
+          "10",
+          "10"
+        ],
+        [
+          "Cirurgia Geral",
+          "2",
+          "121",
+          "60,5"
+        ],
+        [
+          "Clínica Médica",
+          "4",
+          "155",
+          "38,75"
+        ],
+        [
+          "Medicina de Emergência",
+          "2",
+          "7",
+          "3,5"
+        ],
+        [
+          "Medicina Intensiva",
+          "6",
+          "27",
+          "4,5"
+        ],
+        [
+          "Oftalmologia",
+          "4",
+          "201",
+          "50,25"
+        ],
+        [
+          "Radiologia e Diagnóstico por Imagem (Especialização)",
+          "2",
+          "26",
+          "13"
+        ],
+        [
+          "Angiorradiologia e Cirurgia Endosvascular",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Clínica Médica (Ano Adicional)",
+          "2",
+          "1",
+          "0,5"
+        ],
+        [
+          "Cardiologia",
+          "6",
+          "21",
+          "3,5"
+        ],
+        [
+          "Cirurgia Vascular",
+          "1",
+          "9",
+          "9"
+        ],
+        [
+          "Mastologia",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Nefrologia",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Oncologia Clínica",
+          "2",
+          "7",
+          "3,5"
+        ]
+      ]
+    },
+    {
       "titulo": "Instituto do Câncer do Ceará – ICC — Concorrência ICC 2026",
       "columns": [
         "PROGRAMA",
@@ -7267,6 +8021,65 @@
           "1",
           "19",
           "19"
+        ]
+      ]
+    },
+    {
+      "titulo": "Secretaria Municipal de Saúde de João Pessoa (SMS-JP)",
+      "columns": [
+        "Programa",
+        "Vagas",
+        "Inscritos",
+        "Concorrência"
+      ],
+      "rows": [
+        [
+          "Anestesiologia",
+          "2",
+          "149",
+          "74,5"
+        ],
+        [
+          "Cirurgia Geral",
+          "5",
+          "173",
+          "34,6"
+        ],
+        [
+          "Clínica Médica",
+          "10",
+          "227",
+          "22,7"
+        ],
+        [
+          "Coloproctologia",
+          "2",
+          "11",
+          "5,5"
+        ],
+        [
+          "Ginecologia e Obstetrícia",
+          "4",
+          "176",
+          "44"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "20",
+          "342",
+          "17,1"
+        ],
+        [
+          "Neonatologia",
+          "3",
+          "4",
+          "1,33"
+        ],
+        [
+          "Ortopedia e Traumatologia",
+          "4",
+          "78",
+          "19,5"
         ]
       ]
     },
