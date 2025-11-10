@@ -12,26 +12,6 @@
       downloadsPath: "downloads/",
       allExcelFilename: "concorrencia_2026.xlsx"
     };
-  </script>
-</head>
-<body>
-  <div class="container">
-    <header class="page-header">
-      <h1>Concorrência para Residência Médica 2026</h1>
-      <div class="subtle">Atualizado em: <span id="updatedAt">—</span></div>
-      <div class="actions">
-        <button id="btnExtrairTodos" class="btn" type="button">Extrair todos</button>
-      </div>
-    </header>
-
-    <div class="toolbar">
-      <input id="busca" class="search" type="search" placeholder="Buscar instituição…" autocomplete="off" />
-      <div class="muted" id="countHint">0 instituições</div>
-    </div>
-
-    <section id="grid" class="grid" aria-label="Lista de instituições"></section>
-  </div>
-
 <script>
 (function () {
   const cfg = window.CONCORRENCIA_CONFIG || {};
@@ -43,9 +23,10 @@
   const $grid      = document.getElementById("grid");
   const $busca     = document.getElementById("busca");
   const $countHint = document.getElementById("countHint");
-  const $btnAll    = document.getElementById("btnExtrairTodos");
+  const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
 
-  const emdash = /\s+—\s+|\s+-\s+/;
+  const emdash = /\s+[—-]\s+/;
+  const yearRe = /\b20\d{2}(?:\/20\d{2})?\b/g;
 
   function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
   function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
@@ -53,56 +34,56 @@
   function slugify(s){
     return (s||"")
       .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^\w\s-]/g,"")
-      .trim().replace(/\s+/g,"-")
-      .toLowerCase();
+      .replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase();
   }
+
+  function instFromTitle(title){
+    let t = (title||"").trim();
+    if (!t) return "Instituição";
+    const parts = t.split(emdash);
+    let base = (parts[0]||"").trim();
+    // Se for prefixo genérico, pega o último trecho
+    if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length>1){
+      base = parts[parts.length-1].trim();
+    }
+    base = base.replace(yearRe,"").replace(/^[\W_]+/,"").trim();
+    return base || t;
+  }
+
   function ensureAndDownload(url){
     return fetch(url,{method:"HEAD",cache:"no-store"})
-      .then(r=>{ if(!r.ok) throw 0; location.href=url; })
+      .then(r=>{ if(!r.ok) throw 0; window.location.href=url; })
       .catch(()=>alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
   }
 
-  function cleanYears(s){
-    return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim();
-  }
-  function instFromTitle(title){
-    // pega sempre o título “raiz” que está antes do texto da seção
-    let t = (title||"").split(emdash)[0].trim();
-    // remove prefixos comuns
-    t = t.replace(/^(concorr[eê]ncia|rel[aá]ci[oõ]n?o?.*vaga|programas?.*concorridos?|prova.*objetiva)\s*/i, "");
-    t = t.replace(/\bresid[eê]ncia m[eé]dica\b/gi, "");
-    t = cleanYears(t);
-    return t || (title||"").trim();
-  }
-
-  // Agrupa por instituição (nome curto) e calcula slug compatível com o scraper
+  // Agrupa por instituição usando a regra de título acima
   function groupByInstitution(blocks){
     const map = new Map();
     for (const b of blocks){
-      const name = instFromTitle(b.card_title || b.titulo || "");
-      const slug = slugify(name);
-      if (!map.has(slug)) map.set(slug, { slug, name, tables:[], rows:0, cols:0 });
-      const g = map.get(slug);
+      const inst = instFromTitle(b.titulo||b.card_title||"");
+      const sg   = slugify(inst);
+      if (!map.has(sg)) map.set(sg, { slug: sg, name: inst, tables: [], rows: 0, cols: 0 });
+      const g = map.get(sg);
       g.tables.push(b);
-      g.rows += Array.isArray(b.rows)? b.rows.length : 0;
-      g.cols  = Math.max(g.cols, Array.isArray(b.columns)? b.columns.length : 0);
+      if (Array.isArray(b.rows)) g.rows += b.rows.length;
+      if (Array.isArray(b.columns)) g.cols = Math.max(g.cols, b.columns.length);
     }
     return Array.from(map.values()).sort((a,b)=> a.name.localeCompare(b.name,'pt-BR'));
   }
 
+  // Nome do pacote XLSX da instituição (gerado pelo scraper)
+  function packFileFor(slug){ return `${DOWNLOADS_PATH}concorrencia_2026__${slug}.xlsx`; }
+
   function renderList(groups, q=""){
-    const term = (q||"").trim().toLowerCase();
+    const term = q.trim().toLowerCase();
     const filtered = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
 
     $grid.innerHTML = "";
     if (!filtered.length){
       $grid.insertAdjacentHTML("beforeend", `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
-    } else {
+    }else{
       filtered.forEach(g=>{
-        const href    = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-        const xlsxGrp = `${DOWNLOADS_PATH}concorrencia_2026__${g.slug}.xlsx`;
-
+        const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
         const card = `
           <article class="card" aria-label="${g.name}">
             <h3>${g.name}</h3>
@@ -113,7 +94,7 @@
             </div>
             <div class="foot">
               <a class="btn" href="${href}">Abrir</a>
-              <a class="btn alt js-extract" href="#" data-url="${xlsxGrp}">Extrair</a>
+              <a class="btn alt js-extract" href="#" data-pack="${g.slug}">Extrair</a>
             </div>
           </article>`;
         $grid.insertAdjacentHTML("beforeend", card);
@@ -122,7 +103,8 @@
       $grid.querySelectorAll(".js-extract").forEach(a=>{
         a.addEventListener("click",(ev)=>{
           ev.preventDefault();
-          ensureAndDownload(ev.currentTarget.getAttribute("data-url"));
+          const slug = ev.currentTarget.getAttribute("data-pack");
+          ensureAndDownload(packFileFor(slug));
         });
       });
     }
@@ -131,30 +113,34 @@
 
   async function boot(){
     try{
-      const resp = await fetch(jsonURL(), {cache:"no-store"});
-      if(!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
+      const resp = await fetch(jsonURL(), {cache: "no-store"});
+      if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
       const payload = await resp.json();
+
       if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
 
-      const blocks = Array.isArray(payload.tabelas)? payload.tabelas : [];
+      const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
       const groups = groupByInstitution(blocks);
 
       renderList(groups);
       $busca.addEventListener("input", e => renderList(groups, e.target.value));
-      if ($btnAll) $btnAll.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
+      if ($btnExtrairTodos){
+        $btnExtrairTodos.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
+      }
     }catch(err){
       console.error("[HOME] Erro:", err);
       $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
     }
   }
 
-  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded",boot) : boot();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
 })();
 </script>
 
 
 </body>
 </html>
+
 
 
 
