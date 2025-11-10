@@ -14,132 +14,119 @@
     };
 <script>
 (function () {
-  const cfg = window.CONCORRENCIA_CONFIG || {};
-  const JSON_REL       = cfg.jsonPath        || "data/concorrencia_2026.json";
-  const DOWNLOADS_PATH = cfg.downloadsPath   || "downloads/";
-  const ALL_XLSX_NAME  = cfg.allExcelFilename|| "concorrencia_2026.xlsx";
+  const JSON_REL = "data/concorrencia_2026.json";
+  const DOWNLOADS_PATH = "downloads/";
+  const ALL_XLSX_NAME = "concorrencia_2026.xlsx";
 
   const $updatedAt = document.getElementById("updatedAt");
   const $grid      = document.getElementById("grid");
   const $busca     = document.getElementById("busca");
   const $countHint = document.getElementById("countHint");
-  const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
+  const $btnAll    = document.getElementById("btnExtrairTodos");
 
-  const emdash = /\s+[—-]\s+/;
-  const yearRe = /\b20\d{2}(?:\/20\d{2})?\b/g;
-
+  // ---------- utils ----------
   function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
   function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
 
-  function slugify(s){
-    return (s||"")
-      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase();
-  }
+  const EMDASH = /\s+[—-]\s+/;
+  const YEAR   = /\b20\d{2}(?:\/20\d{2})?\b/g;
+  const GENERIC = /^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i;
 
+  function nrm(s){ return (s||"").replace(/\s+/g," ").trim(); }
   function instFromTitle(title){
-    let t = (title||"").trim();
-    if (!t) return "Instituição";
-    const parts = t.split(emdash);
+    let t = nrm(title);
+    if(!t) return "Instituição";
+    const parts = t.split(EMDASH);
     let base = (parts[0]||"").trim();
-    // Se for prefixo genérico, pega o último trecho
-    if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length>1){
-      base = parts[parts.length-1].trim();
-    }
-    base = base.replace(yearRe,"").replace(/^[\W_]+/,"").trim();
+    if (GENERIC.test(base) && parts.length>1) base = parts[parts.length-1].trim();
+    base = base.replace(YEAR,"").replace(/^[\W_]+/,"").trim();
     return base || t;
   }
-
-  function ensureAndDownload(url){
-    return fetch(url,{method:"HEAD",cache:"no-store"})
-      .then(r=>{ if(!r.ok) throw 0; window.location.href=url; })
-      .catch(()=>alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
+  function slugify(s){
+    return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase();
+  }
+  function packFilenameByInst(instName){
+    return `concorrencia_2026__${slugify(instName)}.xlsx`;
   }
 
-  // Agrupa por instituição usando a regra de título acima
+  // render
   function groupByInstitution(blocks){
     const map = new Map();
-    for (const b of blocks){
-      const inst = instFromTitle(b.titulo||b.card_title||"");
-      const sg   = slugify(inst);
-      if (!map.has(sg)) map.set(sg, { slug: sg, name: inst, tables: [], rows: 0, cols: 0 });
-      const g = map.get(sg);
+    for(const b of blocks){
+      const inst = instFromTitle(b.titulo||"");
+      const slug = slugify(inst);
+      if(!map.has(slug)) map.set(slug, { slug, name: inst, tables: [], rows:0, cols:0 });
+      const g = map.get(slug);
       g.tables.push(b);
-      if (Array.isArray(b.rows)) g.rows += b.rows.length;
-      if (Array.isArray(b.columns)) g.cols = Math.max(g.cols, b.columns.length);
+      g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
+      g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
     }
-    return Array.from(map.values()).sort((a,b)=> a.name.localeCompare(b.name,'pt-BR'));
+    return Array.from(map.values()).sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
   }
 
-  // Nome do pacote XLSX da instituição (gerado pelo scraper)
-  function packFileFor(slug){ return `${DOWNLOADS_PATH}concorrencia_2026__${slug}.xlsx`; }
-
   function renderList(groups, q=""){
-    const term = q.trim().toLowerCase();
-    const filtered = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
+    const term = (q||"").toLowerCase().trim();
+    const list = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
 
     $grid.innerHTML = "";
-    if (!filtered.length){
+    if(!list.length){
       $grid.insertAdjacentHTML("beforeend", `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
-    }else{
-      filtered.forEach(g=>{
-        const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-        const card = `
-          <article class="card" aria-label="${g.name}">
-            <h3>${g.name}</h3>
-            <div class="meta">
-              <span class="pill">${g.tables.length} tabela(s)</span>
-              <span class="pill">${g.rows} linha(s)</span>
-              <span class="pill">${g.cols} coluna(s)</span>
-            </div>
-            <div class="foot">
-              <a class="btn" href="${href}">Abrir</a>
-              <a class="btn alt js-extract" href="#" data-pack="${g.slug}">Extrair</a>
-            </div>
-          </article>`;
-        $grid.insertAdjacentHTML("beforeend", card);
-      });
-
-      $grid.querySelectorAll(".js-extract").forEach(a=>{
-        a.addEventListener("click",(ev)=>{
-          ev.preventDefault();
-          const slug = ev.currentTarget.getAttribute("data-pack");
-          ensureAndDownload(packFileFor(slug));
-        });
-      });
+      $countHint.textContent = "0 instituição(ões)";
+      return;
     }
-    $countHint.textContent = `${filtered.length} instituição(ões)`;
+
+    for(const g of list){
+      const instHref = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
+      const instXlsx = DOWNLOADS_PATH + packFilenameByInst(g.name);
+      const card = `
+        <article class="card" aria-label="${g.name}">
+          <h3>${g.name}</h3>
+          <div class="meta">
+            <span class="pill">${g.tables.length} tabela(s)</span>
+            <span class="pill">${g.rows} linha(s)</span>
+            <span class="pill">${g.cols} coluna(s)</span>
+          </div>
+          <div class="foot">
+            <a class="btn" href="${instHref}">Abrir</a>
+            <a class="btn alt js-extract" href="${instXlsx}" download>Extrair</a>
+          </div>
+        </article>`;
+      $grid.insertAdjacentHTML("beforeend", card);
+    }
+    $countHint.textContent = `${list.length} instituição(ões)`;
   }
 
   async function boot(){
     try{
-      const resp = await fetch(jsonURL(), {cache: "no-store"});
-      if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
-      const payload = await resp.json();
+      const r = await fetch(jsonURL(), {cache:"no-store"});
+      if(!r.ok) throw new Error(`Falha ao carregar JSON (${r.status})`);
+      const payload = await r.json();
 
-      if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
+      if($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
 
       const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
       const groups = groupByInstitution(blocks);
-
       renderList(groups);
-      $busca.addEventListener("input", e => renderList(groups, e.target.value));
-      if ($btnExtrairTodos){
-        $btnExtrairTodos.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
-      }
+
+      if($busca) $busca.addEventListener("input", e => renderList(groups, e.target.value));
+      if($btnAll) $btnAll.addEventListener("click", e => {
+        e.preventDefault();
+        window.location.href = DOWNLOADS_PATH + ALL_XLSX_NAME;
+      });
     }catch(err){
-      console.error("[HOME] Erro:", err);
+      console.error(err);
       $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
     }
   }
 
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
+  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
 })();
 </script>
 
-
 </body>
 </html>
+
 
 
 
