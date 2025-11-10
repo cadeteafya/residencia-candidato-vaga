@@ -24,52 +24,46 @@
 
 <script>
 (() => {
-  const JSON_REL       = "data/concorrencia_2026.json";
+  const JSON_REL = "data/concorrencia_2026.json";
   const DOWNLOADS_PATH = "downloads/";
-  const emdash = /\s+—\s+|\s+-\s+/;
+  const emdash = /\s+[—-]\s+|\s+-\s+/;
 
-  const $titulo    = document.getElementById("titulo");
+  const $titulo = document.getElementById("titulo");
   const $updatedAt = document.getElementById("updatedAt");
-  const $conteudo  = document.getElementById("conteudo");
-  const $btnAll    = document.getElementById("btnExtrairTodos");
+  const $conteudo = document.getElementById("conteudo");
+  const $btnAll = document.getElementById("btnExtrairTodos");
 
   function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
   function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
-  function q(key){ return new URLSearchParams(location.search).get(key)||""; }
+  function q(k){ return new URLSearchParams(location.search).get(k)||""; }
 
-  function slugify(s){
-    return (s||"")
-      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^\w\s-]/g,"")
-      .trim().replace(/\s+/g,"-")
-      .toLowerCase();
-  }
-  function cleanYears(s){
-    return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim();
-  }
+  function packFileFor(slug){ return `${DOWNLOADS_PATH}concorrencia_2026__${slug}.xlsx`; }
+
+  function slugify(s){ return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase(); }
+  function cleanYears(s){ return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim(); }
   function instFromTitle(title){
-    let t = (title||"").split(emdash)[0].trim();
-    t = t.replace(/^(concorr[eê]ncia|rel[aá]ci[oõ]n?o?.*vaga|programas?.*concorridos?|prova.*objetiva)\s*/i,"");
-    t = t.replace(/\bresid[eê]ncia m[eé]dica\b/gi,"");
-    t = cleanYears(t);
-    return t || (title||"").trim();
+    const parts=(title||"").split(emdash);
+    let base=(parts[0]||"").trim();
+    if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length>1){
+      base = parts[parts.length-1].trim();
+    }
+    base = cleanYears(base).replace(/^[\W_]+/, "").trim();
+    return base || (title||"").trim();
   }
-  function subTitle(full){
-    const parts=(full||"").split(emdash);
-    return parts.length>=2 ? parts.slice(1).join(" — ").trim() : "";
-  }
-  function sanitizeFileNameFromTitle(title){
-    const base=(title||"").toString().replace(/[^\w\s-]/g,"_").trim() || "tabela";
-    return `${(base.length>40? base.slice(0,40):base)}.xlsx`;
-  }
+
   function ensureAndDownload(url){
     return fetch(url,{method:"HEAD",cache:"no-store"})
       .then(r=>{ if(!r.ok) throw 0; location.href=url; })
       .catch(()=>alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
   }
 
-  function renderTables(instName, tables, updatedText, groupSlug){
-    $titulo.textContent = instName || "Instituição";
+  function sanitizeFileNameFromTitle(title){
+    const base=(title||"").toString().replace(/[^\w\s-]/g,"_").trim() || "tabela";
+    return `${(base.length>40? base.slice(0,40):base)}.xlsx`;
+  }
+
+  function renderTables(instName, tables, updatedText, slug){
+    $titulo.textContent = instName;
     $updatedAt.textContent = updatedText || "—";
     $conteudo.innerHTML = "";
 
@@ -79,24 +73,24 @@
     }
 
     tables.forEach(t=>{
-      const sub = subTitle(t.titulo);
-      const filename = sanitizeFileNameFromTitle(t.titulo);
       const cols = Array.isArray(t.columns)? t.columns : [];
       const rows = Array.isArray(t.rows)? t.rows : [];
-
       const thead = `<thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>`;
-      const tbody = `<tbody>${rows.map(r=>`<tr>${cols.map((_,i)=>`<td>${(r[i]??"")}</td>`).join("")}</tr>`).join("")}</tbody>`;
+      const tbody = `<tbody>${
+        rows.map(r=>`<tr>${cols.map((_,i)=>`<td>${(r[i]??"")}</td>`).join("")}</tr>`).join("")
+      }</tbody>`;
+      const filename = sanitizeFileNameFromTitle(t.titulo);
 
-      $conteudo.insertAdjacentHTML("beforeend", `
+      const section = `
         <section class="section">
-          ${sub ? `<h2>${sub}</h2>` : ""}
+          <h2>${t.titulo}</h2>
           <div class="table-wrap"><table aria-label="${t.titulo}">${thead}${tbody}</table></div>
           <div class="row"><a class="btn" href="${DOWNLOADS_PATH}${filename}" data-dl="${filename}">Extrair esta tabela</a></div>
-        </section>
-      `);
+        </section>`;
+      $conteudo.insertAdjacentHTML("beforeend", section);
     });
 
-    // binds
+    // extrair ESTA tabela
     $conteudo.querySelectorAll("[data-dl]").forEach(a=>{
       a.addEventListener("click",(ev)=>{
         ev.preventDefault();
@@ -104,39 +98,38 @@
       });
     });
 
+    // extrair TODAS da instituição (pack)
     if ($btnAll){
-      const urlGrp = `${DOWNLOADS_PATH}concorrencia_2026__${groupSlug}.xlsx`;
-      $btnAll.onclick = (ev)=>{ ev.preventDefault(); ensureAndDownload(urlGrp); };
+      $btnAll.onclick = (ev)=>{ ev.preventDefault(); ensureAndDownload(packFileFor(slug)); };
     }
   }
 
   async function boot(){
     const groupSlug = q("g");
     try{
-      const resp = await fetch(jsonURL(), {cache:"no-store"});
-      const payload = await resp.json();
-      const blocks  = Array.isArray(payload.tabelas)? payload.tabelas : [];
+      const resp=await fetch(jsonURL(),{cache:"no-store"});
+      const payload=await resp.json();
+      const blocks=Array.isArray(payload.tabelas)? payload.tabelas : [];
       const updatedText = payload.updated_at_br || "—";
 
-      // agrupa com a MESMA regra do index
       const groups = new Map();
-      for (const b of blocks){
-        const name = instFromTitle(b.card_title || b.titulo || "");
-        const slug = slugify(name);
-        if (!groups.has(slug)) groups.set(slug, {name, tables:[]});
+      blocks.forEach(b=>{
+        const key = instFromTitle(b.titulo||"");
+        const slug = slugify(key);
+        if(!groups.has(slug)) groups.set(slug,{name:key,tables:[]});
         groups.get(slug).tables.push(b);
-      }
+      });
 
-      const g = groups.get(groupSlug);
-      if (!g){ $conteudo.innerHTML = `<div class="empty">Instituição não encontrada.</div>`; return; }
-      renderTables(g.name, g.tables, updatedText, groupSlug);
+      const group = groups.get(groupSlug);
+      if(!group){ $conteudo.innerHTML = `<div class="empty">Instituição não encontrada.</div>`; return; }
+      renderTables(group.name, group.tables, updatedText, groupSlug);
     }catch(e){
       console.error(e);
       $conteudo.innerHTML = `<div class="empty">Erro ao carregar os dados.</div>`;
     }
   }
 
-  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded",boot) : boot();
+  document.readyState==="loading"? document.addEventListener("DOMContentLoaded",boot):boot();
 })();
 </script>
 
