@@ -389,6 +389,28 @@ def pack_filename(inst_name: str) -> str:
             pass
     new_hash = json_hash(payload)
 
+# --- agrupa enriquecidas por instituição ---
+groups = {}  # slug -> {"name": inst_name, "tables": [blocks]}
+for b in enriched:
+    inst_name = inst_from_title(b.get("titulo", ""))
+    sg = slugify(inst_name)
+    groups.setdefault(sg, {"name": inst_name, "tables": []})
+    groups[sg]["tables"].append(b)
+
+# --- grava um XLSX por instituição em EXCEL_DIR e copia para site/downloads ---
+for sg, g in groups.items():
+    fn = pack_filename(g["name"])
+    xlsx_path = os.path.join(EXCEL_DIR, fn)
+    with pd.ExcelWriter(xlsx_path, engine="openpyxl") as wr:
+        for tb in g["tables"]:
+            df = pd.DataFrame(tb["rows"], columns=tb["columns"])
+            sheet = safe_sheet_name(tb["titulo"])
+            df.to_excel(wr, index=False, sheet_name=sheet)
+
+    if os.path.isdir(SITE_DIR):
+        shutil.copy2(xlsx_path, os.path.join(SITE_DL_DIR, fn))
+
+
     write_json(json_path, payload)
     print(f"[SCRAPER] JSON atualizado em: {json_path}")
     if os.path.isdir(SITE_DIR):
@@ -418,4 +440,5 @@ def pack_filename(inst_name: str) -> str:
 
 if __name__ == "__main__":
     main()
+
 
