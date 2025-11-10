@@ -344,6 +344,41 @@ def main():
         "tabelas": enriched,
     }
 
+# --- util p/ normalizar nome de instituição (mesma lógica do front) ---
+EMDASH = re.compile(r"\s+[—-]\s+")
+YEAR = re.compile(r"\b20\d{2}(?:\/20\d{2})?\b")
+
+def inst_from_title(title: str) -> str:
+    t = (title or "").strip()
+    if not t:
+        return "Instituição"
+    # pega o lado "base" do título
+    parts = EMDASH.split(t)
+    base = (parts[0] or "").strip()
+    # se a base for prefixo genérico, fica com o trecho final
+    if re.match(r"^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)", base, flags=re.I) and len(parts) > 1:
+        base = parts[-1].strip()
+    # remove anos e pontuação solta
+    base = YEAR.sub("", base)
+    base = re.sub(r"^[\W_]+", "", base).strip()
+    return base or (t.strip())
+
+def slugify(s: str) -> str:
+    s = (s or "").strip()
+    s = (unicodedata.normalize("NFD", s)
+         .encode("ascii", "ignore").decode("ascii"))
+    s = re.sub(r"[^\w\s-]", "", s).strip().lower()
+    return re.sub(r"\s+", "-", s)
+
+def safe_sheet_name(s: str) -> str:
+    # 31 chars, sem :, \, /, ?, *, [, ]
+    s = re.sub(r'[:\\/*?\[\]]', ' ', s).strip()
+    return (s[:31] or "Tabela")
+
+def pack_filename(inst_name: str) -> str:
+    return f"concorrencia_2026__{slugify(inst_name)}.xlsx"
+
+
     json_path = os.path.join(DATA_DIR, JSON_NAME)
     old_hash = None
     if os.path.exists(json_path):
@@ -383,3 +418,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
