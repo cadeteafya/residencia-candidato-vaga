@@ -5,159 +5,171 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Concorrência para Residência Médica 2026</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
 
-<script>
-(() => {
-  const JSON_REL = "data/concorrencia_2026.json";
-  const DOWNLOADS_PATH = "downloads/";
-  const ALL_XLSX_NAME = "concorrencia_2026.xlsx";
+<body>
+  <main class="container">
+    <!-- Cabeçalho / título -->
+    <section class="page-header">
+      <h1>Concorrência para Residência Médica 2026</h1>
+      <div class="subtle">Atualizado em: <span id="updatedAt">—</span></div>
 
-  const $updatedAt = document.getElementById("updatedAt");
-  const $grid = document.getElementById("grid");
-  const $busca = document.getElementById("busca");
-  const $countHint = document.getElementById("countHint");
-  const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
+      <div class="actions">
+        <a id="btnExtrairTodos" class="btn" href="#">Extrair todos</a>
+      </div>
+    </section>
 
-  // --------- utils (espelhos do scraper) ----------
-  const EMDASH = /\s+—\s+|\s+-\s+/;
-  const YEAR = /\b20\d{2}(?:\/20\d{2})?\b/;
+    <!-- Barra de busca + contador -->
+    <div class="toolbar">
+      <input id="busca" class="search" type="search" placeholder="Buscar instituição…" />
+      <div class="muted" id="countHint">0 instituição(ões)</div>
+    </div>
 
-  function instFromTitle(title) {
-    const t = (title || "").trim();
-    if (!t) return "Instituição";
-    const parts = t.split(EMDASH);
-    let base = (parts[0] || "").trim();
-    if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length > 1) {
-      base = parts[parts.length - 1].trim();
-    }
-    base = base.replace(YEAR, "").replace(/^[\W_]+/, "").replace(/\s{2,}/g, " ").trim();
-    return base || t;
-  }
+    <!-- Grade dos cards -->
+    <section class="section">
+      <div id="grid" class="grid"></div>
+    </section>
+  </main>
 
-  function slugify(s) {
-    return (s || "")
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^\w\s-]/g, "")
-      .trim().toLowerCase()
-      .replace(/\s+/g, "-");
-  }
+  <script>
+  (() => {
+    const JSON_REL = "data/concorrencia_2026.json";
+    const DOWNLOADS_PATH = "downloads/";
+    const ALL_XLSX_NAME = "concorrencia_2026.xlsx";
 
-  // mesmo nome de arquivo que o scraper gera por instituição
-  function packInstitutionXlsxBySlug(slug) {
-    return `concorrencia_2026__${slug}.xlsx`;
-  }
+    const $updatedAt = document.getElementById("updatedAt");
+    const $grid = document.getElementById("grid");
+    const $busca = document.getElementById("busca");
+    const $countHint = document.getElementById("countHint");
+    const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
 
-  // mesmo nome de arquivo que o scraper gera por TABELA (40 chars, não-letras = _)
-  function perTableFilenameFromTitle(title) {
-    let base = (title || "").replace(/[^\w\s-]/g, "_").trim();
-    if (!base) base = "tabela";
-    if (base.length > 40) base = base.slice(0, 40);
-    return `${base}.xlsx`;
-  }
+    // --------- utils (espelhos do scraper) ----------
+    const EMDASH = /\s+—\s+|\s+-\s+/;
+    const YEAR = /\b20\d{2}(?:\/20\d{2})?\b/;
 
-  function ensureAndDownload(url) {
-    return fetch(url, { method: "HEAD", cache: "no-store" })
-      .then(r => { if (!r.ok) throw 0; window.location.href = url; })
-      .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
-  }
-
-  function groupByInstitution(blocks) {
-    const map = new Map();
-    for (const b of blocks) {
-      const name = instFromTitle(b.titulo || "");
-      const slug = slugify(name);
-      if (!map.has(slug)) map.set(slug, { slug, name, tables: [], rows: 0, cols: 0 });
-      const g = map.get(slug);
-      g.tables.push(b);
-      g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
-      g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
-    }
-    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
-  }
-
-  function renderList(groups, q = "") {
-    const term = (q || "").trim().toLowerCase();
-    const filtered = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
-
-    $grid.innerHTML = "";
-    if (!filtered.length) {
-      $grid.innerHTML = `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`;
-      $countHint.textContent = "0 instituição(ões)";
-      return;
-    }
-
-    for (const g of filtered) {
-      const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-      const instFile = packInstitutionXlsxBySlug(g.slug);
-
-      const card = `
-        <article class="card" aria-label="${g.name}">
-          <h3>${g.name}</h3>
-          <div class="meta">
-            <span class="pill">${g.tables.length} tabela(s)</span>
-            <span class="pill">${g.rows} linha(s)</span>
-            <span class="pill">${g.cols} coluna(s)</span>
-          </div>
-          <div class="foot">
-            <a class="btn" href="${href}">Abrir</a>
-            <a class="btn alt js-extract" href="#" data-url="${DOWNLOADS_PATH}${instFile}">Extrair</a>
-          </div>
-        </article>
-      `;
-      $grid.insertAdjacentHTML("beforeend", card);
-    }
-
-    // bind downloads por card
-    $grid.querySelectorAll(".js-extract").forEach(a => {
-      a.addEventListener("click", ev => {
-        ev.preventDefault();
-        ensureAndDownload(ev.currentTarget.getAttribute("data-url"));
-      });
-    });
-
-    $countHint.textContent = `${filtered.length} instituição(ões)`;
-  }
-
-  async function boot() {
-    try {
-      const resp = await fetch(JSON_REL, { cache: "no-store" });
-      if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
-      const payload = await resp.json();
-
-      if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
-
-      const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
-      const groups = groupByInstitution(blocks);
-      renderList(groups);
-
-      if ($busca) $busca.addEventListener("input", e => renderList(groups, e.target.value));
-      if ($btnExtrairTodos) {
-        $btnExtrairTodos.addEventListener("click", e => {
-          e.preventDefault();
-          ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
-        });
+    function instFromTitle(title) {
+      const t = (title || "").trim();
+      if (!t) return "Instituição";
+      const parts = t.split(EMDASH);
+      let base = (parts[0] || "").trim();
+      if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length > 1) {
+        base = parts[parts.length - 1].trim();
       }
-    } catch (err) {
-      console.error("[HOME] Erro ao carregar os dados:", err);
-      $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
+      base = base.replace(YEAR, "").replace(/^[\W_]+/, "").replace(/\s{2,}/g, " ").trim();
+      return base || t;
     }
-  }
 
-  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
-})();
-</script>
+    function slugify(s) {
+      return (s || "")
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\w\s-]/g, "")
+        .trim().toLowerCase()
+        .replace(/\s+/g, "-");
+    }
 
+    // mesmo nome de arquivo que o scraper gera por instituição
+    function packInstitutionXlsxBySlug(slug) {
+      return `concorrencia_2026__${slug}.xlsx`;
+    }
 
+    // mesmo nome de arquivo que o scraper gera por TABELA (40 chars, não-letras = _)
+    function perTableFilenameFromTitle(title) {
+      let base = (title || "").replace(/[^\w\s-]/g, "_").trim();
+      if (!base) base = "tabela";
+      if (base.length > 40) base = base.slice(0, 40);
+      return `${base}.xlsx`;
+    }
+
+    function ensureAndDownload(url) {
+      return fetch(url, { method: "HEAD", cache: "no-store" })
+        .then(r => { if (!r.ok) throw 0; window.location.href = url; })
+        .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
+    }
+
+    function groupByInstitution(blocks) {
+      const map = new Map();
+      for (const b of blocks) {
+        const name = instFromTitle(b.titulo || "");
+        const slug = slugify(name);
+        if (!map.has(slug)) map.set(slug, { slug, name, tables: [], rows: 0, cols: 0 });
+        const g = map.get(slug);
+        g.tables.push(b);
+        g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
+        g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
+      }
+      return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    }
+
+    function renderList(groups, q = "") {
+      const term = (q || "").trim().toLowerCase();
+      const filtered = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
+
+      $grid.innerHTML = "";
+      if (!filtered.length) {
+        $grid.innerHTML = `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`;
+        $countHint.textContent = "0 instituição(ões)";
+        return;
+      }
+
+      for (const g of filtered) {
+        const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
+        const instFile = packInstitutionXlsxBySlug(g.slug);
+
+        const card = `
+          <article class="card" aria-label="${g.name}">
+            <h3>${g.name}</h3>
+            <div class="meta">
+              <span class="pill">${g.tables.length} tabela(s)</span>
+              <span class="pill">${g.rows} linha(s)</span>
+              <span class="pill">${g.cols} coluna(s)</span>
+            </div>
+            <div class="foot">
+              <a class="btn" href="${href}">Abrir</a>
+              <a class="btn alt js-extract" href="#" data-url="${DOWNLOADS_PATH}${instFile}">Extrair</a>
+            </div>
+          </article>
+        `;
+        $grid.insertAdjacentHTML("beforeend", card);
+      }
+
+      // bind downloads por card
+      $grid.querySelectorAll(".js-extract").forEach(a => {
+        a.addEventListener("click", ev => {
+          ev.preventDefault();
+          ensureAndDownload(ev.currentTarget.getAttribute("data-url"));
+        });
+      });
+
+      $countHint.textContent = `${filtered.length} instituição(ões)`;
+    }
+
+    async function boot() {
+      try {
+        const resp = await fetch(JSON_REL, { cache: "no-store" });
+        if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
+        const payload = await resp.json();
+
+        if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
+
+        const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
+        const groups = groupByInstitution(blocks);
+        renderList(groups);
+
+        if ($busca) $busca.addEventListener("input", e => renderList(groups, e.target.value));
+        if ($btnExtrairTodos) {
+          $btnExtrairTodos.addEventListener("click", e => {
+            e.preventDefault();
+            ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
+          });
+        }
+      } catch (err) {
+        console.error("[HOME] Erro ao carregar os dados:", err);
+        $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
+      }
+    }
+
+    document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
+  })();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
