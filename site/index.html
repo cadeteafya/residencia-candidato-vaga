@@ -6,79 +6,90 @@
   <title>Concorrência para Residência Médica 2026</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
 
-  <script>
-    window.CONCORRENCIA_CONFIG = {
-      jsonPath: "data/concorrencia_2026.json",
-      downloadsPath: "downloads/",
-      allExcelFilename: "concorrencia_2026.xlsx"
-    };
 <script>
-(function () {
+(() => {
   const JSON_REL = "data/concorrencia_2026.json";
   const DOWNLOADS_PATH = "downloads/";
   const ALL_XLSX_NAME = "concorrencia_2026.xlsx";
 
   const $updatedAt = document.getElementById("updatedAt");
-  const $grid      = document.getElementById("grid");
-  const $busca     = document.getElementById("busca");
+  const $grid = document.getElementById("grid");
+  const $busca = document.getElementById("busca");
   const $countHint = document.getElementById("countHint");
-  const $btnAll    = document.getElementById("btnExtrairTodos");
+  const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
 
-  // ---------- utils ----------
-  function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
-  function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
+  // --------- utils (espelhos do scraper) ----------
+  const EMDASH = /\s+—\s+|\s+-\s+/;
+  const YEAR = /\b20\d{2}(?:\/20\d{2})?\b/;
 
-  const EMDASH = /\s+[—-]\s+/;
-  const YEAR   = /\b20\d{2}(?:\/20\d{2})?\b/g;
-  const GENERIC = /^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i;
-
-  function nrm(s){ return (s||"").replace(/\s+/g," ").trim(); }
-  function instFromTitle(title){
-    let t = nrm(title);
-    if(!t) return "Instituição";
+  function instFromTitle(title) {
+    const t = (title || "").trim();
+    if (!t) return "Instituição";
     const parts = t.split(EMDASH);
-    let base = (parts[0]||"").trim();
-    if (GENERIC.test(base) && parts.length>1) base = parts[parts.length-1].trim();
-    base = base.replace(YEAR,"").replace(/^[\W_]+/,"").trim();
+    let base = (parts[0] || "").trim();
+    if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length > 1) {
+      base = parts[parts.length - 1].trim();
+    }
+    base = base.replace(YEAR, "").replace(/^[\W_]+/, "").replace(/\s{2,}/g, " ").trim();
     return base || t;
   }
-  function slugify(s){
-    return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase();
-  }
-  function packFilenameByInst(instName){
-    return `concorrencia_2026__${slugify(instName)}.xlsx`;
+
+  function slugify(s) {
+    return (s || "")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s-]/g, "")
+      .trim().toLowerCase()
+      .replace(/\s+/g, "-");
   }
 
-  // render
-  function groupByInstitution(blocks){
+  // mesmo nome de arquivo que o scraper gera por instituição
+  function packInstitutionXlsxBySlug(slug) {
+    return `concorrencia_2026__${slug}.xlsx`;
+  }
+
+  // mesmo nome de arquivo que o scraper gera por TABELA (40 chars, não-letras = _)
+  function perTableFilenameFromTitle(title) {
+    let base = (title || "").replace(/[^\w\s-]/g, "_").trim();
+    if (!base) base = "tabela";
+    if (base.length > 40) base = base.slice(0, 40);
+    return `${base}.xlsx`;
+  }
+
+  function ensureAndDownload(url) {
+    return fetch(url, { method: "HEAD", cache: "no-store" })
+      .then(r => { if (!r.ok) throw 0; window.location.href = url; })
+      .catch(() => alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
+  }
+
+  function groupByInstitution(blocks) {
     const map = new Map();
-    for(const b of blocks){
-      const inst = instFromTitle(b.titulo||"");
-      const slug = slugify(inst);
-      if(!map.has(slug)) map.set(slug, { slug, name: inst, tables: [], rows:0, cols:0 });
+    for (const b of blocks) {
+      const name = instFromTitle(b.titulo || "");
+      const slug = slugify(name);
+      if (!map.has(slug)) map.set(slug, { slug, name, tables: [], rows: 0, cols: 0 });
       const g = map.get(slug);
       g.tables.push(b);
       g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
       g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
     }
-    return Array.from(map.values()).sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
   }
 
-  function renderList(groups, q=""){
-    const term = (q||"").toLowerCase().trim();
-    const list = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
+  function renderList(groups, q = "") {
+    const term = (q || "").trim().toLowerCase();
+    const filtered = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
 
     $grid.innerHTML = "";
-    if(!list.length){
-      $grid.insertAdjacentHTML("beforeend", `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
+    if (!filtered.length) {
+      $grid.innerHTML = `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`;
       $countHint.textContent = "0 instituição(ões)";
       return;
     }
 
-    for(const g of list){
-      const instHref = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-      const instXlsx = DOWNLOADS_PATH + packFilenameByInst(g.name);
+    for (const g of filtered) {
+      const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
+      const instFile = packInstitutionXlsxBySlug(g.slug);
+
       const card = `
         <article class="card" aria-label="${g.name}">
           <h3>${g.name}</h3>
@@ -88,44 +99,58 @@
             <span class="pill">${g.cols} coluna(s)</span>
           </div>
           <div class="foot">
-            <a class="btn" href="${instHref}">Abrir</a>
-            <a class="btn alt js-extract" href="${instXlsx}" download>Extrair</a>
+            <a class="btn" href="${href}">Abrir</a>
+            <a class="btn alt js-extract" href="#" data-url="${DOWNLOADS_PATH}${instFile}">Extrair</a>
           </div>
-        </article>`;
+        </article>
+      `;
       $grid.insertAdjacentHTML("beforeend", card);
     }
-    $countHint.textContent = `${list.length} instituição(ões)`;
+
+    // bind downloads por card
+    $grid.querySelectorAll(".js-extract").forEach(a => {
+      a.addEventListener("click", ev => {
+        ev.preventDefault();
+        ensureAndDownload(ev.currentTarget.getAttribute("data-url"));
+      });
+    });
+
+    $countHint.textContent = `${filtered.length} instituição(ões)`;
   }
 
-  async function boot(){
-    try{
-      const r = await fetch(jsonURL(), {cache:"no-store"});
-      if(!r.ok) throw new Error(`Falha ao carregar JSON (${r.status})`);
-      const payload = await r.json();
+  async function boot() {
+    try {
+      const resp = await fetch(JSON_REL, { cache: "no-store" });
+      if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
+      const payload = await resp.json();
 
-      if($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
+      if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
 
       const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
       const groups = groupByInstitution(blocks);
       renderList(groups);
 
-      if($busca) $busca.addEventListener("input", e => renderList(groups, e.target.value));
-      if($btnAll) $btnAll.addEventListener("click", e => {
-        e.preventDefault();
-        window.location.href = DOWNLOADS_PATH + ALL_XLSX_NAME;
-      });
-    }catch(err){
-      console.error(err);
+      if ($busca) $busca.addEventListener("input", e => renderList(groups, e.target.value));
+      if ($btnExtrairTodos) {
+        $btnExtrairTodos.addEventListener("click", e => {
+          e.preventDefault();
+          ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
+        });
+      }
+    } catch (err) {
+      console.error("[HOME] Erro ao carregar os dados:", err);
       $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
     }
   }
 
-  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
 })();
 </script>
 
+
 </body>
 </html>
+
 
 
 
