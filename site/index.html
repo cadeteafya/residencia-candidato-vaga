@@ -35,146 +35,127 @@
 <script>
 (function () {
   const cfg = window.CONCORRENCIA_CONFIG || {};
-  const JSON_REL = cfg.jsonPath || "data/concorrencia_2026.json";
-  const DOWNLOADS_PATH = cfg.downloadsPath || "downloads/";
-  const ALL_XLSX_NAME = cfg.allExcelFilename || "concorrencia_2026.xlsx";
-  const emdash = /\s+—\s+|\s+-\s+/;
+  const JSON_REL       = cfg.jsonPath        || "data/concorrencia_2026.json";
+  const DOWNLOADS_PATH = cfg.downloadsPath   || "downloads/";
+  const ALL_XLSX_NAME  = cfg.allExcelFilename|| "concorrencia_2026.xlsx";
 
   const $updatedAt = document.getElementById("updatedAt");
-  const $grid = document.getElementById("grid");
-  const $busca = document.getElementById("busca");
+  const $grid      = document.getElementById("grid");
+  const $busca     = document.getElementById("busca");
   const $countHint = document.getElementById("countHint");
-  const $btnExtrairTodos = document.getElementById("btnExtrairTodos");
+  const $btnAll    = document.getElementById("btnExtrairTodos");
 
-  function repoBasePath() {
-    const parts = location.pathname.split("/");
-    return "/" + (parts[1] || "");
-  }
-  function jsonURL() {
-    return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`;
-  }
+  const emdash = /\s+—\s+|\s+-\s+/;
 
-  // === agrupador igual ao que você já usava (por card_title, com fallback) ===
-  function groupByCardTitle(blocks) {
-    const map = new Map();
-    for (const b of blocks) {
-      const name = (b.card_title || "").trim() || (b.titulo || "").split(emdash)[0].trim();
-      const key = name;
-      const slug = slugify(name);
-      if (!map.has(key)) map.set(key, { key, slug, name, tables: [], rows: 0, cols: 0 });
-      const g = map.get(key);
-      g.tables.push(b);
-      g.rows += Array.isArray(b.rows) ? b.rows.length : 0;
-      g.cols = Math.max(g.cols, Array.isArray(b.columns) ? b.columns.length : 0);
-    }
-    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
-  }
+  function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
+  function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
 
-  // === utilidades ===
-  function slugify(s) {
-    return (s || "")
-      .toString()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^\w\s-]/g, "")
-      .trim().replace(/\s+/g, "-")
+  function slugify(s){
+    return (s||"")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^\w\s-]/g,"")
+      .trim().replace(/\s+/g,"-")
       .toLowerCase();
   }
-
-  // mesmo padrão do scraper para nome de arquivo
-  // === helpers de nomes/baixa (mesmo padrão do scraper) ===
-  function instFileName(name) {
-    const base = (name || "").toString().replace(/[^\w\s-]/g, "_").trim() || "modelo";
-    const cut = base.length > 40 ? base.slice(0, 40) : base;
-    return `${cut}.xlsx`;
+  function ensureAndDownload(url){
+    return fetch(url,{method:"HEAD",cache:"no-store"})
+      .then(r=>{ if(!r.ok) throw 0; location.href=url; })
+      .catch(()=>alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
   }
-  async function ensureAndDownload(url, tries = 3, delay = 900) {
-    // URL-encode seguro para nomes com espaço/acentos/“ – ”
-    const encoded = url.split("/").map((p, i) => (i === 0 ? p : encodeURIComponent(p))).join("/");
-    for (let i = 0; i < tries; i++) {
-      try {
-        const r = await fetch(encoded, { method: "HEAD", cache: "no-store" });
-        if (r.ok) { location.href = encoded; return; }
-      } catch (_) {}
-      await new Promise(res => setTimeout(res, delay * Math.pow(1.25, i)));
+
+  function cleanYears(s){
+    return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim();
+  }
+  function instFromTitle(title){
+    // pega sempre o título “raiz” que está antes do texto da seção
+    let t = (title||"").split(emdash)[0].trim();
+    // remove prefixos comuns
+    t = t.replace(/^(concorr[eê]ncia|rel[aá]ci[oõ]n?o?.*vaga|programas?.*concorridos?|prova.*objetiva)\s*/i, "");
+    t = t.replace(/\bresid[eê]ncia m[eé]dica\b/gi, "");
+    t = cleanYears(t);
+    return t || (title||"").trim();
+  }
+
+  // Agrupa por instituição (nome curto) e calcula slug compatível com o scraper
+  function groupByInstitution(blocks){
+    const map = new Map();
+    for (const b of blocks){
+      const name = instFromTitle(b.card_title || b.titulo || "");
+      const slug = slugify(name);
+      if (!map.has(slug)) map.set(slug, { slug, name, tables:[], rows:0, cols:0 });
+      const g = map.get(slug);
+      g.tables.push(b);
+      g.rows += Array.isArray(b.rows)? b.rows.length : 0;
+      g.cols  = Math.max(g.cols, Array.isArray(b.columns)? b.columns.length : 0);
     }
-    alert("Arquivo ainda não está disponível. Tente novamente em instantes.");
+    return Array.from(map.values()).sort((a,b)=> a.name.localeCompare(b.name,'pt-BR'));
   }
 
+  function renderList(groups, q=""){
+    const term = (q||"").trim().toLowerCase();
+    const filtered = term ? groups.filter(g => g.name.toLowerCase().includes(term)) : groups;
 
- function renderList(groups, q = "") {
-  const term = q.trim().toLowerCase();
-  const filtered = term ? groups.filter(g => (g.name || "").toLowerCase().includes(term)) : groups;
+    $grid.innerHTML = "";
+    if (!filtered.length){
+      $grid.insertAdjacentHTML("beforeend", `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
+    } else {
+      filtered.forEach(g=>{
+        const href    = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
+        const xlsxGrp = `${DOWNLOADS_PATH}concorrencia_2026__${g.slug}.xlsx`;
 
-  $grid.innerHTML = "";
-  if (!filtered.length) {
-    $grid.insertAdjacentHTML("beforeend",
-      `<div class="empty">Nenhuma instituição encontrada para “${q}”.</div>`);
-  } else {
-    filtered.forEach(g => {
-      const href = `instituicao.html?g=${encodeURIComponent(g.slug)}`;
-      const instXlsx = `${DOWNLOADS_PATH}${instFileName(g.name)}`; // <<< arquivo único da instituição
-      const card = `
-        <article class="card" aria-label="${g.name}">
-          <h3>${g.name}</h3>
-          <div class="meta">
-            <span class="pill">${g.tables.length} tabela(s)</span>
-            <span class="pill">${g.rows} linha(s)</span>
-            <span class="pill">${g.cols} coluna(s)</span>
-          </div>
-          <div class="foot">
-            <a class="btn" href="${href}">Abrir</a>
-            <button class="btn alt js-extract" type="button" data-url="${instXlsx}">Extrair</button>
-          </div>
-        </article>
-      `;
-      $grid.insertAdjacentHTML("beforeend", card);
-    });
-
-    // “Extrair” do card → baixa o .xlsx da instituição (uma aba por tabela)
-    $grid.querySelectorAll(".js-extract").forEach(btn => {
-      btn.addEventListener("click", ev => {
-        const url = ev.currentTarget.getAttribute("data-url");
-        ensureAndDownload(url);
+        const card = `
+          <article class="card" aria-label="${g.name}">
+            <h3>${g.name}</h3>
+            <div class="meta">
+              <span class="pill">${g.tables.length} tabela(s)</span>
+              <span class="pill">${g.rows} linha(s)</span>
+              <span class="pill">${g.cols} coluna(s)</span>
+            </div>
+            <div class="foot">
+              <a class="btn" href="${href}">Abrir</a>
+              <a class="btn alt js-extract" href="#" data-url="${xlsxGrp}">Extrair</a>
+            </div>
+          </article>`;
+        $grid.insertAdjacentHTML("beforeend", card);
       });
-    });
+
+      $grid.querySelectorAll(".js-extract").forEach(a=>{
+        a.addEventListener("click",(ev)=>{
+          ev.preventDefault();
+          ensureAndDownload(ev.currentTarget.getAttribute("data-url"));
+        });
+      });
+    }
+    $countHint.textContent = `${filtered.length} instituição(ões)`;
   }
-  $countHint.textContent = `${filtered.length} instituição(ões)`;
-}
 
-  async function boot() {
-    try {
-      const resp = await fetch(jsonURL(), { cache: "no-store" });
-      if (!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
+  async function boot(){
+    try{
+      const resp = await fetch(jsonURL(), {cache:"no-store"});
+      if(!resp.ok) throw new Error(`Falha ao carregar JSON (${resp.status})`);
       const payload = await resp.json();
-
       if ($updatedAt) $updatedAt.textContent = payload.updated_at_br || "—";
 
-      const blocks = Array.isArray(payload.tabelas) ? payload.tabelas : [];
-      const groups = groupByCardTitle(blocks);
+      const blocks = Array.isArray(payload.tabelas)? payload.tabelas : [];
+      const groups = groupByInstitution(blocks);
 
       renderList(groups);
-      $busca.addEventListener("input", (e) => renderList(groups, e.target.value));
-
-      // >>> Extrair TODOS da home = consolidado geral (como já era)
-      if ($btnExtrairTodos) {
-        $btnExtrairTodos.onclick = () =>
-          ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
-      }
-    } catch (err) {
-      console.error("[HOME] Erro ao carregar os dados:", err);
+      $busca.addEventListener("input", e => renderList(groups, e.target.value));
+      if ($btnAll) $btnAll.onclick = () => ensureAndDownload(`${DOWNLOADS_PATH}${ALL_XLSX_NAME}`);
+    }catch(err){
+      console.error("[HOME] Erro:", err);
       $grid.innerHTML = `<div class="empty">Erro ao carregar os dados. Tente novamente mais tarde.</div>`;
     }
   }
 
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", boot)
-    : boot();
+  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded",boot) : boot();
 })();
 </script>
 
 
 </body>
 </html>
+
 
 
 
