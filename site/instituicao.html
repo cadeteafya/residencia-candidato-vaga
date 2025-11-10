@@ -26,45 +26,49 @@
 (() => {
   const JSON_REL = "data/concorrencia_2026.json";
   const DOWNLOADS_PATH = "downloads/";
-  const emdash = /\s+[—-]\s+|\s+-\s+/;
+  const ALL_XLSX_NAME = "concorrencia_2026.xlsx"; // (não usado aqui, mas mantido)
 
-  const $titulo = document.getElementById("titulo");
-  const $updatedAt = document.getElementById("updatedAt");
+  const $titulo   = document.getElementById("titulo");
+  const $updated  = document.getElementById("updatedAt");
   const $conteudo = document.getElementById("conteudo");
-  const $btnAll = document.getElementById("btnExtrairTodos");
+  const $btnAll   = document.getElementById("btnExtrairTodos");
 
   function repoBasePath(){ const p=location.pathname.split("/"); return "/"+(p[1]||""); }
   function jsonURL(){ return `${location.origin}${repoBasePath()}/${JSON_REL}?v=${Date.now()}`; }
-  function q(k){ return new URLSearchParams(location.search).get(k)||""; }
+  function q(key){ const p=new URLSearchParams(location.search); return p.get(key)||""; }
 
-  function packFileFor(slug){ return `${DOWNLOADS_PATH}concorrencia_2026__${slug}.xlsx`; }
+  const EMDASH = /\s+[—-]\s+/;
+  const YEAR   = /\b20\d{2}(?:\/20\d{2})?\b/g;
+  const GENERIC = /^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i;
 
-  function slugify(s){ return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase(); }
-  function cleanYears(s){ return (s||"").replace(/\b20\d{2}(?:\/20\d{2})?\b/g,"").replace(/\s{2,}/g," ").trim(); }
+  function nrm(s){ return (s||"").replace(/\s+/g," ").trim(); }
   function instFromTitle(title){
-    const parts=(title||"").split(emdash);
-    let base=(parts[0]||"").trim();
-    if (/^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)/i.test(base) && parts.length>1){
-      base = parts[parts.length-1].trim();
-    }
-    base = cleanYears(base).replace(/^[\W_]+/, "").trim();
-    return base || (title||"").trim();
+    let t = nrm(title);
+    if(!t) return "Instituição";
+    const parts = t.split(EMDASH);
+    let base = (parts[0]||"").trim();
+    if (GENERIC.test(base) && parts.length>1) base = parts[parts.length-1].trim();
+    base = base.replace(YEAR,"").replace(/^[\W_]+/,"").trim();
+    return base || t;
+  }
+  function slugify(s){
+    return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase();
+  }
+  function packFilenameByInst(instName){
+    return `concorrencia_2026__${slugify(instName)}.xlsx`;
   }
 
-  function ensureAndDownload(url){
-    return fetch(url,{method:"HEAD",cache:"no-store"})
-      .then(r=>{ if(!r.ok) throw 0; location.href=url; })
-      .catch(()=>alert("Arquivo ainda não está disponível. Tente novamente em instantes."));
+  function subTitle(full, inst){
+    // mantém só a parte após o em-dash, para usar como <h2>
+    const parts = (full||"").split(EMDASH);
+    if (parts.length>=2) return parts.slice(1).join(" — ").trim();
+    return "";
   }
 
-  function sanitizeFileNameFromTitle(title){
-    const base=(title||"").toString().replace(/[^\w\s-]/g,"_").trim() || "tabela";
-    return `${(base.length>40? base.slice(0,40):base)}.xlsx`;
-  }
-
-  function renderTables(instName, tables, updatedText, slug){
+  function renderTables(instName, tables, updatedText){
     $titulo.textContent = instName;
-    $updatedAt.textContent = updatedText || "—";
+    $updated.textContent = updatedText || "—";
     $conteudo.innerHTML = "";
 
     if(!tables.length){
@@ -72,66 +76,67 @@
       return;
     }
 
-    tables.forEach(t=>{
-      const cols = Array.isArray(t.columns)? t.columns : [];
-      const rows = Array.isArray(t.rows)? t.rows : [];
+    for(const t of tables){
+      const sub = subTitle(t.titulo, instName);
+      const cols = Array.isArray(t.columns) ? t.columns : [];
+      const rows = Array.isArray(t.rows) ? t.rows : [];
+
       const thead = `<thead><tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>`;
       const tbody = `<tbody>${
         rows.map(r=>`<tr>${cols.map((_,i)=>`<td>${(r[i]??"")}</td>`).join("")}</tr>`).join("")
       }</tbody>`;
-      const filename = sanitizeFileNameFromTitle(t.titulo);
 
+      const oneName = (t.titulo||"").replace(/[^\w\s-]/g,"_").trim();
+      const fileOne = `${oneName.slice(0,40)||"tabela"}.xlsx`; // já gerado pelo scraper
       const section = `
         <section class="section">
-          <h2>${t.titulo}</h2>
+          ${sub ? `<h2>${sub}</h2>` : ""}
           <div class="table-wrap"><table aria-label="${t.titulo}">${thead}${tbody}</table></div>
-          <div class="row"><a class="btn" href="${DOWNLOADS_PATH}${filename}" data-dl="${filename}">Extrair esta tabela</a></div>
+          <div class="row"><a class="btn" href="${DOWNLOADS_PATH}${fileOne}" download>Extrair esta tabela</a></div>
         </section>`;
       $conteudo.insertAdjacentHTML("beforeend", section);
-    });
+    }
 
-    // extrair ESTA tabela
-    $conteudo.querySelectorAll("[data-dl]").forEach(a=>{
-      a.addEventListener("click",(ev)=>{
-        ev.preventDefault();
-        ensureAndDownload(`${DOWNLOADS_PATH}${ev.currentTarget.getAttribute("data-dl")}`);
-      });
-    });
-
-    // extrair TODAS da instituição (pack)
-    if ($btnAll){
-      $btnAll.onclick = (ev)=>{ ev.preventDefault(); ensureAndDownload(packFileFor(slug)); };
+    // botão "Extrair todos" — pacote da instituição
+    if($btnAll){
+      const pack = DOWNLOADS_PATH + packFilenameByInst(instName);
+      $btnAll.addEventListener("click", (e)=>{ e.preventDefault(); window.location.href = pack; });
     }
   }
 
   async function boot(){
     const groupSlug = q("g");
     try{
-      const resp=await fetch(jsonURL(),{cache:"no-store"});
-      const payload=await resp.json();
-      const blocks=Array.isArray(payload.tabelas)? payload.tabelas : [];
+      const r = await fetch(jsonURL(), {cache:"no-store"});
+      const payload = await r.json();
+      const blocks = Array.isArray(payload.tabelas)? payload.tabelas : [];
       const updatedText = payload.updated_at_br || "—";
 
+      // agrupa por instituição (mesma regra da home)
       const groups = new Map();
-      blocks.forEach(b=>{
+      for(const b of blocks){
         const key = instFromTitle(b.titulo||"");
         const slug = slugify(key);
-        if(!groups.has(slug)) groups.set(slug,{name:key,tables:[]});
+        if(!groups.has(slug)) groups.set(slug, { name:key, tables:[] });
         groups.get(slug).tables.push(b);
-      });
+      }
 
       const group = groups.get(groupSlug);
-      if(!group){ $conteudo.innerHTML = `<div class="empty">Instituição não encontrada.</div>`; return; }
-      renderTables(group.name, group.tables, updatedText, groupSlug);
-    }catch(e){
-      console.error(e);
+      if(!group){
+        $conteudo.innerHTML = `<div class="empty">Instituição não encontrada.</div>`;
+        return;
+      }
+      renderTables(group.name, group.tables, updatedText);
+    }catch(err){
+      console.error(err);
       $conteudo.innerHTML = `<div class="empty">Erro ao carregar os dados.</div>`;
     }
   }
 
-  document.readyState==="loading"? document.addEventListener("DOMContentLoaded",boot):boot();
+  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded",boot) : boot();
 })();
 </script>
+
 
 
 </body>
