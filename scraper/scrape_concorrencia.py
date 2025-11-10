@@ -3,10 +3,10 @@
 Scraper — Concorrência 2026 (WP-API + HTML público; follow-button + filtros)
 Regras:
   • Ignorar qualquer bloco cuja heading/título contenha "Estratégia MED".
-  • Home agrupa por instituição (card_title); agora também geramos um XLSX por instituição.
+  • Home agrupa por instituição; geramos também um XLSX por instituição em site/downloads.
 """
 
-import os, re, json, shutil
+import os, re, json, shutil, unicodedata
 from datetime import datetime
 from hashlib import md5
 from urllib.parse import urljoin
@@ -15,23 +15,23 @@ import pandas as pd
 import pytz, requests
 from bs4 import BeautifulSoup, Tag, NavigableString
 
-SCRIPT_VERSION = "2025-11-06-per-inst-xlsx"
+SCRIPT_VERSION = "2025-11-10-per-inst-xlsx-v2"
 
 FONTE_URL = "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/"
 WP_API_BASE = "https://med.estrategia.com/portal/wp-json/wp/v2"
 
 # paths
-SCRAPER_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_DIR = os.path.dirname(SCRAPER_DIR)
-OUTPUT_DIR = os.path.join(REPO_DIR, "output")
-DATA_DIR = os.path.join(OUTPUT_DIR, "data")
-EXCEL_DIR = os.path.join(OUTPUT_DIR, "excel")
-SITE_DIR = os.path.join(REPO_DIR, "site")
+SCRAPER_DIR   = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR      = os.path.dirname(SCRAPER_DIR)
+OUTPUT_DIR    = os.path.join(REPO_DIR, "output")
+DATA_DIR      = os.path.join(OUTPUT_DIR, "data")
+EXCEL_DIR     = os.path.join(OUTPUT_DIR, "excel")
+SITE_DIR      = os.path.join(REPO_DIR, "site")
 SITE_DATA_DIR = os.path.join(SITE_DIR, "data")
-SITE_DL_DIR = os.path.join(SITE_DIR, "downloads")
+SITE_DL_DIR   = os.path.join(SITE_DIR, "downloads")
 
 JSON_NAME = "concorrencia_2026.json"
-XLSX_ALL = "concorrencia_2026.xlsx"
+XLSX_ALL  = "concorrencia_2026.xlsx"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122 Safari/537.36",
@@ -50,7 +50,7 @@ def ensure_dirs():
         os.makedirs(SITE_DATA_DIR, exist_ok=True)
         os.makedirs(SITE_DL_DIR, exist_ok=True)
 
-def now_brt(): 
+def now_brt():
     return datetime.now(pytz.timezone("America/Sao_Paulo"))
 
 def nrm(s: str) -> str:
@@ -71,10 +71,12 @@ def parse_html_table(tbl: Tag):
     trs = body.find_all("tr")
     for i, tr in enumerate(trs):
         cells = tr.find_all(["td","th"])
-        if not cells: continue
+        if not cells: 
+            continue
         row = [text_of(td) for td in cells]
         if not cols and i == 0:
-            cols = row; continue
+            cols = row
+            continue
         rows.append(row)
     if not cols and rows:
         m = max(len(r) for r in rows)
@@ -101,15 +103,14 @@ def write_json(path: str, payload: dict):
     with open(path,"w",encoding="utf-8") as f:
         json.dump(payload,f,ensure_ascii=False,indent=2)
 
-# ---- nomes/arquivos (mesmo padrão do front) ----
+# ---- nomes/arquivos ----
 def sanitize_file_from_title(title: str) -> str:
-    base = (title or "").replace(r"[^\w\s-]", "_")
     base = re.sub(r"[^\w\s-]", "_", (title or "")).strip() or "tabela"
-    if len(base) > 40: base = base[:40]
+    if len(base) > 40: 
+        base = base[:40]
     return f"{base}.xlsx"
 
 def sheet_name(s: str) -> str:
-    # 31 chars; remove inválidos para sheet
     nm = re.sub(r'[:\\/*?\[\]]', ' ', s or "Tabela").strip()
     return (nm[:31] or "Tabela")
 
@@ -156,11 +157,14 @@ def collect_from_detail_page(url: str):
                 continue
             pn, found, steps = h.next_sibling, None, 0
             while pn and isinstance(pn,(Tag,NavigableString)) and steps < 300:
-                if isinstance(pn,Tag) and pn.name in ["h1","h2","h3"]: break
+                if isinstance(pn,Tag) and pn.name in ["h1","h2","h3"]: 
+                    break
                 if isinstance(pn,Tag):
-                    if pn.name == "table": found = pn; break
+                    if pn.name == "table": 
+                        found = pn; break
                     maybe = pn.find("table")
-                    if maybe: found = maybe; break
+                    if maybe: 
+                        found = maybe; break
                 pn = pn.next_sibling; steps += 1
             if found:
                 cols, rows = parse_html_table(found)
@@ -171,6 +175,7 @@ def collect_from_detail_page(url: str):
             print(f"[SCRAPER] Deep '{url}': {len(blocks)} tabela(s) via headings.")
             return blocks
 
+        # fallback: todas as tabelas da página
         all_tbls = soup.find_all("table")
         if all_tbls:
             base_t = nrm(text_of(soup.find("h1"))) or "Tabela"
@@ -236,10 +241,11 @@ def collect_from_wpapi(html_wp: str):
     out=[]
     for h in soup.find_all(["h2","h3"]):
         titulo = nrm(text_of(h))
-        if not titulo or should_skip_title(titulo): 
+        if not titulo or should_skip_title(titulo):
             continue
         tbl = first_table_after(h)
-        if not tbl: continue
+        if not tbl: 
+            continue
         cols, rows = parse_html_table(tbl)
         if rows:
             out.append({"titulo": titulo, "columns": cols, "rows": rows})
@@ -249,10 +255,11 @@ def collect_from_public(public_soup: BeautifulSoup):
     out=[]
     for h in public_soup.find_all(["h2","h3"]):
         titulo = nrm(text_of(h))
-        if not titulo or should_skip_title(titulo): 
+        if not titulo or should_skip_title(titulo):
             continue
         tbl = first_table_after(h)
-        if not tbl: continue
+        if not tbl: 
+            continue
         cols, rows = parse_html_table(tbl)
         if rows:
             out.append({"titulo": titulo, "columns": cols, "rows": rows})
@@ -268,19 +275,31 @@ def prefix_if_needed(parent: str, blocks: list):
         out.append({"titulo": nrm(t), "columns": b["columns"], "rows": b["rows"]})
     return out
 
-# --------- derivar nome da instituição (igual à home) ----------
-EMDASH = re.compile(r"\s+—\s+|\s+-\s+")
-YEARPAT = re.compile(r"\b20\d{2}(?:\/20\d{2})?\b")
+# --------- normalização de instituição ----------
+EMDASH   = re.compile(r"\s+[—-]\s+")
+YEARPAT  = re.compile(r"\b20\d{2}(?:\/20\d{2})?\b")
+GENERIC  = re.compile(r"^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)", re.I)
 
 def inst_from_title(title: str) -> str:
-    parts = EMDASH.split(title or "")
-    base = (parts[0] if parts else "").strip()
-    # se começar com "Concorrência / Programas / Prova", usa o último trecho como base
-    if re.match(r"^(concorr[eê]ncia|programas|prova)", base, re.I) and len(parts) > 1:
+    t = (title or "").strip()
+    if not t: 
+        return "Instituição"
+    parts = EMDASH.split(t)
+    base  = (parts[0] or "").strip()
+    if GENERIC.match(base) and len(parts) > 1:
         base = parts[-1].strip()
-    base = YEARPAT.sub("", base)
-    base = re.sub(r"\s{2,}", " ", base).strip()
-    return base or (title or "").strip()
+    base = YEARPAT.sub("", base).strip()
+    base = re.sub(r"^[\W_]+", "", base).strip()
+    return base or t
+
+def slugify(s: str) -> str:
+    s = (s or "").strip()
+    s = unicodedata.normalize("NFD", s).encode("ascii","ignore").decode("ascii")
+    s = re.sub(r"[^\w\s-]", "", s).strip().lower()
+    return re.sub(r"\s+", "-", s)
+
+def pack_filename(inst_name: str) -> str:
+    return f"concorrencia_2026__{slugify(inst_name)}.xlsx"
 
 # ---------------- geração de Excel ----------------
 def to_dataframe(block):
@@ -298,22 +317,24 @@ def write_per_table_excels(blocks, out_dir):
         fname = sanitize_file_from_title(b["titulo"])
         df.to_excel(os.path.join(out_dir, fname), index=False)
 
-def write_per_institution_excels(blocks, out_dir):
+def write_per_institution_excels(blocks, out_dir, site_dl_dir=None):
     groups = {}
     for b in blocks:
         name = inst_from_title(b.get("titulo",""))
         groups.setdefault(name, []).append(b)
     for inst_name, arr in groups.items():
-        xname = sanitize_file_from_title(inst_name)
-        path = os.path.join(out_dir, xname)
+        fname = pack_filename(inst_name)
+        path  = os.path.join(out_dir, fname)
         with pd.ExcelWriter(path, engine="openpyxl") as wr:
             for b in arr:
                 df = to_dataframe(b)
                 df.to_excel(wr, sheet_name=sheet_name(b["titulo"]), index=False)
+        if site_dl_dir and os.path.isdir(os.path.dirname(site_dl_dir)):
+            shutil.copy2(path, os.path.join(site_dl_dir, fname))
 
 # ---------------- main ----------------
 def main():
-    print(f"[SCRAPER] Iniciando scraping de concorrência 2026… (SCRIPT_VERSION={SCRIPT_VERSION})")
+    print(f"[SCRAPER] Iniciando… (SCRIPT_VERSION={SCRIPT_VERSION})")
     ensure_dirs()
 
     html_wp = fetch_wp_content()
@@ -322,7 +343,7 @@ def main():
     blocks = collect_from_wpapi(html_wp) if html_wp else collect_from_public(public_soup)
     print(f"[SCRAPER] Blocos iniciais: {len(blocks)}")
 
-    enriched=[]
+    enriched = []
     for b in blocks:
         titulo = b["titulo"]
         btn = find_button_near_title(public_soup, public_base, titulo)
@@ -336,6 +357,7 @@ def main():
 
     print(f"[SCRAPER] Tabelas consolidadas (após follow-button): {len(enriched)}")
 
+    # payload JSON
     dt = now_brt()
     payload = {
         "fonte_url": FONTE_URL,
@@ -344,41 +366,7 @@ def main():
         "tabelas": enriched,
     }
 
-# --- util p/ normalizar nome de instituição (mesma lógica do front) ---
-EMDASH = re.compile(r"\s+[—-]\s+")
-YEAR = re.compile(r"\b20\d{2}(?:\/20\d{2})?\b")
-
-def inst_from_title(title: str) -> str:
-    t = (title or "").strip()
-    if not t:
-        return "Instituição"
-    # pega o lado "base" do título
-    parts = EMDASH.split(t)
-    base = (parts[0] or "").strip()
-    # se a base for prefixo genérico, fica com o trecho final
-    if re.match(r"^(concorr[eê]ncia|relação candidato\/vaga|programas|prova)", base, flags=re.I) and len(parts) > 1:
-        base = parts[-1].strip()
-    # remove anos e pontuação solta
-    base = YEAR.sub("", base)
-    base = re.sub(r"^[\W_]+", "", base).strip()
-    return base or (t.strip())
-
-def slugify(s: str) -> str:
-    s = (s or "").strip()
-    s = (unicodedata.normalize("NFD", s)
-         .encode("ascii", "ignore").decode("ascii"))
-    s = re.sub(r"[^\w\s-]", "", s).strip().lower()
-    return re.sub(r"\s+", "-", s)
-
-def safe_sheet_name(s: str) -> str:
-    # 31 chars, sem :, \, /, ?, *, [, ]
-    s = re.sub(r'[:\\/*?\[\]]', ' ', s).strip()
-    return (s[:31] or "Tabela")
-
-def pack_filename(inst_name: str) -> str:
-    return f"concorrencia_2026__{slugify(inst_name)}.xlsx"
-
-
+    # hashes para decidir rebuild dos modelos
     json_path = os.path.join(DATA_DIR, JSON_NAME)
     old_hash = None
     if os.path.exists(json_path):
@@ -389,46 +377,27 @@ def pack_filename(inst_name: str) -> str:
             pass
     new_hash = json_hash(payload)
 
-# --- agrupa enriquecidas por instituição ---
-groups = {}  # slug -> {"name": inst_name, "tables": [blocks]}
-for b in enriched:
-    inst_name = inst_from_title(b.get("titulo", ""))
-    sg = slugify(inst_name)
-    groups.setdefault(sg, {"name": inst_name, "tables": []})
-    groups[sg]["tables"].append(b)
-
-# --- grava um XLSX por instituição em EXCEL_DIR e copia para site/downloads ---
-for sg, g in groups.items():
-    fn = pack_filename(g["name"])
-    xlsx_path = os.path.join(EXCEL_DIR, fn)
-    with pd.ExcelWriter(xlsx_path, engine="openpyxl") as wr:
-        for tb in g["tables"]:
-            df = pd.DataFrame(tb["rows"], columns=tb["columns"])
-            sheet = safe_sheet_name(tb["titulo"])
-            df.to_excel(wr, index=False, sheet_name=sheet)
-
-    if os.path.isdir(SITE_DIR):
-        shutil.copy2(xlsx_path, os.path.join(SITE_DL_DIR, fn))
-
-
+    # grava JSON em /output/data e em /site/data
     write_json(json_path, payload)
     print(f"[SCRAPER] JSON atualizado em: {json_path}")
     if os.path.isdir(SITE_DIR):
         write_json(os.path.join(SITE_DATA_DIR, JSON_NAME), payload)
-        print("[SCRAPER] JSON copiado para site/.")
+        print("[SCRAPER] JSON copiado para site/data.")
 
+    # gera modelos Excel
     xlsx_all = os.path.join(EXCEL_DIR, XLSX_ALL)
     if old_hash != new_hash:
-        # 1) planilha única com todas as instituições
+        # 1) Planilha única com todas as tabelas (todas as instituições)
         write_all_xlsx(enriched, xlsx_all)
-        # 2) uma planilha por tabela (como já existia)
+        # 2) Uma planilha por tabela (compat antigo)
         write_per_table_excels(enriched, EXCEL_DIR)
-        # 3) NOVO: uma planilha por instituição (todas as tabelas dessa instituição)
-        write_per_institution_excels(enriched, EXCEL_DIR)
+        # 3) NOVO: um pacote por instituição (todas as tabelas da instituição)
+        write_per_institution_excels(enriched, EXCEL_DIR, site_dl_dir=SITE_DL_DIR)
         print(f"[SCRAPER] Modelos Excel gerados em: {EXCEL_DIR}")
 
         if os.path.isdir(SITE_DIR):
             shutil.copy2(xlsx_all, os.path.join(SITE_DL_DIR, XLSX_ALL))
+            # copiar também os XLSX por tabela já gerados
             for f in os.listdir(EXCEL_DIR):
                 if f.lower().endswith(".xlsx"):
                     shutil.copy2(os.path.join(EXCEL_DIR, f), os.path.join(SITE_DL_DIR, f))
@@ -440,5 +409,3 @@ for sg, g in groups.items():
 
 if __name__ == "__main__":
     main()
-
-
