@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-11-12T07:12:21.907002-03:00",
-  "updated_at_br": "12/11/2025 07:12",
+  "updated_at_iso": "2025-11-13T07:12:18.533041-03:00",
+  "updated_at_br": "13/11/2025 07:12",
   "tabelas": [
     {
       "titulo": "Concorrência AMP 2025/2026",
@@ -8063,6 +8063,4932 @@
           "2",
           "7",
           "3,5"
+        ]
+      ]
+    },
+    {
+      "titulo": "Quais os programas mais concorridos do PSU-MG 2026?",
+      "columns": [
+        "Instituição",
+        "Especialidade",
+        "Candidato/ Vagas"
+      ],
+      "rows": [
+        [
+          "Hospital Madre Teresa – BH",
+          "Otorrinolaringologia",
+          "231"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais / Hospital Evangélico de Belo Horizonte",
+          "Oftalmologia",
+          "206"
+        ],
+        [
+          "Complexo Hospitalar Uberlândia S.A",
+          "Otorrinolaringologia",
+          "175"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Otorrinolaringologia",
+          "159,5"
+        ],
+        [
+          "Hospital Otorrino Center LTDA",
+          "Otorrinolaringologia",
+          "155"
+        ],
+        [
+          "Hospital Infantil São Camilo – UNIMED",
+          "Pediatria",
+          "153"
+        ],
+        [
+          "Holhos Minas Oftalmologia Ltda",
+          "Oftalmologia",
+          "144"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Dermatologia",
+          "139"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Anestesiologia",
+          "135"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Cirurgia Geral",
+          "127"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Anestesiologia",
+          "125,67"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Anestesiologia",
+          "121"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Cirurgia Geral",
+          "118,67"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Anestesiologia",
+          "114,5"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Psiquiatria",
+          "113"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Oftalmologia",
+          "112"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais / Hospital Evangélico de Belo Horizonte",
+          "Cirurgia Geral",
+          "111"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Neurocirurgia",
+          "110"
+        ],
+        [
+          "Maternidade Octaviano Neves (ULTRA SOM SERVIÇOS MEDICOS S.A.)",
+          "Ginecologia e Obstetrícia",
+          "106,33"
+        ],
+        [
+          "Instituto Viva Mais",
+          "Oftalmologia",
+          "105,75"
+        ]
+      ]
+    },
+    {
+      "titulo": "PSU-MG — Concorrência completa PSU MG 2026",
+      "columns": [
+        "Instituição",
+        "Especialidade",
+        "Inscrições Total",
+        "Inscrições Ampla Concorrência",
+        "Vagas",
+        "Candidato/ Vagas"
+      ],
+      "rows": [
+        [
+          "Associação Beneficente Católica / Hospital Santa Isabel – Ubá",
+          "Cirurgia Geral",
+          "58",
+          "58",
+          "1",
+          "58"
+        ],
+        [
+          "Associação Beneficente Católica / Hospital Santa Isabel – Ubá",
+          "Clínica Médica",
+          "91",
+          "91",
+          "3",
+          "30,33"
+        ],
+        [
+          "Associação Beneficente Católica / Hospital Santa Isabel – Ubá",
+          "Ginecologia e Obstetrícia",
+          "79",
+          "79",
+          "2",
+          "39,5"
+        ],
+        [
+          "Associação Beneficente Católica / Hospital Santa Isabel – Ubá",
+          "Pediatria",
+          "44",
+          "44",
+          "2",
+          "22"
+        ],
+        [
+          "Associação de Assistência Social da Santa Casa de Misericórdia de Araxá",
+          "Clínica Médica",
+          "44",
+          "44",
+          "2",
+          "22"
+        ],
+        [
+          "Associação de Combate ao Câncer do Brasil Central – Hospital Hélio Angotti",
+          "Cirurgia Oncológica",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Associação de Combate ao Câncer do Brasil Central – Hospital Hélio Angotti",
+          "Mastologia",
+          "6",
+          "6",
+          "1",
+          "6"
+        ],
+        [
+          "Associação de Combate ao Câncer do Brasil Central – Hospital Hélio Angotti",
+          "Oncologia Clínica",
+          "3",
+          "3",
+          "2",
+          "1,5"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Anestesiologia",
+          "98",
+          "98",
+          "1",
+          "98"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Cardiologia",
+          "27",
+          "27",
+          "2",
+          "13,5"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Cirurgia Geral",
+          "223",
+          "222",
+          "2",
+          "111"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Clínica Médica",
+          "267",
+          "264",
+          "4",
+          "66"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Endoscopia",
+          "12",
+          "12",
+          "1",
+          "12"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Medicina Intensiva",
+          "6",
+          "6",
+          "1",
+          "6"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Nefrologia",
+          "20",
+          "20",
+          "3",
+          "6,67"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Neurocirurgia",
+          "94",
+          "94",
+          "1",
+          "94"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Oftalmologia",
+          "412",
+          "412",
+          "2",
+          "206"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Ortopedia e Traumatologia",
+          "151",
+          "151",
+          "4",
+          "37,75"
+        ],
+        [
+          "Associação Evangélica Beneficente de Minas Gerais/Hospital Evangélico de Belo Horizonte",
+          "Urologia",
+          "36",
+          "36",
+          "1",
+          "36"
+        ],
+        [
+          "Associação Hospitalar Santa Rosália",
+          "Cirurgia Geral",
+          "89",
+          "89",
+          "2",
+          "44,5"
+        ],
+        [
+          "Associação Hospitalar Santa Rosália",
+          "Clínica Médica",
+          "58",
+          "58",
+          "4",
+          "14,5"
+        ],
+        [
+          "Casa de Caridade de Carangola",
+          "Cardiologia",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Casa de Caridade de Carangola",
+          "Cirurgia Geral",
+          "22",
+          "22",
+          "1",
+          "22"
+        ],
+        [
+          "Casa de Caridade de Carangola",
+          "Clínica Médica",
+          "54",
+          "54",
+          "2",
+          "27"
+        ],
+        [
+          "Casa de Caridade de Carangola",
+          "Medicina Intensiva",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Casa de Caridade de Muriaé – Hospital São Paulo",
+          "Cirurgia Geral",
+          "37",
+          "37",
+          "1",
+          "37"
+        ],
+        [
+          "Casa de Caridade de Muriaé – Hospital São Paulo",
+          "Clínica Médica",
+          "72",
+          "72",
+          "2",
+          "36"
+        ],
+        [
+          "Casa de Caridade de Muriaé – Hospital São Paulo",
+          "Ginecologia e Obstetrícia",
+          "149",
+          "149",
+          "4",
+          "37,25"
+        ],
+        [
+          "Casa de Caridade de Muriaé – Hospital São Paulo",
+          "Ortopedia e Traumatologia",
+          "24",
+          "24",
+          "1",
+          "24"
+        ],
+        [
+          "Casa de Caridade de Muriaé – Hospital São Paulo",
+          "Pediatria",
+          "81",
+          "81",
+          "4",
+          "20,25"
+        ],
+        [
+          "Centro Barbacenense de Assistência Médica e Social – Hospital Ibiapaba",
+          "Anestesiologia",
+          "115",
+          "115",
+          "2",
+          "57,5"
+        ],
+        [
+          "Centro Barbacenense de Assistência Médica e Social – Hospital Ibiapaba",
+          "Cardiologia",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Centro Barbacenense de Assistência Médica e Social – Hospital Ibiapaba",
+          "Cirurgia Oncológica",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Centro Barbacenense de Assistência Médica e Social – Hospital Ibiapaba",
+          "Medicina Intensiva",
+          "12",
+          "12",
+          "2",
+          "6"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Anestesiologia",
+          "136",
+          "136",
+          "3",
+          "45,33"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Cardiologia",
+          "9",
+          "9",
+          "1",
+          "9"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Cirurgia Geral",
+          "178",
+          "178",
+          "4",
+          "44,5"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Clínica Médica",
+          "155",
+          "153",
+          "4",
+          "38,25"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Ginecologia e Obstetrícia",
+          "113",
+          "113",
+          "3",
+          "37,67"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Medicina de Emergência",
+          "15",
+          "15",
+          "2",
+          "7,5"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Medicina Intensiva",
+          "15",
+          "15",
+          "3",
+          "5"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Nefrologia",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "NEONATOLOGIA",
+          "4",
+          "4",
+          "2",
+          "2"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Oncologia Clínica",
+          "7",
+          "7",
+          "3",
+          "2,33"
+        ],
+        [
+          "Complexo de Saúde São João de Deus",
+          "Pediatria",
+          "80",
+          "80",
+          "3",
+          "26,67"
+        ],
+        [
+          "Complexo Hospitalar Uberlândia S.A",
+          "Medicina Intensiva",
+          "52",
+          "52",
+          "4",
+          "13"
+        ],
+        [
+          "Complexo Hospitalar Uberlândia S.A",
+          "Otorrinolaringologia",
+          "175",
+          "175",
+          "1",
+          "175"
+        ],
+        [
+          "Faculdades Unidas do Norte LTDA – FUNORTE",
+          "Cirurgia Geral",
+          "54",
+          "54",
+          "2",
+          "27"
+        ],
+        [
+          "Faculdades Unidas do Norte LTDA – FUNORTE",
+          "Clínica Médica",
+          "31",
+          "31",
+          "2",
+          "15,5"
+        ],
+        [
+          "Faculdades Unidas do Norte LTDA – FUNORTE",
+          "Medicina de Família e Comunidade",
+          "37",
+          "35",
+          "8",
+          "4,38"
+        ],
+        [
+          "Faculdades Unidas do Norte LTDA – FUNORTE",
+          "Medicina Intensiva",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Faculdades Unidas do Norte LTDA – FUNORTE",
+          "Pediatria",
+          "46",
+          "46",
+          "2",
+          "23"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Anestesiologia",
+          "88",
+          "88",
+          "2",
+          "44"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Cirurgia Oncológica",
+          "3",
+          "3",
+          "2",
+          "1,5"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Cirurgia Torácica",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Hematologia e Hemoterapia",
+          "5",
+          "5",
+          "1",
+          "5"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Medicina Intensiva",
+          "8",
+          "8",
+          "2",
+          "4"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Oncologia Clínica",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Radiologia e Diagnóstico por Imagem",
+          "81",
+          "81",
+          "2",
+          "40,5"
+        ],
+        [
+          "Fundação Cristiano Varella – Hospital do Câncer de Muriaé",
+          "Radioterapia",
+          "5",
+          "5",
+          "1",
+          "5"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Cirurgia do Trauma",
+          "5",
+          "5",
+          "6",
+          "0,83"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Clínica Médica",
+          "481",
+          "468",
+          "10",
+          "46,8"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Medicina de Emergência",
+          "61",
+          "59",
+          "3",
+          "19,67"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Medicina Intensiva",
+          "44",
+          "44",
+          "4",
+          "11"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Medicina Paliativa",
+          "12",
+          "12",
+          "3",
+          "4"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Neurologia",
+          "245",
+          "245",
+          "3",
+          "81,67"
+        ],
+        [
+          "Fundação de Desenvolvimento da Pesquisa – Hospital Risoleta Tolentino Neves",
+          "Ortopedia e Traumatologia",
+          "84",
+          "84",
+          "2",
+          "42"
+        ],
+        [
+          "Fundação Deraldo Guimarães – Almenara",
+          "Cirurgia Geral",
+          "53",
+          "53",
+          "2",
+          "26,5"
+        ],
+        [
+          "Fundação Deraldo Guimarães – Almenara",
+          "Clínica Médica",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Fundação Educacional de Caratinga FUNEC / Hospital Irmã Denise – CASU",
+          "Clínica Médica",
+          "85",
+          "85",
+          "4",
+          "21,25"
+        ],
+        [
+          "Fundação Educacional de Caratinga FUNEC / Hospital Irmã Denise – CASU",
+          "Medicina de Família e Comunidade",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Fundação Educacional de Caratinga FUNEC / Hospital Irmã Denise – CASU",
+          "Pediatria",
+          "34",
+          "34",
+          "2",
+          "17"
+        ],
+        [
+          "Fundação Filantrópica e Beneficente de Saúde Arnaldo Gavazza Filho – Ponte Nova",
+          "Cirurgia Geral",
+          "36",
+          "36",
+          "1",
+          "36"
+        ],
+        [
+          "Fundação Filantrópica e Beneficente de Saúde Arnaldo Gavazza Filho – Ponte Nova",
+          "Medicina Intensiva",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Fundação Hospital Ouro Branco",
+          "Anestesiologia",
+          "46",
+          "46",
+          "1",
+          "46"
+        ],
+        [
+          "Fundação Hospital Ouro Branco",
+          "Clínica Médica",
+          "49",
+          "49",
+          "2",
+          "24,5"
+        ],
+        [
+          "Fundação Hospitalar de Montes Claros – Hospital Aroldo Tourinho",
+          "Cardiologia",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Fundação Hospitalar de Montes Claros – Hospital Aroldo Tourinho",
+          "Clínica Médica",
+          "93",
+          "90",
+          "3",
+          "30"
+        ],
+        [
+          "Fundação Hospitalar de Montes Claros – Hospital Aroldo Tourinho",
+          "Ortopedia e Traumatologia",
+          "51",
+          "51",
+          "2",
+          "25,5"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Anestesiologia",
+          "291",
+          "291",
+          "4",
+          "72,75"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Cardiologia",
+          "64",
+          "63",
+          "3",
+          "21"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Cirurgia Bariátrica",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Cirurgia da Mão",
+          "11",
+          "11",
+          "1",
+          "11"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Cirurgia Geral",
+          "95",
+          "95",
+          "1",
+          "95"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Clínica Médica",
+          "207",
+          "203",
+          "4",
+          "50,75"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Oncologia Clínica",
+          "10",
+          "10",
+          "2",
+          "5"
+        ],
+        [
+          "Fundação Hospitalar São Francisco de Assis – FHSFA",
+          "Ortopedia e Traumatologia",
+          "216",
+          "210",
+          "6",
+          "35"
+        ],
+        [
+          "Fundação Instituto Clínico de Juiz de Fora",
+          "Cardiologia",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Fundação Instituto Clínico de Juiz de Fora",
+          "Cirurgia Oncológica",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Fundação Instituto Clínico de Juiz de Fora",
+          "Oncologia Clínica",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Fundação José Bonifácio Lafayette de Andrada",
+          "Anestesiologia",
+          "88",
+          "88",
+          "2",
+          "44"
+        ],
+        [
+          "Fundação José Bonifácio Lafayette de Andrada",
+          "Cirurgia Geral",
+          "31",
+          "31",
+          "1",
+          "31"
+        ],
+        [
+          "Holhos Minas Oftalmologia Ltda",
+          "Oftalmologia",
+          "144",
+          "144",
+          "1",
+          "144"
+        ],
+        [
+          "Hospital Belo Horizonte",
+          "Anestesiologia",
+          "188",
+          "188",
+          "2",
+          "94"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Cardiologia",
+          "10",
+          "10",
+          "2",
+          "5"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Cirurgia Geral",
+          "117",
+          "117",
+          "2",
+          "58,5"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Medicina de Família e Comunidade",
+          "25",
+          "25",
+          "4",
+          "6,25"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Medicina Intensiva",
+          "17",
+          "17",
+          "4",
+          "4,25"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Medicina Paliativa",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Nefrologia",
+          "5",
+          "5",
+          "2",
+          "2,5"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Oftalmologia",
+          "174",
+          "174",
+          "2",
+          "87"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Oncologia Clínica",
+          "3",
+          "3",
+          "2",
+          "1,5"
+        ],
+        [
+          "Hospital Bom Samaritano – Governador Valadares",
+          "Otorrinolaringologia",
+          "183",
+          "183",
+          "2",
+          "91,5"
+        ],
+        [
+          "Hospital César Leite – Manhuaçu",
+          "Cirurgia Geral",
+          "30",
+          "30",
+          "1",
+          "30"
+        ],
+        [
+          "Hospital César Leite – Manhuaçu",
+          "Clínica Médica",
+          "50",
+          "50",
+          "3",
+          "16,67"
+        ],
+        [
+          "Hospital César Leite – Manhuaçu",
+          "Ginecologia e Obstetrícia",
+          "125",
+          "125",
+          "3",
+          "41,67"
+        ],
+        [
+          "Hospital César Leite – Manhuaçu",
+          "Pediatria",
+          "70",
+          "70",
+          "3",
+          "23,33"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Anestesiologia",
+          "428",
+          "403",
+          "4",
+          "100,75"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Cirurgia Geral",
+          "409",
+          "408",
+          "4",
+          "102"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Cirurgia Plástica",
+          "108",
+          "108",
+          "2",
+          "54"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Clínica Médica",
+          "187",
+          "187",
+          "3",
+          "62,33"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Mastologia",
+          "10",
+          "10",
+          "1",
+          "10"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Medicina Paliativa",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Oncologia Clínica",
+          "27",
+          "27",
+          "2",
+          "13,5"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Oncologia Pediátrica",
+          "3",
+          "3",
+          "1",
+          "3"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Ortopedia e Traumatologia",
+          "161",
+          "161",
+          "3",
+          "53,67"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Radioterapia",
+          "21",
+          "21",
+          "1",
+          "21"
+        ],
+        [
+          "Hospital da Baleia – Fundação Benjamin Guimarães",
+          "Urologia",
+          "31",
+          "31",
+          "1",
+          "31"
+        ],
+        [
+          "Hospital da Fundação Casa de Caridade de São Lourenço",
+          "Anestesiologia",
+          "40",
+          "40",
+          "2",
+          "20"
+        ],
+        [
+          "Hospital da Fundação Casa de Caridade de São Lourenço",
+          "Cirurgia Geral",
+          "36",
+          "36",
+          "2",
+          "18"
+        ],
+        [
+          "Hospital da Fundação Casa de Caridade de São Lourenço",
+          "Oftalmologia",
+          "69",
+          "69",
+          "1",
+          "69"
+        ],
+        [
+          "Hospital da Fundação Casa de Caridade de São Lourenço",
+          "Ortopedia e Traumatologia",
+          "21",
+          "21",
+          "2",
+          "10,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Anestesiologia",
+          "70",
+          "70",
+          "2",
+          "35"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Cirurgia Geral",
+          "59",
+          "59",
+          "2",
+          "29,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Clínica Médica",
+          "24",
+          "24",
+          "2",
+          "12"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Ginecologia e Obstetrícia",
+          "61",
+          "61",
+          "2",
+          "30,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Medicina de Emergência",
+          "5",
+          "5",
+          "2",
+          "2,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Medicina Intensiva",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Oftalmologia",
+          "151",
+          "151",
+          "2",
+          "75,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Ortopedia e Traumatologia",
+          "29",
+          "29",
+          "2",
+          "14,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Pediatria",
+          "37",
+          "37",
+          "2",
+          "18,5"
+        ],
+        [
+          "Hospital das Clinicas Dr. Mário Ribeiro da Silveira – FUNAM",
+          "Psiquiatria",
+          "200",
+          "200",
+          "2",
+          "100"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Anestesiologia",
+          "185",
+          "175",
+          "3",
+          "58,33"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Cardiologia",
+          "19",
+          "19",
+          "3",
+          "6,33"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Cirurgia Cardiovascular",
+          "17",
+          "17",
+          "1",
+          "17"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Cirurgia Geral",
+          "252",
+          "248",
+          "4",
+          "62"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Cirurgia Plástica",
+          "65",
+          "65",
+          "1",
+          "65"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Cirurgia Vascular",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Clínica Médica",
+          "199",
+          "197",
+          "7",
+          "28,14"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Coloproctologia",
+          "12",
+          "12",
+          "1",
+          "12"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Ginecologia e Obstetrícia",
+          "166",
+          "162",
+          "4",
+          "40,5"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Mastologia",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Medicina de Família e Comunidade",
+          "32",
+          "32",
+          "3",
+          "10,67"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Medicina Intensiva",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Nefrologia",
+          "4",
+          "4",
+          "2",
+          "2"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Neurocirurgia",
+          "66",
+          "66",
+          "1",
+          "66"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Neurologia",
+          "86",
+          "86",
+          "2",
+          "43"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Oncologia Clínica",
+          "7",
+          "7",
+          "1",
+          "7"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Ortopedia e Traumatologia",
+          "71",
+          "71",
+          "3",
+          "23,67"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Pediatria",
+          "109",
+          "107",
+          "4",
+          "26,75"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Psiquiatria",
+          "226",
+          "226",
+          "2",
+          "113"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Radiologia e Diagnóstico por Imagem",
+          "112",
+          "112",
+          "3",
+          "37,33"
+        ],
+        [
+          "Hospital das Clínicas Samuel Libânio",
+          "Urologia",
+          "6",
+          "6",
+          "1",
+          "6"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Anestesiologia",
+          "112",
+          "112",
+          "3",
+          "37,33"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Cardiologia",
+          "5",
+          "5",
+          "1",
+          "5"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Cirurgia Geral",
+          "122",
+          "122",
+          "3",
+          "40,67"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Cirurgia Vascular",
+          "3",
+          "3",
+          "1",
+          "3"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Clínica Médica",
+          "72",
+          "69",
+          "3",
+          "23"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Ginecologia e Obstetrícia",
+          "89",
+          "89",
+          "2",
+          "44,5"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Medicina de Família e Comunidade",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Medicina Intensiva",
+          "6",
+          "6",
+          "1",
+          "6"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Nefrologia",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Neurologia",
+          "75",
+          "75",
+          "2",
+          "37,5"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Oftalmologia",
+          "117",
+          "117",
+          "2",
+          "58,5"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Ortopedia e Traumatologia",
+          "46",
+          "46",
+          "2",
+          "23"
+        ],
+        [
+          "Hospital de Clínicas de Itajubá – AISI",
+          "Radiologia e Diagnóstico por Imagem",
+          "78",
+          "78",
+          "2",
+          "39"
+        ],
+        [
+          "Hospital e Clínicas Santa Paula Ltda – Pouso Alegre",
+          "Anestesiologia",
+          "99",
+          "99",
+          "2",
+          "49,5"
+        ],
+        [
+          "Hospital e Maternidade Santa Rita",
+          "Neurocirurgia",
+          "58",
+          "58",
+          "1",
+          "58"
+        ],
+        [
+          "Hospital e Maternidade São José – Conselheiro Lafaiete",
+          "Anestesiologia",
+          "79",
+          "79",
+          "2",
+          "39,5"
+        ],
+        [
+          "Hospital e Maternidade São José – Conselheiro Lafaiete",
+          "Cirurgia Geral",
+          "49",
+          "49",
+          "1",
+          "49"
+        ],
+        [
+          "Hospital e Maternidade São José – Conselheiro Lafaiete",
+          "Clínica Médica",
+          "43",
+          "43",
+          "2",
+          "21,5"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Alergia e Imunologia",
+          "",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Anestesiologia",
+          "195",
+          "195",
+          "4",
+          "48,75"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Cardiologia",
+          "22",
+          "22",
+          "3",
+          "7,33"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Cirurgia Geral",
+          "153",
+          "153",
+          "4",
+          "38,25"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Cirurgia Plástica",
+          "73",
+          "73",
+          "1",
+          "73"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Clínica Médica",
+          "232",
+          "229",
+          "10",
+          "22,9"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Dermatologia",
+          "139",
+          "139",
+          "1",
+          "139"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Endocrinologia e Metabologia",
+          "31",
+          "31",
+          "1",
+          "31"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Ginecologia e Obstetrícia",
+          "196",
+          "196",
+          "4",
+          "49"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Mastologia",
+          "4",
+          "4",
+          "2",
+          "2"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Medicina Intensiva",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "NEONATOLOGIA",
+          "",
+          "0",
+          "2",
+          "0"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Neurologia",
+          "121",
+          "121",
+          "3",
+          "40,33"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Ortopedia e Traumatologia",
+          "41",
+          "41",
+          "2",
+          "20,5"
+        ],
+        [
+          "Hospital e Maternidade Therezinha de Jesus – HMTJ",
+          "Pediatria",
+          "124",
+          "124",
+          "4",
+          "31"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Anestesiologia",
+          "427",
+          "405",
+          "3",
+          "135"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Cardiologia",
+          "107",
+          "104",
+          "8",
+          "13"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Cirurgia Cardiovascular",
+          "30",
+          "30",
+          "1",
+          "30"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Cirurgia Geral",
+          "508",
+          "508",
+          "4",
+          "127"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Cirurgia Vascular",
+          "29",
+          "29",
+          "1",
+          "29"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Clínica Médica",
+          "636",
+          "618",
+          "8",
+          "77,25"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Coloproctologia",
+          "27",
+          "27",
+          "2",
+          "13,5"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Gastroenterologia",
+          "54",
+          "54",
+          "2",
+          "27"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Hematologia e Hemoterapia",
+          "11",
+          "11",
+          "1",
+          "11"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Infectologia",
+          "28",
+          "28",
+          "1",
+          "28"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Mastologia",
+          "15",
+          "15",
+          "1",
+          "15"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Medicina Intensiva",
+          "44",
+          "44",
+          "2",
+          "22"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Medicina Paliativa",
+          "13",
+          "13",
+          "2",
+          "6,5"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Nefrologia",
+          "21",
+          "21",
+          "4",
+          "5,25"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Oncologia Clínica",
+          "25",
+          "25",
+          "3",
+          "8,33"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Ortopedia e Traumatologia",
+          "188",
+          "188",
+          "4",
+          "47"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Otorrinolaringologia",
+          "319",
+          "319",
+          "2",
+          "159,5"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Radiologia e Diagnóstico por Imagem",
+          "162",
+          "162",
+          "2",
+          "81"
+        ],
+        [
+          "Hospital Felício Rocho",
+          "Urologia",
+          "50",
+          "50",
+          "3",
+          "16,67"
+        ],
+        [
+          "Hospital Infantil São Camilo – UNIMED",
+          "Pediatria",
+          "306",
+          "306",
+          "2",
+          "153"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Anestesiologia",
+          "194",
+          "194",
+          "2",
+          "97"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Cirurgia da Mão",
+          "12",
+          "12",
+          "1",
+          "12"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Cirurgia Geral",
+          "166",
+          "166",
+          "2",
+          "83"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Clínica Médica",
+          "138",
+          "138",
+          "4",
+          "34,5"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Medicina Intensiva",
+          "31",
+          "31",
+          "3",
+          "10,33"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Neurologia",
+          "142",
+          "142",
+          "2",
+          "71"
+        ],
+        [
+          "Hospital Lifecenter Sistema de Saúde S/A",
+          "Urologia",
+          "33",
+          "33",
+          "1",
+          "33"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Anestesiologia",
+          "363",
+          "363",
+          "3",
+          "121"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Cardiologia",
+          "88",
+          "87",
+          "4",
+          "21,75"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Clínica Médica",
+          "592",
+          "581",
+          "10",
+          "58,1"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Endocrinologia e Metabologia",
+          "67",
+          "67",
+          "2",
+          "33,5"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Medicina Intensiva",
+          "46",
+          "46",
+          "3",
+          "15,33"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Neurocirurgia",
+          "110",
+          "110",
+          "1",
+          "110"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Neurologia",
+          "244",
+          "244",
+          "3",
+          "81,33"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Ortopedia e Traumatologia",
+          "162",
+          "162",
+          "3",
+          "54"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Otorrinolaringologia",
+          "231",
+          "231",
+          "1",
+          "231"
+        ],
+        [
+          "Hospital Madre Teresa – BH",
+          "Radiologia e Diagnóstico por Imagem",
+          "289",
+          "281",
+          "4",
+          "70,25"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Anestesiologia",
+          "186",
+          "177",
+          "3",
+          "59"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Cardiologia",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Cirurgia Geral",
+          "100",
+          "100",
+          "2",
+          "50"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Cirurgia Vascular",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Clínica Médica",
+          "117",
+          "114",
+          "3",
+          "38"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Gastroenterologia",
+          "20",
+          "20",
+          "1",
+          "20"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Ginecologia e Obstetrícia",
+          "128",
+          "128",
+          "3",
+          "42,67"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Medicina de Emergência",
+          "16",
+          "16",
+          "2",
+          "8"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Medicina de Família e Comunidade",
+          "30",
+          "30",
+          "3",
+          "10"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Medicina do Trabalho",
+          "32",
+          "32",
+          "1",
+          "32"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Medicina Intensiva",
+          "17",
+          "17",
+          "3",
+          "5,67"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "NEONATOLOGIA",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Oncologia Clínica",
+          "3",
+          "3",
+          "2",
+          "1,5"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Ortopedia e Traumatologia",
+          "83",
+          "83",
+          "3",
+          "27,67"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Pediatria",
+          "109",
+          "109",
+          "4",
+          "27,25"
+        ],
+        [
+          "Hospital Marcio Cunha – Fundação São Francisco Xavier – Ipatinga",
+          "Radioterapia",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Hospital Margarida – ASVP João Monlevade",
+          "Medicina de Emergência",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Hospital Margarida – ASVP João Monlevade",
+          "Medicina Intensiva",
+          "5",
+          "5",
+          "2",
+          "2,5"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Contorno",
+          "Clínica Médica",
+          "530",
+          "517",
+          "8",
+          "64,63"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Cardiologia",
+          "76",
+          "74",
+          "3",
+          "24,67"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Cirurgia Geral",
+          "356",
+          "356",
+          "3",
+          "118,67"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Cirurgia Vascular",
+          "20",
+          "20",
+          "1",
+          "20"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Clínica Médica",
+          "229",
+          "229",
+          "4",
+          "57,25"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "ENDOSCOPIA GINECOLOGICA",
+          "11",
+          "11",
+          "1",
+          "11"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Geriatria",
+          "40",
+          "40",
+          "4",
+          "10"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Ginecologia e Obstetrícia",
+          "535",
+          "526",
+          "8",
+          "65,75"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Mastologia",
+          "15",
+          "15",
+          "1",
+          "15"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Medicina Esportiva",
+          "46",
+          "46",
+          "1",
+          "46"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Medicina Fetal",
+          "5",
+          "5",
+          "1",
+          "5"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Medicina Intensiva",
+          "84",
+          "82",
+          "8",
+          "10,25"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Oncologia Clínica",
+          "27",
+          "27",
+          "2",
+          "13,5"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Ortopedia e Traumatologia",
+          "183",
+          "183",
+          "4",
+          "45,75"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Pediatria",
+          "414",
+          "404",
+          "6",
+          "67,33"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Radioterapia",
+          "19",
+          "19",
+          "1",
+          "19"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Reprodução Humana/Assistida",
+          "5",
+          "5",
+          "1",
+          "5"
+        ],
+        [
+          "Hospital Mater Dei – Unidade Santo Agostinho",
+          "Ultrassonografia em Ginecologia e Obstetrícia",
+          "19",
+          "19",
+          "3",
+          "6,33"
+        ],
+        [
+          "Hospital Mater Dei Santa Genoveva",
+          "Clínica Médica",
+          "99",
+          "99",
+          "2",
+          "49,5"
+        ],
+        [
+          "Hospital Mater Dei Santa Genoveva",
+          "Medicina Intensiva",
+          "18",
+          "18",
+          "2",
+          "9"
+        ],
+        [
+          "Hospital Mater Dei Santa Genoveva",
+          "Radiologia e Diagnóstico por Imagem",
+          "114",
+          "114",
+          "2",
+          "57"
+        ],
+        [
+          "Hospital Maternidade e Pronto Socorro Santa Lucia – Poços de Caldas",
+          "Cardiologia",
+          "9",
+          "9",
+          "3",
+          "3"
+        ],
+        [
+          "Hospital Maternidade e Pronto Socorro Santa Lucia – Poços de Caldas",
+          "Clínica Médica",
+          "84",
+          "84",
+          "4",
+          "21"
+        ],
+        [
+          "Hospital Maternidade e Pronto Socorro Santa Lucia – Poços de Caldas",
+          "Medicina Intensiva",
+          "14",
+          "14",
+          "3",
+          "4,67"
+        ],
+        [
+          "Hospital Metropolitano Doutor Célio de Castro",
+          "Cirurgia Geral",
+          "436",
+          "421",
+          "4",
+          "105,25"
+        ],
+        [
+          "Hospital Metropolitano Doutor Célio de Castro",
+          "Cirurgia Vascular",
+          "21",
+          "21",
+          "2",
+          "10,5"
+        ],
+        [
+          "Hospital Metropolitano Doutor Célio de Castro",
+          "Clínica Médica",
+          "267",
+          "262",
+          "4",
+          "65,5"
+        ],
+        [
+          "Hospital Metropolitano Doutor Célio de Castro",
+          "Medicina Intensiva",
+          "49",
+          "48",
+          "4",
+          "12"
+        ],
+        [
+          "Hospital Metropolitano Doutor Célio de Castro",
+          "Ortopedia e Traumatologia",
+          "83",
+          "83",
+          "3",
+          "27,67"
+        ],
+        [
+          "Hospital Metropolitano Doutor Célio de Castro",
+          "Radiologia e Diagnóstico por Imagem",
+          "177",
+          "177",
+          "3",
+          "59"
+        ],
+        [
+          "Hospital Municipal Carlos Chagas – Fundação São Francisco Xavier",
+          "Clínica Médica",
+          "39",
+          "39",
+          "2",
+          "19,5"
+        ],
+        [
+          "Hospital Municipal Carlos Chagas – Fundação São Francisco Xavier",
+          "Medicina Intensiva",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Hospital Nossa Senhora Auxiliadora",
+          "Anestesiologia",
+          "59",
+          "59",
+          "2",
+          "29,5"
+        ],
+        [
+          "Hospital Nossa Senhora da Piedade",
+          "Anestesiologia",
+          "29",
+          "29",
+          "2",
+          "14,5"
+        ],
+        [
+          "Hospital Nossa Senhora de Lourdes",
+          "Clínica Médica",
+          "54",
+          "54",
+          "3",
+          "18"
+        ],
+        [
+          "Hospital Nossa Senhora de Lourdes",
+          "Pediatria",
+          "82",
+          "82",
+          "2",
+          "41"
+        ],
+        [
+          "Hospital Otorrino Center LTDA",
+          "Otorrinolaringologia",
+          "155",
+          "155",
+          "1",
+          "155"
+        ],
+        [
+          "Hospital Padre Geraldo Hogervorst – Conselheiro Pena",
+          "Medicina de Família e Comunidade",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Anestesiologia",
+          "261",
+          "261",
+          "4",
+          "65,25"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Cirurgia Geral",
+          "339",
+          "328",
+          "4",
+          "82"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Cirurgia Vascular",
+          "15",
+          "15",
+          "2",
+          "7,5"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Clínica Médica",
+          "103",
+          "103",
+          "4",
+          "25,75"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "ENDOSCOPIA GINECOLOGICA",
+          "10",
+          "10",
+          "2",
+          "5"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Ginecologia e Obstetrícia",
+          "356",
+          "351",
+          "6",
+          "58,5"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Homeopatia",
+          "7",
+          "7",
+          "4",
+          "1,75"
+        ],
+        [
+          "Hospital Público Regional de Betim",
+          "Psiquiatria",
+          "395",
+          "395",
+          "4",
+          "98,75"
+        ],
+        [
+          "Hospital Semper",
+          "Anestesiologia",
+          "168",
+          "168",
+          "2",
+          "84"
+        ],
+        [
+          "Hospital Semper",
+          "Cirurgia Geral",
+          "153",
+          "153",
+          "2",
+          "76,5"
+        ],
+        [
+          "Hospital Socor",
+          "Clínica Médica",
+          "107",
+          "107",
+          "3",
+          "35,67"
+        ],
+        [
+          "Hospital Socor",
+          "Neurocirurgia",
+          "73",
+          "73",
+          "1",
+          "73"
+        ],
+        [
+          "Hospital Socor",
+          "Neurologia",
+          "163",
+          "163",
+          "2",
+          "81,5"
+        ],
+        [
+          "Hospital Socor",
+          "Ortopedia e Traumatologia",
+          "66",
+          "66",
+          "2",
+          "33"
+        ],
+        [
+          "Hospital Sofia Feldman",
+          "Ginecologia e Obstetrícia",
+          "550",
+          "538",
+          "6",
+          "89,67"
+        ],
+        [
+          "Hospital Sofia Feldman",
+          "NEONATOLOGIA",
+          "9",
+          "9",
+          "3",
+          "3"
+        ],
+        [
+          "HOSPITAL UNIMED – UNIDADE BETIM",
+          "Anestesiologia",
+          "145",
+          "145",
+          "2",
+          "72,5"
+        ],
+        [
+          "HOSPITAL UNIMED – UNIDADE BETIM",
+          "Cirurgia Geral",
+          "172",
+          "172",
+          "2",
+          "86"
+        ],
+        [
+          "HOSPITAL UNIMED BH– UNIDADE CONTORNO",
+          "Neurocirurgia",
+          "100",
+          "100",
+          "1",
+          "100"
+        ],
+        [
+          "HOSPITAL UNIMED BH– UNIDADE CONTORNO",
+          "Ortopedia e Traumatologia",
+          "151",
+          "151",
+          "3",
+          "50,33"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Anestesiologia",
+          "135",
+          "135",
+          "3",
+          "45"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Cirurgia Geral",
+          "137",
+          "137",
+          "2",
+          "68,5"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Clínica Médica",
+          "112",
+          "111",
+          "4",
+          "27,75"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Ginecologia e Obstetrícia",
+          "115",
+          "115",
+          "2",
+          "57,5"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Medicina de Família e Comunidade",
+          "15",
+          "15",
+          "2",
+          "7,5"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Medicina Intensiva",
+          "10",
+          "10",
+          "2",
+          "5"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Nefrologia",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Neurocirurgia",
+          "60",
+          "60",
+          "1",
+          "60"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Ortopedia e Traumatologia",
+          "54",
+          "54",
+          "2",
+          "27"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Pediatria",
+          "92",
+          "92",
+          "4",
+          "23"
+        ],
+        [
+          "Hospital Universitário Alzira Velano",
+          "Radiologia e Diagnóstico por Imagem",
+          "72",
+          "72",
+          "2",
+          "36"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Cirurgia Geral",
+          "153",
+          "153",
+          "2",
+          "76,5"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Clínica Médica",
+          "164",
+          "164",
+          "4",
+          "41"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Ginecologia e Obstetrícia",
+          "175",
+          "175",
+          "4",
+          "43,75"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Medicina de Família e Comunidade",
+          "25",
+          "25",
+          "2",
+          "12,5"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Medicina Intensiva",
+          "20",
+          "20",
+          "2",
+          "10"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Ortopedia e Traumatologia",
+          "107",
+          "107",
+          "4",
+          "26,75"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Pediatria",
+          "141",
+          "141",
+          "3",
+          "47"
+        ],
+        [
+          "Hospital Universitário da Universidade de Uberaba – UNIUBE (Mário Palmério)",
+          "Psiquiatria",
+          "289",
+          "289",
+          "3",
+          "96,33"
+        ],
+        [
+          "Instituto Ânima",
+          "Anestesiologia",
+          "74",
+          "74",
+          "2",
+          "37"
+        ],
+        [
+          "Instituto Ânima",
+          "Cirurgia Geral",
+          "24",
+          "24",
+          "1",
+          "24"
+        ],
+        [
+          "Instituto Ânima",
+          "Clínica Médica",
+          "43",
+          "43",
+          "3",
+          "14,33"
+        ],
+        [
+          "Instituto Ânima",
+          "Medicina de Família e Comunidade",
+          "24",
+          "24",
+          "4",
+          "6"
+        ],
+        [
+          "Instituto Ânima",
+          "Medicina Intensiva",
+          "3",
+          "3",
+          "2",
+          "1,5"
+        ],
+        [
+          "Instituto Ânima",
+          "Ortopedia e Traumatologia",
+          "20",
+          "20",
+          "2",
+          "10"
+        ],
+        [
+          "Instituto de Saúde HSVP",
+          "Anestesiologia",
+          "70",
+          "70",
+          "2",
+          "35"
+        ],
+        [
+          "Instituto de Saúde HSVP",
+          "Cirurgia Geral",
+          "33",
+          "33",
+          "2",
+          "16,5"
+        ],
+        [
+          "Instituto de Saúde HSVP",
+          "Clínica Médica",
+          "42",
+          "42",
+          "2",
+          "21"
+        ],
+        [
+          "Instituto de Saúde HSVP",
+          "Dermatologia",
+          "166",
+          "166",
+          "2",
+          "83"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Anestesiologia",
+          "396",
+          "377",
+          "3",
+          "125,67"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Cardiologia",
+          "28",
+          "28",
+          "3",
+          "9,33"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Cirurgia de Cabeça e Pescoço",
+          "6",
+          "6",
+          "1",
+          "6"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Cirurgia Geral",
+          "433",
+          "419",
+          "4",
+          "104,75"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Cirurgia Oncológica",
+          "8",
+          "8",
+          "2",
+          "4"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Clínica Médica",
+          "383",
+          "375",
+          "7",
+          "53,57"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Hematologia e Hemoterapia",
+          "16",
+          "16",
+          "2",
+          "8"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Mastologia",
+          "16",
+          "16",
+          "2",
+          "8"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Medicina Intensiva",
+          "39",
+          "38",
+          "3",
+          "12,67"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Medicina Paliativa",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Oncologia Clínica",
+          "30",
+          "30",
+          "4",
+          "7,5"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Radiologia e Diagnóstico por Imagem",
+          "86",
+          "86",
+          "1",
+          "86"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Radioterapia",
+          "19",
+          "19",
+          "1",
+          "19"
+        ],
+        [
+          "Instituto Mario Penna – Hospital Luxemburgo",
+          "Urologia",
+          "43",
+          "43",
+          "2",
+          "21,5"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Anestesiologia",
+          "229",
+          "229",
+          "2",
+          "114,5"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Cirurgia Geral",
+          "194",
+          "194",
+          "2",
+          "97"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Clínica Médica",
+          "154",
+          "154",
+          "4",
+          "38,5"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Ginecologia e Obstetrícia",
+          "325",
+          "325",
+          "4",
+          "81,25"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Medicina Intensiva",
+          "25",
+          "25",
+          "2",
+          "12,5"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "MEDICINA INTENSIVA PEDIATRICA",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Oncologia Clínica",
+          "21",
+          "21",
+          "2",
+          "10,5"
+        ],
+        [
+          "Instituto Materno Infantil de Minas Gerais – Hospital Vila da Serra",
+          "Pediatria",
+          "289",
+          "283",
+          "3",
+          "94,33"
+        ],
+        [
+          "Instituto Viva Mais",
+          "Oftalmologia",
+          "423",
+          "423",
+          "4",
+          "105,75"
+        ],
+        [
+          "Irmandade de Nossa Senhora das Graças – Sete Lagoas",
+          "Cirurgia Geral",
+          "86",
+          "86",
+          "2",
+          "43"
+        ],
+        [
+          "Irmandade de Nossa Senhora das Graças – Sete Lagoas",
+          "Clínica Médica",
+          "49",
+          "49",
+          "2",
+          "24,5"
+        ],
+        [
+          "Irmandade de Nossa Senhora das Graças – Sete Lagoas",
+          "Ginecologia e Obstetrícia",
+          "128",
+          "128",
+          "3",
+          "42,67"
+        ],
+        [
+          "Irmandade de Nossa Senhora das Graças – Sete Lagoas",
+          "Medicina Intensiva",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Irmandade de Nossa Senhora das Graças – Sete Lagoas",
+          "Nefrologia",
+          "",
+          "0",
+          "2",
+          "0"
+        ],
+        [
+          "Irmandade de Nossa Senhora das Graças – Sete Lagoas",
+          "Pediatria",
+          "67",
+          "67",
+          "3",
+          "22,33"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Anestesiologia",
+          "75",
+          "75",
+          "2",
+          "37,5"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Cirurgia Geral",
+          "201",
+          "201",
+          "4",
+          "50,25"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Clínica Médica",
+          "129",
+          "125",
+          "4",
+          "31,25"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Ginecologia e Obstetrícia",
+          "101",
+          "101",
+          "2",
+          "50,5"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Medicina de Emergência",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Medicina Intensiva",
+          "12",
+          "12",
+          "2",
+          "6"
+        ],
+        [
+          "Irmandade do Hospital da Santa Casa de Poços de Caldas",
+          "Pediatria",
+          "96",
+          "96",
+          "4",
+          "24"
+        ],
+        [
+          "Irmandade do Hospital de Nossa Senhora das Dores – Ponte Nova",
+          "Clínica Médica",
+          "47",
+          "47",
+          "2",
+          "23,5"
+        ],
+        [
+          "Irmandade do Hospital de Nossa Senhora das Dores – Ponte Nova",
+          "Ginecologia e Obstetrícia",
+          "64",
+          "64",
+          "2",
+          "32"
+        ],
+        [
+          "Irmandade do Hospital de Nossa Senhora das Dores – Ponte Nova",
+          "Pediatria",
+          "79",
+          "79",
+          "4",
+          "19,75"
+        ],
+        [
+          "Irmandade do Hospital de Nossa Senhora das Dores – Ponte Nova",
+          "Urologia",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Anestesiologia",
+          "138",
+          "138",
+          "4",
+          "34,5"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Cardiologia",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Cirurgia Geral",
+          "145",
+          "145",
+          "4",
+          "36,25"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Cirurgia Plástica",
+          "58",
+          "58",
+          "1",
+          "58"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Clínica Médica",
+          "90",
+          "88",
+          "4",
+          "22"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Ginecologia e Obstetrícia",
+          "119",
+          "119",
+          "3",
+          "39,67"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Medicina de Emergência",
+          "20",
+          "20",
+          "4",
+          "5"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Medicina Intensiva",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Nefrologia",
+          "5",
+          "5",
+          "2",
+          "2,5"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Neurocirurgia",
+          "53",
+          "53",
+          "1",
+          "53"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Ortopedia e Traumatologia",
+          "44",
+          "44",
+          "2",
+          "22"
+        ],
+        [
+          "Irmandade Nossa Senhora das Mercês de Montes Claros – Santa Casa",
+          "Pediatria",
+          "122",
+          "119",
+          "4",
+          "29,75"
+        ],
+        [
+          "ISO Olhos – Instituto de Saúde Ocular",
+          "Oftalmologia",
+          "311",
+          "311",
+          "3",
+          "103,67"
+        ],
+        [
+          "Maternidade Octaviano Neves (ULTRA SOM SERVIÇOS MEDICOS S.A.)",
+          "Ginecologia e Obstetrícia",
+          "322",
+          "319",
+          "3",
+          "106,33"
+        ],
+        [
+          "Maternidade Unimed Vitoria",
+          "Ginecologia e Obstetrícia",
+          "36",
+          "36",
+          "1",
+          "36"
+        ],
+        [
+          "Município de Contagem – Hospital Municipal José Lucas Filho",
+          "Anestesiologia",
+          "227",
+          "227",
+          "4",
+          "56,75"
+        ],
+        [
+          "Município de Contagem – Hospital Municipal José Lucas Filho",
+          "Cirurgia Geral",
+          "272",
+          "272",
+          "4",
+          "68"
+        ],
+        [
+          "Município de Contagem – Hospital Municipal José Lucas Filho",
+          "Clínica Médica",
+          "181",
+          "178",
+          "6",
+          "29,67"
+        ],
+        [
+          "Município de Contagem – Hospital Municipal José Lucas Filho",
+          "Ginecologia e Obstetrícia",
+          "346",
+          "337",
+          "6",
+          "56,17"
+        ],
+        [
+          "Município de Contagem – Hospital Municipal José Lucas Filho",
+          "MEDICINA INTENSIVA PEDIATRICA",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Município de Contagem – Hospital Municipal José Lucas Filho",
+          "Pediatria",
+          "205",
+          "201",
+          "4",
+          "50,25"
+        ],
+        [
+          "Município de São João Evangelista",
+          "Medicina de Família e Comunidade",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Município de Ubá",
+          "Medicina de Família e Comunidade",
+          "26",
+          "26",
+          "4",
+          "6,5"
+        ],
+        [
+          "Neocenter SA",
+          "MEDICINA INTENSIVA PEDIATRICA",
+          "4",
+          "4",
+          "3",
+          "1,33"
+        ],
+        [
+          "Neocenter SA",
+          "NEONATOLOGIA",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Neocenter SA",
+          "Pediatria",
+          "201",
+          "201",
+          "3",
+          "67"
+        ],
+        [
+          "Santa Casa de Caridade de Formiga",
+          "Cirurgia Geral",
+          "27",
+          "27",
+          "1",
+          "27"
+        ],
+        [
+          "Santa Casa de Itanhandu",
+          "Oftalmologia",
+          "125",
+          "125",
+          "2",
+          "62,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Araguari",
+          "Clínica Médica",
+          "92",
+          "92",
+          "3",
+          "30,67"
+        ],
+        [
+          "Santa Casa de Misericórdia de Araguari",
+          "Pediatria",
+          "121",
+          "121",
+          "4",
+          "30,25"
+        ],
+        [
+          "Santa Casa de Misericórdia de Barbacena",
+          "Ginecologia e Obstetrícia",
+          "92",
+          "92",
+          "2",
+          "46"
+        ],
+        [
+          "Santa Casa de Misericórdia de Barbacena",
+          "Medicina de Família e Comunidade",
+          "8",
+          "8",
+          "1",
+          "8"
+        ],
+        [
+          "Santa Casa de Misericórdia de Barbacena",
+          "Pediatria",
+          "49",
+          "49",
+          "2",
+          "24,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Anestesiologia",
+          "138",
+          "138",
+          "2",
+          "69"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Cardiologia",
+          "21",
+          "21",
+          "2",
+          "10,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Cirurgia Cardiovascular",
+          "20",
+          "20",
+          "1",
+          "20"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Cirurgia Geral",
+          "259",
+          "259",
+          "4",
+          "64,75"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Clínica Médica",
+          "221",
+          "219",
+          "4",
+          "54,75"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Endocrinologia e Metabologia",
+          "46",
+          "46",
+          "2",
+          "23"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Ginecologia e Obstetrícia",
+          "152",
+          "152",
+          "2",
+          "76"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Nefrologia",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "NEONATOLOGIA",
+          "",
+          "0",
+          "2",
+          "0"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Ortopedia e Traumatologia",
+          "65",
+          "65",
+          "2",
+          "32,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Juiz de Fora MG",
+          "Pediatria",
+          "139",
+          "137",
+          "3",
+          "45,67"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Cardiologia",
+          "10",
+          "10",
+          "2",
+          "5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Cardiologia Pediátrica",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Cirurgia Geral",
+          "178",
+          "178",
+          "4",
+          "44,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Cirurgia Oncológica",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Clínica Médica",
+          "152",
+          "148",
+          "4",
+          "37"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Ginecologia e Obstetrícia",
+          "155",
+          "155",
+          "4",
+          "38,75"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Medicina de Emergência",
+          "19",
+          "19",
+          "2",
+          "9,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Nefrologia",
+          "",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "NEONATOLOGIA",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Oncologia Clínica",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Pediatria",
+          "102",
+          "102",
+          "4",
+          "25,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Passos",
+          "Radioterapia",
+          "7",
+          "7",
+          "1",
+          "7"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Anestesiologia",
+          "105",
+          "105",
+          "3",
+          "35"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Cirurgia Cardiovascular",
+          "15",
+          "15",
+          "1",
+          "15"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Cirurgia Geral",
+          "79",
+          "79",
+          "2",
+          "39,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Cirurgia Vascular",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Clínica Médica",
+          "82",
+          "82",
+          "4",
+          "20,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Medicina Intensiva",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Medicina Paliativa",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Ortopedia e Traumatologia",
+          "51",
+          "51",
+          "2",
+          "25,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Pediatria",
+          "57",
+          "57",
+          "2",
+          "28,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de São Sebastião do Paraíso",
+          "Urologia",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Santa Casa de Misericórdia Nossa Senhora do Patrocínio",
+          "Clínica Médica",
+          "102",
+          "98",
+          "4",
+          "24,5"
+        ],
+        [
+          "Santa Casa de Misericórdia Nossa Senhora do Patrocínio",
+          "Ginecologia e Obstetrícia",
+          "49",
+          "49",
+          "2",
+          "24,5"
+        ],
+        [
+          "Santa Casa de Misericórdia Nossa Senhora do Patrocínio",
+          "Pediatria",
+          "17",
+          "17",
+          "1",
+          "17"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "Cirurgia Geral",
+          "138",
+          "138",
+          "4",
+          "34,5"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "Clínica Médica",
+          "91",
+          "91",
+          "4",
+          "22,75"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "Ginecologia e Obstetrícia",
+          "130",
+          "130",
+          "4",
+          "32,5"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "Medicina de Família e Comunidade",
+          "78",
+          "74",
+          "12",
+          "6,17"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "MEDICINA INTENSIVA PEDIATRICA",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "NEONATOLOGIA",
+          "",
+          "0",
+          "2",
+          "0"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "Ortopedia e Traumatologia",
+          "61",
+          "61",
+          "2",
+          "30,5"
+        ],
+        [
+          "Secretaria Municipal de Saude de Governador Valadares",
+          "Pediatria",
+          "102",
+          "102",
+          "4",
+          "25,5"
+        ],
+        [
+          "Sete Lagoas Prefeitura – Secretaria Municipal de Saúde",
+          "Cirurgia Geral",
+          "86",
+          "86",
+          "2",
+          "43"
+        ],
+        [
+          "Sociedade Beneficente Sagrada Família – HUSF",
+          "Anestesiologia",
+          "125",
+          "125",
+          "3",
+          "41,67"
+        ],
+        [
+          "Sociedade Beneficente Sagrada Família – HUSF",
+          "Clínica Médica",
+          "72",
+          "72",
+          "4",
+          "18"
+        ],
+        [
+          "Sociedade Beneficente Sagrada Família – HUSF",
+          "Medicina de Família e Comunidade",
+          "19",
+          "19",
+          "4",
+          "4,75"
+        ],
+        [
+          "Sociedade Beneficente Sagrada Família – HUSF",
+          "Pediatria",
+          "87",
+          "87",
+          "3",
+          "29"
+        ],
+        [
+          "Sociedade Mineira de Cultura – PUC Minas – Contagem",
+          "Medicina de Família e Comunidade",
+          "125",
+          "122",
+          "3",
+          "40,67"
+        ],
+        [
+          "Sociedade Mineira de Cultura – PUC Minas – Poços de Caldas",
+          "Medicina de Família e Comunidade",
+          "114",
+          "111",
+          "4",
+          "27,75"
+        ],
+        [
+          "Universidade Federal de Ouro Preto",
+          "Ano Adicional em Medicina de Família e Comunidade",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Universidade Federal de Ouro Preto",
+          "Cirurgia Geral",
+          "104",
+          "104",
+          "2",
+          "52"
+        ],
+        [
+          "Universidade Federal de Ouro Preto",
+          "Clínica Médica",
+          "110",
+          "106",
+          "4",
+          "26,5"
+        ],
+        [
+          "Universidade Federal de Ouro Preto",
+          "Medicina de Família e Comunidade",
+          "112",
+          "107",
+          "8",
+          "13,38"
+        ],
+        [
+          "Universidade Federal de São João Del Rei",
+          "Clínica Médica",
+          "70",
+          "70",
+          "3",
+          "23,33"
+        ],
+        [
+          "Universidade Federal de São João Del Rei",
+          "Medicina de Família e Comunidade",
+          "70",
+          "70",
+          "4",
+          "17,5"
+        ],
+        [
+          "Universidade Federal de Viçosa",
+          "Clínica Médica",
+          "124",
+          "119",
+          "4",
+          "29,75"
+        ],
+        [
+          "Universidade Federal de Viçosa",
+          "Ginecologia e Obstetrícia",
+          "119",
+          "119",
+          "2",
+          "59,5"
+        ],
+        [
+          "Universidade Federal de Viçosa",
+          "Medicina de Família e Comunidade",
+          "26",
+          "26",
+          "2",
+          "13"
+        ],
+        [
+          "Universidade Federal de Viçosa",
+          "Pediatria",
+          "92",
+          "92",
+          "4",
+          "23"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Anestesiologia",
+          "362",
+          "346",
+          "6",
+          "57,67"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Coloproctologia",
+          "14",
+          "14",
+          "1",
+          "14"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Endocrinologia e Metabologia",
+          "45",
+          "45",
+          "3",
+          "15"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "ENDOCRINOLOGIA PEDIÁTRICA",
+          "8",
+          "8",
+          "1",
+          "8"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Ginecologia e Obstetrícia",
+          "282",
+          "271",
+          "6",
+          "45,17"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Hematologia e Hemoterapia",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Infectologia",
+          "31",
+          "31",
+          "2",
+          "15,5"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Mastologia",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Medicina Fetal",
+          "5",
+          "5",
+          "2",
+          "2,5"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Neurocirurgia",
+          "93",
+          "93",
+          "1",
+          "93"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Neurologia",
+          "140",
+          "140",
+          "3",
+          "46,67"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Oftalmologia",
+          "349",
+          "336",
+          "3",
+          "112"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Patologia",
+          "40",
+          "40",
+          "2",
+          "20"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Pediatria",
+          "265",
+          "262",
+          "7",
+          "37,43"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Reumatologia",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Universidade Federal do Triangulo Mineiro – Uberaba",
+          "Urologia",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Universidade Federal dos Vales do Jequitinhonha e Mucuri",
+          "Cirurgia Geral",
+          "34",
+          "34",
+          "1",
+          "34"
+        ],
+        [
+          "Universidade Federal dos Vales do Jequitinhonha e Mucuri",
+          "Clínica Médica",
+          "57",
+          "55",
+          "4",
+          "13,75"
+        ],
+        [
+          "Universidade Federal dos Vales do Jequitinhonha e Mucuri",
+          "Ginecologia e Obstetrícia",
+          "70",
+          "70",
+          "3",
+          "23,33"
+        ],
+        [
+          "Universidade Federal dos Vales do Jequitinhonha e Mucuri",
+          "Neurocirurgia",
+          "53",
+          "53",
+          "1",
+          "53"
+        ],
+        [
+          "Universidade Federal dos Vales do Jequitinhonha e Mucuri",
+          "Ortopedia e Traumatologia",
+          "32",
+          "32",
+          "2",
+          "16"
+        ],
+        [
+          "Universidade Federal dos Vales do Jequitinhonha e Mucuri",
+          "Pediatria",
+          "37",
+          "37",
+          "2",
+          "18,5"
+        ]
+      ]
+    },
+    {
+      "titulo": "Quais os programas mais concorridos do PSU-GO 2026?",
+      "columns": [
+        "Instituição",
+        "Especialidade",
+        "Candidato/Vagas"
+      ],
+      "rows": [
+        [
+          "Hospital Santa Mônica",
+          "Cirurgia Geral",
+          "103"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Cirurgia Geral",
+          "88,67"
+        ],
+        [
+          "Fundação Banco de Olhos de Goiás FUBOG",
+          "Oftalmologia",
+          "84,75"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cirurgia Geral",
+          "83,67"
+        ],
+        [
+          "Universidade Evangélica de Goiás / UniEVANGÉLICA",
+          "Cirurgia Geral",
+          "82"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "Ginecologia e Obstetrícia",
+          "72,5"
+        ],
+        [
+          "Associação Animus Curae",
+          "Oftalmologia",
+          "71,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Psiquiatria",
+          "69"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "Pediatria",
+          "65,25"
+        ],
+        [
+          "Ipo-Instituto de Cirurgia Plástica e Oftalmologia – Hospital Premium",
+          "Pediatria",
+          "64"
+        ],
+        [
+          "Hospital Santa Helena",
+          "Anestesiologia",
+          "60"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Psiquiatria",
+          "59,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Anestesiologia",
+          "59"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Ginecologia e Obstetrícia",
+          "58,75"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Cirurgia Geral",
+          "58,5"
+        ],
+        [
+          "Universidade Evangélica de Goiás / UniEVANGÉLICA",
+          "Ginecologia e Obstetrícia",
+          "58"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Anestesiologia",
+          "57"
+        ],
+        [
+          "Ipo-Instituto de Cirurgia Plástica e Oftalmologia – Hospital Premium",
+          "Ginecologia e Obstetrícia",
+          "56"
+        ],
+        [
+          "Universidade Evangélica de Goiás / UniEVANGÉLICA",
+          "Anestesiologia",
+          "55"
+        ],
+        [
+          "Hospital Espírita Eurípedes Barsanulfo",
+          "Psiquiatria",
+          "53,5"
+        ]
+      ]
+    },
+    {
+      "titulo": "Concorrência completa PSU-GO 2026",
+      "columns": [
+        "Instituição",
+        "Especialidade",
+        "Inscrições Total",
+        "Inscrições Ampla Concorrência",
+        "Vagas",
+        "Candidato/Vagas"
+      ],
+      "rows": [
+        [
+          "Ânima Centro Hospitalar",
+          "Medicina Intensiva",
+          "20",
+          "20",
+          "2",
+          "10"
+        ],
+        [
+          "Associação Animus Curae",
+          "Oftalmologia",
+          "143",
+          "143",
+          "2",
+          "71,5"
+        ],
+        [
+          "Centro Universitário de Mineiros (UNIFIMES)",
+          "Ginecologia e Obstetrícia",
+          "70",
+          "70",
+          "2",
+          "35"
+        ],
+        [
+          "Faculdade de Medicina de Itumbiara-GO",
+          "Clínica Médica",
+          "78",
+          "78",
+          "3",
+          "26"
+        ],
+        [
+          "Faculdade de Medicina de Itumbiara-GO",
+          "Medicina de Família e Comunidade",
+          "18",
+          "18",
+          "3",
+          "6"
+        ],
+        [
+          "Fundação Banco de Olhos de Goiás FUBOG",
+          "Oftalmologia",
+          "354",
+          "338",
+          "4",
+          "84,75"
+        ],
+        [
+          "Hospital Araújo Jorge – Associação de Combate ao Câncer",
+          "Cirurgia de Cabeça e Pescoço",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Hospital Araújo Jorge – Associação de Combate ao Câncer",
+          "Cirurgia Oncológica",
+          "8",
+          "8",
+          "4",
+          "2"
+        ],
+        [
+          "Hospital Araújo Jorge – Associação de Combate ao Câncer",
+          "Oncologia Clínica",
+          "21",
+          "21",
+          "2",
+          "10,5"
+        ],
+        [
+          "Hospital Araújo Jorge – Associação de Combate ao Câncer",
+          "Radioterapia",
+          "14",
+          "14",
+          "1",
+          "14"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Anestesiologia",
+          "180",
+          "171",
+          "3",
+          "57"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cardiologia",
+          "18",
+          "18",
+          "2",
+          "9"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cirurgia da Mão",
+          "9",
+          "9",
+          "1",
+          "9"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cirurgia do Aparelho Digestivo",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cirurgia Geral",
+          "251",
+          "251",
+          "3",
+          "83,67"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cirurgia Plástica",
+          "38",
+          "38",
+          "1",
+          "38"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Cirurgia Vascular",
+          "14",
+          "14",
+          "2",
+          "7"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Clínica Médica",
+          "304",
+          "296",
+          "10",
+          "29,6"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Coloproctologia",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Dermatologia",
+          "177",
+          "177",
+          "4",
+          "44,25"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Ecocardiografia",
+          "7",
+          "7",
+          "1",
+          "7"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Endocrinologia e Metabologia",
+          "35",
+          "35",
+          "2",
+          "17,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Gastroenterologia",
+          "25",
+          "25",
+          "2",
+          "12,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Ginecologia e Obstetrícia",
+          "245",
+          "235",
+          "4",
+          "58,75"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Hematologia e Hemoterapia",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Infectologia",
+          "35",
+          "35",
+          "2",
+          "17,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Mastologia",
+          "3",
+          "3",
+          "2",
+          "1,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "MEDICINA DO ADOLESCENTE",
+          "",
+          "0",
+          "2",
+          "0"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Medicina Intensiva",
+          "11",
+          "11",
+          "1",
+          "11"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Nefrologia",
+          "9",
+          "9",
+          "3",
+          "3"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Nefrologia Pediátrica",
+          "1",
+          "1",
+          "2",
+          "0,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "NEONATOLOGIA",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Neurocirurgia",
+          "63",
+          "63",
+          "2",
+          "31,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Neurologia",
+          "84",
+          "84",
+          "2",
+          "42"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Oftalmologia",
+          "228",
+          "213",
+          "4",
+          "53,25"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Oncologia Clínica",
+          "13",
+          "13",
+          "1",
+          "13"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Ortopedia e Traumatologia",
+          "125",
+          "125",
+          "4",
+          "31,25"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Otorrinolaringologia",
+          "105",
+          "105",
+          "2",
+          "52,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Patologia",
+          "32",
+          "32",
+          "2",
+          "16"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Pediatria",
+          "313",
+          "307",
+          "7",
+          "43,86"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Pneumologia",
+          "8",
+          "8",
+          "2",
+          "4"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "PNEUMOLOGIA PEDIATRICA",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Psiquiatria",
+          "138",
+          "138",
+          "2",
+          "69"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "R4 Opcional em Neurologia",
+          "4",
+          "4",
+          "2",
+          "2"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Radiologia e Diagnóstico por Imagem",
+          "123",
+          "123",
+          "4",
+          "30,75"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Reprodução Humana/Assistida",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Reumatologia",
+          "8",
+          "8",
+          "2",
+          "4"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Ultrassonografia em Ginecologia e Obstetrícia",
+          "2",
+          "2",
+          "2",
+          "1"
+        ],
+        [
+          "Hospital das Clínicas da UFG",
+          "Urologia",
+          "15",
+          "15",
+          "1",
+          "15"
+        ],
+        [
+          "Hospital do Coração Anis Rassi",
+          "Cardiologia",
+          "32",
+          "32",
+          "2",
+          "16"
+        ],
+        [
+          "Hospital e Maternidade Aristina Cândida",
+          "Ginecologia e Obstetrícia",
+          "199",
+          "199",
+          "4",
+          "49,75"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "Ginecologia e Obstetrícia",
+          "302",
+          "290",
+          "4",
+          "72,5"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "Mastologia",
+          "",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "Medicina de Família e Comunidade",
+          "75",
+          "73",
+          "7",
+          "10,43"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "NEONATOLOGIA",
+          "11",
+          "11",
+          "3",
+          "3,67"
+        ],
+        [
+          "Hospital e Maternidade Dona Iris",
+          "Pediatria",
+          "266",
+          "261",
+          "4",
+          "65,25"
+        ],
+        [
+          "Hospital Espírita Eurípedes Barsanulfo",
+          "Psiquiatria",
+          "228",
+          "214",
+          "4",
+          "53,5"
+        ],
+        [
+          "Hospital Ortopédico de Ceres",
+          "DOR",
+          "2",
+          "2",
+          "1",
+          "2"
+        ],
+        [
+          "Hospital Ortopédico de Ceres",
+          "Ortopedia e Traumatologia",
+          "42",
+          "42",
+          "1",
+          "42"
+        ],
+        [
+          "Hospital Santa Helena",
+          "Anestesiologia",
+          "180",
+          "180",
+          "3",
+          "60"
+        ],
+        [
+          "Hospital Santa Helena",
+          "Angiorradiologia e Cirurgia Endovascular",
+          "4",
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Hospital Santa Helena",
+          "Cardiologia",
+          "7",
+          "7",
+          "1",
+          "7"
+        ],
+        [
+          "Hospital Santa Helena",
+          "Cirurgia Vascular",
+          "13",
+          "13",
+          "1",
+          "13"
+        ],
+        [
+          "Hospital Santa Mônica",
+          "Cirurgia Geral",
+          "103",
+          "103",
+          "1",
+          "103"
+        ],
+        [
+          "Hospital Santa Mônica",
+          "Medicina Intensiva",
+          "12",
+          "12",
+          "1",
+          "12"
+        ],
+        [
+          "Hospital Santa Mônica",
+          "Neurocirurgia",
+          "47",
+          "47",
+          "1",
+          "47"
+        ],
+        [
+          "Hospital São Francisco de Assis",
+          "Cirurgia Vascular",
+          "10",
+          "10",
+          "1",
+          "10"
+        ],
+        [
+          "Ipo-Instituto de Cirurgia Plástica e Oftalmologia – Hospital Premium",
+          "Ginecologia e Obstetrícia",
+          "56",
+          "56",
+          "1",
+          "56"
+        ],
+        [
+          "Ipo-Instituto de Cirurgia Plástica e Oftalmologia – Hospital Premium",
+          "Pediatria",
+          "64",
+          "64",
+          "1",
+          "64"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Anestesiologia",
+          "177",
+          "177",
+          "3",
+          "59"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Cardiologia",
+          "28",
+          "28",
+          "4",
+          "7"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Cirurgia do Aparelho Digestivo",
+          "8",
+          "8",
+          "2",
+          "4"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Cirurgia Geral",
+          "266",
+          "266",
+          "3",
+          "88,67"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Cirurgia Plástica",
+          "34",
+          "34",
+          "1",
+          "34"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Cirurgia Vascular",
+          "9",
+          "9",
+          "2",
+          "4,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Clínica Médica",
+          "313",
+          "307",
+          "8",
+          "38,38"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Mastologia",
+          "",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Medicina Intensiva",
+          "32",
+          "32",
+          "4",
+          "8"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Nefrologia",
+          "8",
+          "8",
+          "2",
+          "4"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Neurologia",
+          "93",
+          "93",
+          "2",
+          "46,5"
+        ],
+        [
+          "Santa Casa de Misericórdia de Goiânia",
+          "Urologia",
+          "15",
+          "15",
+          "2",
+          "7,5"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Cirurgia Geral",
+          "117",
+          "117",
+          "2",
+          "58,5"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Clínica Médica",
+          "119",
+          "116",
+          "5",
+          "23,2"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Ginecologia e Obstetrícia",
+          "159",
+          "156",
+          "5",
+          "31,2"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Medicina de Família e Comunidade",
+          "38",
+          "38",
+          "4",
+          "9,5"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Medicina Intensiva",
+          "11",
+          "11",
+          "2",
+          "5,5"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Ortopedia e Traumatologia",
+          "62",
+          "62",
+          "2",
+          "31"
+        ],
+        [
+          "Universidade de Rio Verde – UniRV",
+          "Pediatria",
+          "131",
+          "131",
+          "4",
+          "32,75"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Anestesiologia",
+          "165",
+          "165",
+          "3",
+          "55"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Cardiologia",
+          "16",
+          "16",
+          "4",
+          "4"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Cirurgia Geral",
+          "82",
+          "82",
+          "1",
+          "82"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Clínica Médica",
+          "229",
+          "223",
+          "7",
+          "31,86"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Ginecologia e Obstetrícia",
+          "116",
+          "116",
+          "2",
+          "58"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Medicina de Emergência",
+          "2",
+          "2",
+          "0",
+          ""
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Medicina de Família e Comunidade",
+          "98",
+          "94",
+          "11",
+          "8,55"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "NEONATOLOGIA",
+          "6",
+          "6",
+          "2",
+          "3"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Oncologia Clínica",
+          "7",
+          "7",
+          "2",
+          "3,5"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Ortopedia e Traumatologia",
+          "20",
+          "20",
+          "0",
+          ""
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Pediatria",
+          "158",
+          "158",
+          "3",
+          "52,67"
+        ],
+        [
+          "Universidade Evangélica de Goiás/UniEVANGÉLICA",
+          "Psiquiatria",
+          "119",
+          "119",
+          "2",
+          "59,5"
+        ],
+        [
+          "Universidade Federal de Jataí – UFJ",
+          "Clínica Médica",
+          "100",
+          "100",
+          "4",
+          "25"
         ]
       ]
     },
