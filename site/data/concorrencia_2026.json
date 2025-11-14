@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-11-13T07:12:18.533041-03:00",
-  "updated_at_br": "13/11/2025 07:12",
+  "updated_at_iso": "2025-11-14T07:12:54.115634-03:00",
+  "updated_at_br": "14/11/2025 07:12",
   "tabelas": [
     {
       "titulo": "Concorrência AMP 2025/2026",
@@ -3280,6 +3280,473 @@
           "1",
           "3",
           "3"
+        ]
+      ]
+    },
+    {
+      "titulo": "USP-RP",
+      "columns": [
+        "ÁREA",
+        "CANDIDATOS",
+        "VAGAS",
+        "CANDIDATO/VAGA"
+      ],
+      "rows": [
+        [
+          "ALERGIA E IMUNOLOGIA",
+          "5",
+          "2",
+          "2,50"
+        ],
+        [
+          "ALERGIA E IMUNOLOGIA PEDIÁTRICA",
+          "11",
+          "2",
+          "5,50"
+        ],
+        [
+          "ANESTESIOLOGIA",
+          "231",
+          "12",
+          "19,25"
+        ],
+        [
+          "ANGIORRADIOLOGIA E CIRURGIA ENDOVASCULAR",
+          "7",
+          "3",
+          "2,33"
+        ],
+        [
+          "CARDIOLOGIA",
+          "125",
+          "14",
+          "8,93"
+        ],
+        [
+          "CARDIOLOGIA PEDIÁTRICA",
+          "8",
+          "3",
+          "2,67"
+        ],
+        [
+          "CIRURGIA CARDIOVASCULAR",
+          "13",
+          "1",
+          "13,00"
+        ],
+        [
+          "CIRURGIA CRÂNIO-MAXILO-FACIAL",
+          "1",
+          "1",
+          "1,00"
+        ],
+        [
+          "CIRURGIA DA MÃO",
+          "9",
+          "3",
+          "3,00"
+        ],
+        [
+          "CIRURGIA DE CABEÇA E PESCOÇO",
+          "6",
+          "2",
+          "3,00"
+        ],
+        [
+          "CIRURGIA DO APARELHO DIGESTIVO",
+          "17",
+          "4",
+          "4,25"
+        ],
+        [
+          "CIRURGIA DO TRAUMA",
+          "1",
+          "2",
+          "0,50"
+        ],
+        [
+          "CIRURGIA GERAL",
+          "413",
+          "15",
+          "27,53"
+        ],
+        [
+          "CIRURGIA GERAL – PROGRAMA AVANÇADO",
+          "1",
+          "2",
+          "0,50"
+        ],
+        [
+          "CIRURGIA PEDIATRICA",
+          "9",
+          "1",
+          "9,00"
+        ],
+        [
+          "CIRURGIA PLÁSTICA",
+          "71",
+          "3",
+          "23,67"
+        ],
+        [
+          "CIRURGIA TORÁCICA",
+          "5",
+          "1",
+          "5,00"
+        ],
+        [
+          "CIRURGIA VASCULAR",
+          "33",
+          "4",
+          "8,25"
+        ],
+        [
+          "CLÍNICA MÉDICA",
+          "510",
+          "34",
+          "15,00"
+        ],
+        [
+          "CLÍNICA MÉDICA (ANO ADICONAL)",
+          "1",
+          "1",
+          "1,00"
+        ],
+        [
+          "COLOPROCTOLOGIA",
+          "27",
+          "3",
+          "9,00"
+        ],
+        [
+          "DERMATOLOGIA",
+          "208",
+          "6",
+          "34,67"
+        ],
+        [
+          "DOR",
+          "8",
+          "2",
+          "4,00"
+        ],
+        [
+          "ECOCARDIOGRAFIA",
+          "10",
+          "2",
+          "5,00"
+        ],
+        [
+          "EMERGÊNCIA PEDIÁTRICA",
+          "1",
+          "1",
+          "1,00"
+        ],
+        [
+          "ENDOCRINOLOGIA E METABOLOGIA",
+          "100",
+          "7",
+          "14,29"
+        ],
+        [
+          "ENDOCRINOLOGIA PEDIÁTRICA",
+          "19",
+          "2",
+          "9,50"
+        ],
+        [
+          "ENDOSCOPIA",
+          "13",
+          "2",
+          "6,50"
+        ],
+        [
+          "ENDOSCOPIA GINECOLOGICA",
+          "20",
+          "2",
+          "10,00"
+        ],
+        [
+          "GASTROENTEROLOGIA",
+          "56",
+          "6",
+          "9,33"
+        ],
+        [
+          "GASTROENTEROLOGIA PEDIÁTRICA",
+          "8",
+          "2",
+          "4,00"
+        ],
+        [
+          "GENÉTICA MÉDICA",
+          "24",
+          "3",
+          "8,00"
+        ],
+        [
+          "GERIATRIA",
+          "38",
+          "5",
+          "7,60"
+        ],
+        [
+          "GINECOLOGIA E OBSTETRÍCIA (ANO ADICIONAL)",
+          "6",
+          "2",
+          "3,00"
+        ],
+        [
+          "HEMATOLOGIA E HEMOTERAPIA",
+          "64",
+          "10",
+          "6,40"
+        ],
+        [
+          "HEMATOLOGIA E HEMOTERAPIA PEDIÁTRICA",
+          "5",
+          "1",
+          "5,00"
+        ],
+        [
+          "HEMODINÂMICA E CARDIOLOGIA INTERVENCIONISTA",
+          "3",
+          "1",
+          "3,00"
+        ],
+        [
+          "INFECTOLOGIA",
+          "32",
+          "4",
+          "8,00"
+        ],
+        [
+          "MASTOLOGIA",
+          "16",
+          "4",
+          "4,00"
+        ],
+        [
+          "MEDICINA DE EMERGÊNCIA",
+          "53",
+          "8",
+          "6,63"
+        ],
+        [
+          "MEDICINA DE FAMÍLIA E COMUNIDADE",
+          "48",
+          "15",
+          "3,20"
+        ],
+        [
+          "MEDICINA DE FAMÍLIA E COMUNIDADE – GESTÃO E PRECEPTORIA",
+          "6",
+          "1",
+          "6,00"
+        ],
+        [
+          "MEDICINA DO SONO",
+          "9",
+          "3",
+          "3,00"
+        ],
+        [
+          "MEDICINA FETAL",
+          "18",
+          "3",
+          "6,00"
+        ],
+        [
+          "MEDICINA FÍSICA E REABILITAÇÃO",
+          "25",
+          "2",
+          "12,50"
+        ],
+        [
+          "MEDICINA INTENSIVA",
+          "28",
+          "6",
+          "4,67"
+        ],
+        [
+          "MEDICINA INTENSIVA PEDIÁTRICA",
+          "10",
+          "5",
+          "2,00"
+        ],
+        [
+          "MEDICINA PALIATIVA",
+          "4",
+          "2",
+          "2,00"
+        ],
+        [
+          "NEFROLOGIA",
+          "34",
+          "9",
+          "3,78"
+        ],
+        [
+          "NEFROLOGIA PEDIÁTRICA",
+          "3",
+          "1",
+          "3,00"
+        ],
+        [
+          "NEONATOLOGIA",
+          "17",
+          "7",
+          "2,43"
+        ],
+        [
+          "NEUROCIRURGIA",
+          "137",
+          "3",
+          "45,67"
+        ],
+        [
+          "NEUROLOGIA",
+          "232",
+          "14",
+          "16,57"
+        ],
+        [
+          "NEUROLOGIA PEDIÁTRICA",
+          "71",
+          "8",
+          "8,88"
+        ],
+        [
+          "NUTROLOGIA",
+          "7",
+          "2",
+          "3,50"
+        ],
+        [
+          "OBSTETRÍCIA E GINECOLOGIA",
+          "337",
+          "16",
+          "21,06"
+        ],
+        [
+          "OFTALMOLOGIA",
+          "232",
+          "7",
+          "33,14"
+        ],
+        [
+          "ONCOLOGIA CLÍNICA",
+          "32",
+          "8",
+          "4,00"
+        ],
+        [
+          "ONCOLOGIA PEDIÁTRICA",
+          "3",
+          "2",
+          "1,50"
+        ],
+        [
+          "ORTOPEDIA E TRAUMATOLOGIA",
+          "157",
+          "11",
+          "14,27"
+        ],
+        [
+          "OTORRINOLARINGOLOGIA",
+          "175",
+          "5",
+          "35,00"
+        ],
+        [
+          "PATOLOGIA",
+          "35",
+          "4",
+          "8,75"
+        ],
+        [
+          "PEDIATRIA",
+          "233",
+          "20",
+          "11,65"
+        ],
+        [
+          "PNEUMOLOGIA",
+          "30",
+          "4",
+          "7,50"
+        ],
+        [
+          "PNEUMOLOGIA PEDIÁTRICA",
+          "4",
+          "1",
+          "4,00"
+        ],
+        [
+          "PSIQUIATRIA",
+          "261",
+          "13",
+          "20,08"
+        ],
+        [
+          "PSIQUIATRIA DA INFANCIA E DA ADOLESCÊNCIA",
+          "19",
+          "6",
+          "3,17"
+        ],
+        [
+          "RADIOLOGIA E DIAGNÓSTICO POR IMAGEM",
+          "128",
+          "12",
+          "10,67"
+        ],
+        [
+          "RADIOTERAPIA",
+          "8",
+          "2",
+          "4,00"
+        ],
+        [
+          "REPRODUÇÃO ASSISTIDA",
+          "25",
+          "3",
+          "8,33"
+        ],
+        [
+          "REUMATOLOGIA",
+          "26",
+          "5",
+          "5,20"
+        ],
+        [
+          "REUMATOLOGIA PEDIÁTRICA",
+          "1",
+          "1",
+          "1,00"
+        ],
+        [
+          "SEXOLOGIA",
+          "9",
+          "2",
+          "4,50"
+        ],
+        [
+          "TRANSPLANTE DE CORNEA",
+          "14",
+          "3",
+          "4,67"
+        ],
+        [
+          "TRANSPLANTE DE MEDULA ÓSSEA",
+          "6",
+          "3",
+          "2,00"
+        ],
+        [
+          "UROLOGIA",
+          "40",
+          "4",
+          "10,00"
         ]
       ]
     },
@@ -12058,6 +12525,155 @@
           "37",
           "2",
           "18,5"
+        ]
+      ]
+    },
+    {
+      "titulo": "Hospital Sírio-Libanês",
+      "columns": [
+        "PROGRAMA",
+        "VAGAS DISPONÍVEIS",
+        "INSCRITOS",
+        "CONCORRÊNCIA"
+      ],
+      "rows": [
+        [
+          "Admnistração em Saúde",
+          "4",
+          "16",
+          "4"
+        ],
+        [
+          "Anestesiologia*",
+          "9",
+          "498",
+          "55,33"
+        ],
+        [
+          "Cardiologia",
+          "6",
+          "137",
+          "22,83"
+        ],
+        [
+          "Cirurgia Geral",
+          "2",
+          "270",
+          "135"
+        ],
+        [
+          "Clínica Médica",
+          "6",
+          "380",
+          "63,33"
+        ],
+        [
+          "Dermatologia",
+          "3",
+          "387",
+          "129"
+        ],
+        [
+          "Dor",
+          "2",
+          "17",
+          "8,5"
+        ],
+        [
+          "Endoscopia",
+          "5",
+          "55",
+          "11"
+        ],
+        [
+          "Ergometria",
+          "2",
+          "10",
+          "5"
+        ],
+        [
+          "Ginecologia e Obstetrícia",
+          "4",
+          "271",
+          "67,75"
+        ],
+        [
+          "Mastologia",
+          "1",
+          "7",
+          "7"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "2",
+          "40",
+          "20"
+        ],
+        [
+          "Medicina Intensiva",
+          "6",
+          "80",
+          "13,33"
+        ],
+        [
+          "Neurologia",
+          "3",
+          "187",
+          "62,33"
+        ],
+        [
+          "Oncologia Clínica – Brasília",
+          "2",
+          "29",
+          "14,5"
+        ],
+        [
+          "Oncologia Clínica – São Paulo",
+          "4",
+          "97",
+          "24,25"
+        ],
+        [
+          "Pediatria",
+          "6",
+          "218",
+          "36,33"
+        ],
+        [
+          "Radiologia e Diagnóstico por Imagem",
+          "6",
+          "270",
+          "45"
+        ],
+        [
+          "Radioterapia – Brasília",
+          "1",
+          "11",
+          "11"
+        ],
+        [
+          "Radioterapia – São Paulo",
+          "2",
+          "19",
+          "9,5"
+        ],
+        [
+          "Transplante de Medula Óssea – Brasília",
+          "1",
+          "3",
+          "3"
+        ],
+        [
+          "Transplante de Medula Óssea – São Paulo",
+          "2",
+          "24",
+          "12"
+        ],
+        [
+          "Treineiro",
+          "–",
+          "7",
+          ""
         ]
       ]
     },
