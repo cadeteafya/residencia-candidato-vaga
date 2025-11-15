@@ -1,7 +1,7 @@
 {
   "fonte_url": "https://med.estrategia.com/portal/residencia-medica/concorrencia-residencia-medica/",
-  "updated_at_iso": "2025-11-14T07:12:54.115634-03:00",
-  "updated_at_br": "14/11/2025 07:12",
+  "updated_at_iso": "2025-11-15T07:09:44.196321-03:00",
+  "updated_at_br": "15/11/2025 07:09",
   "tabelas": [
     {
       "titulo": "Concorrência AMP 2025/2026",
@@ -3280,6 +3280,475 @@
           "1",
           "3",
           "3"
+        ]
+      ]
+    },
+    {
+      "titulo": "PUC-SP",
+      "columns": [
+        "Nome da área ofertada",
+        "Relação candidato/vaga"
+      ],
+      "rows": [
+        [
+          "Acesso Direto – Anestesiologia – 200 (Pré-Requisito Graduação em Medicina)",
+          "31,83"
+        ],
+        [
+          "Acesso Direto – Dermatologia – 208 (Pré-Requisito Graduação em Medicina) 2026",
+          "71,00"
+        ],
+        [
+          "Acesso Direto – Infectologia – 201 (Pré-Requisito Graduação em Medicina)",
+          "6,00"
+        ],
+        [
+          "Acesso Direto – Medicina da Família e Comunidade – 202 (Pré-Requisito Graduação em Medicina) 2026",
+          "14,50"
+        ],
+        [
+          "Acesso Direto – Ortopedia e Traumatologia – 205 (Pré-Requisito Graduação em Medicina) 2026",
+          "24,42"
+        ],
+        [
+          "Acesso Direto – Otorrinolaringologia – 204 (Pré-Requisito Graduação em Medicina) 2026",
+          "53,00"
+        ],
+        [
+          "Acesso Direto – Psiquiatria – 206 (Pré-Requisito Graduação em Medicina)",
+          "56,33"
+        ],
+        [
+          "Acesso Direto – Radiologia e Diagnóstico por Imagem – 207 (Pré-Requisito Graduação em Medicina) 2026",
+          "25,33"
+        ],
+        [
+          "Área Básica – Cirurgia Geral – 100 (Pré-Requisito Graduação em Medicina)",
+          "49,42"
+        ],
+        [
+          "Área Básica – Clínica Médica – 101 (Pré-Requisito Graduação em Medicina) 2026",
+          "17,73"
+        ],
+        [
+          "Área Básica – Ginecologia e Obstetrícia – 102 (Pré-Requisito Graduação em Medicina) 2026",
+          "31,70"
+        ],
+        [
+          "Área Básica – Pediatria – 103 (Pré-Requisito Graduação em Medicina) 2026",
+          "20,87"
+        ]
+      ]
+    },
+    {
+      "titulo": "Relação candidato/vaga completa – FAMERP Residência Médica 2026",
+      "columns": [
+        "PROGRAMA",
+        "Nº DE INSCRIÇÕES POR ESPECIALIDADE",
+        "Nº DE VAGAS",
+        "RELAÇÃO CANDIDATO/ VAGA"
+      ],
+      "rows": [
+        [
+          "Acupuntura",
+          "5",
+          "2",
+          "2,50"
+        ],
+        [
+          "Alergia e Imunologia Clínica",
+          "2",
+          "1",
+          "2,00"
+        ],
+        [
+          "Anestesiologia",
+          "338",
+          "15",
+          "22,53"
+        ],
+        [
+          "Angiorradiologia e Cirurgia Endovascular",
+          "4",
+          "2",
+          "2,00"
+        ],
+        [
+          "Cardiologia",
+          "95",
+          "14",
+          "6,79"
+        ],
+        [
+          "Cardiologia Pediátrica",
+          "12",
+          "5",
+          "2,40"
+        ],
+        [
+          "Cirurgia Bariátrica",
+          "1",
+          "2",
+          "0,50"
+        ],
+        [
+          "Cirurgia Cardiovascular",
+          "22",
+          "2",
+          "11,00"
+        ],
+        [
+          "Cirurgia Crânio-maxilo-facial",
+          "6",
+          "1",
+          "6,00"
+        ],
+        [
+          "Cirurgia do Aparelho Digestivo",
+          "11",
+          "3",
+          "3,67"
+        ],
+        [
+          "Cirurgia do Trauma",
+          "1",
+          "3",
+          "0,33"
+        ],
+        [
+          "Cirurgia Geral",
+          "547",
+          "15",
+          "36,47"
+        ],
+        [
+          "Cirurgia Oncológica",
+          "6",
+          "2",
+          "3,00"
+        ],
+        [
+          "Cirurgia Pediátrica",
+          "7",
+          "2",
+          "3,50"
+        ],
+        [
+          "Cirurgia Plástica",
+          "82",
+          "3",
+          "27,33"
+        ],
+        [
+          "Cirurgia Torácica",
+          "10",
+          "2",
+          "5,00"
+        ],
+        [
+          "Cirurgia Vascular",
+          "27",
+          "5",
+          "5,40"
+        ],
+        [
+          "Clínica Médica",
+          "598",
+          "36",
+          "16,61"
+        ],
+        [
+          "Coloproctologia",
+          "20",
+          "3",
+          "6,67"
+        ],
+        [
+          "Dermatologia",
+          "244",
+          "4",
+          "61,00"
+        ],
+        [
+          "Ecografia Vascular com Doppler",
+          "2",
+          "2",
+          "1,00"
+        ],
+        [
+          "Emergência Pediátrica",
+          "4",
+          "2",
+          "2,00"
+        ],
+        [
+          "Endocrinologia e Metabologia",
+          "49",
+          "3",
+          "16,33"
+        ],
+        [
+          "Endocrinologia Pediátrica",
+          "16",
+          "2",
+          "8,00"
+        ],
+        [
+          "Endoscopia",
+          "16",
+          "3",
+          "5,33"
+        ],
+        [
+          "Gastroenterologia",
+          "33",
+          "4",
+          "8,25"
+        ],
+        [
+          "Geriatria",
+          "26",
+          "6",
+          "4,33"
+        ],
+        [
+          "Ginecologia e Obstetrícia",
+          "339",
+          "14",
+          "24,21"
+        ],
+        [
+          "Hematologia e Hemoterapia",
+          "25",
+          "7",
+          "3,57"
+        ],
+        [
+          "Hemodinâmica e Cardiologia Intervencionista",
+          "1",
+          "1",
+          "1,00"
+        ],
+        [
+          "Hepatologia",
+          "1",
+          "1",
+          "1,00"
+        ],
+        [
+          "Infectologia",
+          "23",
+          "3",
+          "7,67"
+        ],
+        [
+          "Mastologia",
+          "8",
+          "2",
+          "4,00"
+        ],
+        [
+          "Medicina de Emergência",
+          "21",
+          "3",
+          "7,00"
+        ],
+        [
+          "Medicina de Família e Comunidade",
+          "28",
+          "4",
+          "7,00"
+        ],
+        [
+          "Medicina Fetal",
+          "3",
+          "1",
+          "3,00"
+        ],
+        [
+          "Medicina Física e Reabilitação",
+          "21",
+          "2",
+          "10,50"
+        ],
+        [
+          "Medicina Intensiva",
+          "46",
+          "5",
+          "9,20"
+        ],
+        [
+          "Medicina Intensiva Pediátrica",
+          "8",
+          "2",
+          "4,00"
+        ],
+        [
+          "Medicina Nuclear",
+          "6",
+          "1",
+          "6,00"
+        ],
+        [
+          "Nefrologia",
+          "30",
+          "12",
+          "2,50"
+        ],
+        [
+          "Neonatologia",
+          "6",
+          "6",
+          "1,00"
+        ],
+        [
+          "Neurocirurgia",
+          "120",
+          "3",
+          "40,00"
+        ],
+        [
+          "Neurologia",
+          "171",
+          "6",
+          "28,50"
+        ],
+        [
+          "Neurologia Pediátrica",
+          "18",
+          "2",
+          "9,00"
+        ],
+        [
+          "Oftalmologia",
+          "289",
+          "6",
+          "48,17"
+        ],
+        [
+          "Oncologia Clínica",
+          "25",
+          "6",
+          "4,17"
+        ],
+        [
+          "Ortopedia/Traumatologia",
+          "204",
+          "8",
+          "25,50"
+        ],
+        [
+          "Otorrinolaringologia",
+          "223",
+          "4",
+          "55,75"
+        ],
+        [
+          "Patologia",
+          "43",
+          "3",
+          "14,33"
+        ],
+        [
+          "Patologia Clínica/Medicina Laboratorial",
+          "3",
+          "1",
+          "3,00"
+        ],
+        [
+          "Pediatria",
+          "292",
+          "14",
+          "20,86"
+        ],
+        [
+          "Pneumologia",
+          "23",
+          "3",
+          "7,67"
+        ],
+        [
+          "Pneumologia Pediátrica",
+          "8",
+          "2",
+          "4,00"
+        ],
+        [
+          "Psiquiatria",
+          "274",
+          "6",
+          "45,67"
+        ],
+        [
+          "Psiquiatria da Infância e Adolescência",
+          "4",
+          "1",
+          "4,00"
+        ],
+        [
+          "Radiologia e Diagnóstico por Imagem",
+          "169",
+          "8",
+          "21,13"
+        ],
+        [
+          "Radioterapia",
+          "5",
+          "1",
+          "5,00"
+        ],
+        [
+          "Reumatologia",
+          "15",
+          "4",
+          "3,75"
+        ],
+        [
+          "Transplante de Medula Óssea",
+          "1",
+          "2",
+          "0,50"
+        ],
+        [
+          "Ultrassonografia em Ginecologia e Obstetrícia",
+          "3",
+          "2",
+          "1,50"
+        ],
+        [
+          "Urologia",
+          "40",
+          "4",
+          "10,00"
+        ]
+      ]
+    },
+    {
+      "titulo": "FAMERP — Especialidades mais concorridas",
+      "columns": [
+        "Especialidade",
+        "Relação candidato/vaga"
+      ],
+      "rows": [
+        [
+          "Dermatologia",
+          "61 candidatos por vaga"
+        ],
+        [
+          "Otorrinolaringologia",
+          "55,7 candidatos por vaga"
+        ],
+        [
+          "Oftalmologia",
+          "48,1 candidatos por vaga"
+        ],
+        [
+          "Psiquiatria",
+          "45,6 candidatos por vaga"
+        ],
+        [
+          "Cirurgia Geral",
+          "36,4 candidatos por vaga"
         ]
       ]
     },
